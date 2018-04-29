@@ -436,10 +436,10 @@ char *symbol_string(char *buf, char *end, void *ptr,
 	char sym[KSYM_SYMBOL_LEN];
 	if (ext == 'B')
 		sprint_backtrace(sym, value);
-	else if (ext != 'f' && ext != 's' && ext != 'X')
+	else if (ext != 'f' && ext != 's' && ext != 'a')
 		sprint_symbol(sym, value);
 	else
-		sprint_symbol_no_offset(sym, value);
+		kallsyms_lookup(value, NULL, NULL, NULL, sym);
 
 	return string(buf, end, sym, spec);
 #else
@@ -831,7 +831,7 @@ int kptr_restrict __read_mostly;
  * - 's' For symbolic direct pointers without offset
  * - 'B' For backtraced symbolic direct pointers with offset
  * - 'A' For symbolic direct pointers with offset approved for use with GRKERNSEC_HIDESYM
- * - 'X' For symbolic direct pointers without offset approved for use with GRKERNSEC_HIDESYM
+ * - 'a' For symbolic direct pointers without offset approved for use with GRKERNSEC_HIDESYM
  * - 'R' For decoded struct resource, e.g., [mem 0x0-0x1f 64bit pref]
  * - 'r' For raw struct resource, e.g., [mem 0x0-0x1f flags 0x201]
  * - 'M' For a 6-byte MAC address, it prints the address in the
@@ -866,7 +866,6 @@ int kptr_restrict __read_mostly;
  *       correctness of the format string and va_list arguments.
  * - 'K' For a kernel pointer that should be hidden from unprivileged users
  * - 'NF' For a netdev_features_t
- * - 'a' For a phys_addr_t type and its derivative types (passed by reference)
  *
  * Note: The difference between 'S' and 'F' is that on ia64 and ppc64
  * function pointers are really function descriptors, which contain a
@@ -899,7 +898,7 @@ char *pointer(const char *fmt, char *buf, char *end, void *ptr,
 		return symbol_string(buf, end, ptr, spec, *fmt);
 #endif
 	case 'A':
-	case 'X':
+	case 'a':
 	case 'B':
 		return symbol_string(buf, end, ptr, spec, *fmt);
 	case 'R':
@@ -961,12 +960,6 @@ char *pointer(const char *fmt, char *buf, char *end, void *ptr,
 			return netdev_feature_string(buf, end, ptr, spec);
 		}
 		break;
-	case 'a':
-		spec.flags |= SPECIAL | SMALL | ZEROPAD;
-		spec.field_width = sizeof(phys_addr_t) * 2 + 2;
-		spec.base = 16;
-		return number(buf, end,
-			      (unsigned long long) *((phys_addr_t *)ptr), spec);
 	}
 
 #ifdef CONFIG_GRKERNSEC_HIDESYM
