@@ -1194,20 +1194,18 @@ static int load_elf_binary(struct linux_binprm *bprm, struct pt_regs *regs)
 			 * default mmap base, as well as whatever program they
 			 * might try to exec.  This is because the brk will
 			 * follow the loader, and is not movable.  */
+			if (elf_interpreter)
+				load_bias = 0x00400000UL;
+			else
+				load_bias = ELF_ET_DYN_BASE;
 #ifdef CONFIG_ARCH_BINFMT_ELF_RANDOMIZE_PIE
 			/* Memory randomization might have been switched off
 			 * in runtime via sysctl.
-			 * If that is the case, retain the original non-zero
-			 * load_bias value in order to establish proper
-			 * non-randomized mappings.
 			 */
 			if (current->flags & PF_RANDOMIZE)
-				load_bias = 0;
-			else
-				load_bias = ELF_PAGESTART(ELF_ET_DYN_BASE - vaddr);
-#else
-			load_bias = ELF_PAGESTART(ELF_ET_DYN_BASE - vaddr);
+				load_bias = (get_random_int() & STACK_RND_MASK) << PAGE_SHIFT;
 #endif
+			load_bias = ELF_PAGESTART(load_bias - vaddr);
 
 #ifdef CONFIG_PAX_RANDMMAP
 			/* PaX: randomize base address at the default exe base if requested */
