@@ -1887,6 +1887,9 @@ static int fixup_owner(u32 __user *uaddr, struct futex_q *q, int locked)
 		goto out;
 	}
 
+	if (nr_wake < 0 || nr_requeue < 0)
+		return -EINVAL;
+
 	/*
 	 * Paranoia check. If we did not take the lock, then we should not be
 	 * the owner of the rt_mutex.
