@@ -1375,6 +1375,9 @@ static int futex_requeue(u32 __user *uaddr1, unsigned int flags,
 	struct futex_hash_bucket *hb1, *hb2;
 	struct plist_head *head1;
 	struct futex_q *this, *next;
+	
+	if (nr_wake < 0 || nr_requeue < 0)
+		return -EINVAL;
 
 	if (requeue_pi) {
 		/*
@@ -1886,9 +1889,6 @@ static int fixup_owner(u32 __user *uaddr, struct futex_q *q, int locked)
 		ret = fixup_pi_state_owner(uaddr, q, owner);
 		goto out;
 	}
-
-	if (nr_wake < 0 || nr_requeue < 0)
-		return -EINVAL;
 
 	/*
 	 * Paranoia check. If we did not take the lock, then we should not be
