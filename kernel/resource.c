@@ -151,7 +151,7 @@ static int __init ioresources_init(void)
 #endif
 #else
 	proc_create("ioports", 0, NULL, &proc_ioports_operations);
-	proc_create("iomem", 0, NULL, &proc_iomem_operations);
+	proc_create("iomem", S_IRUSR, NULL, &proc_iomem_operations);
 #endif
 	return 0;
 }
