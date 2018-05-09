@@ -656,6 +656,10 @@ int ping_common_sendmsg(int family, struct msghdr *msg, size_t len,
 	if (msg->msg_flags & MSG_OOB)
 		return -EOPNOTSUPP;
 
+	/* Must have at least a full ICMP header. */
+	if (len < icmph_len)
+		return -EINVAL;
+
 	/*
 	 *	Fetch the ICMP header provided by the userland.
 	 *	iovec is modified! The ICMP header is consumed.
