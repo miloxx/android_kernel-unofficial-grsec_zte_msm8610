@@ -189,6 +189,7 @@ struct cpp_device {
 	struct ion_client *client;
 	struct kref refcount;
 
+	uint32_t fw_version;
 	/* Reusing proven tasklet from msm isp */
 	atomic_t irq_cnt;
 	uint8_t taskletq_idx;
