@@ -527,8 +527,9 @@ static ssize_t proc_sys_call_handler(struct file *filp, void __user *buf,
 	dput(filp->f_path.dentry);
 	if (!gr_acl_handle_open(filp->f_path.dentry, filp->f_path.mnt, op))
 		goto out;
-	if (write && !capable(CAP_SYS_ADMIN))
-		goto out;
+	//The hardening below is not compatible with android:
+	//if (write && !capable(CAP_SYS_ADMIN))
+	//	goto out;
 #endif
 
 	/* careful: calling conventions are nasty here */
