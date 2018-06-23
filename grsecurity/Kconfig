@@ -341,6 +341,19 @@ config GRKERNSEC_ROFS
 	  behavior if this option is enabled in an init script on a read-only
 	  filesystem.  This feature is mainly intended for secure embedded systems.
 
+config GRKERNSEC_DEVICE_SIDECHANNEL
+	bool "Eliminate stat/notify-based device sidechannels"
+	default y if GRKERNSEC_CONFIG_AUTO
+	help
+	  If you say Y here, timing analyses on block or character
+	  devices like /dev/ptmx using stat or inotify/dnotify/fanotify
+	  will be thwarted for unprivileged users.  If a process without
+	  CAP_MKNOD stats such a device, the last access and last modify times
+	  will match the device's create time.  No access or modify events
+	  will be triggered through inotify/dnotify/fanotify for such devices.
+	  This feature will prevent attacks that may at a minimum
+	  allow an attacker to determine the administrator's password length.
+
 config GRKERNSEC_CHROOT
 	bool "Chroot jail restrictions"
 	default y if GRKERNSEC_CONFIG_AUTO
