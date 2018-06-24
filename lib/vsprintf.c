@@ -20,7 +20,7 @@
 #define __INCLUDED_BY_HIDESYM 1
 #endif
 #include <stdarg.h>
-#include <linux/module.h>	/* for KSYM_SYMBOL_LEN */
+#include <linux/module.h>
 #include <linux/types.h>
 #include <linux/string.h>
 #include <linux/ctype.h>
@@ -813,9 +813,9 @@ char *netdev_feature_string(char *buf, char *end, const u8 *addr,
 }
 
 #ifdef CONFIG_GRKERNSEC_HIDESYM
-int kptr_restrict __read_mostly = 2;
+int kptr_restrict __read_only = 2;
 #else
-int kptr_restrict __read_mostly;
+int kptr_restrict __read_only;
 #endif
 
 /*
@@ -966,9 +966,11 @@ char *pointer(const char *fmt, char *buf, char *end, void *ptr,
 	/* 'P' = approved pointers to copy to userland,
 	   as in the /proc/kallsyms case, as we make it display nothing
 	   for non-root users, and the real contents for root users
+	   Also ignore 'K' pointers, since we force their NULLing for non-root users
+	   above
 	*/
-	if (ptr > TASK_SIZE && *fmt != 'P' && is_usercopy_object(buf)) {
-		printk(KERN_ALERT "grsec: kernel infoleak detected!  Please report this log to spender@grsecurity.net.\n");
+	if ((unsigned long)ptr > TASK_SIZE && *fmt != 'P' && *fmt != 'K' && is_usercopy_object(buf)) {
+		printk(KERN_ALERT "grsec: kernel infoleak detected!  Please report this log.\n");
 		dump_stack();
 		ptr = NULL;
 	}
