@@ -34,7 +34,7 @@
 #if __GNUC_MINOR__ >= 5
 
 #ifdef CONSTIFY_PLUGIN
-#define __attribute__((no_const))
+#define __no_const __attribute__((no_const))
 #define __do_const __attribute__((do_const))
 #endif
 

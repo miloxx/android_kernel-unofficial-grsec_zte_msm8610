@@ -1003,7 +1003,7 @@ struct net_device_ops {
 	int			(*ndo_neigh_construct)(struct neighbour *n);
 	void			(*ndo_neigh_destroy)(struct neighbour *n);
 };
-typedef struct net_device_ops net_device_ops_no_const;
+typedef struct net_device_ops __no_const net_device_ops_no_const;
 
 /*
  *	The DEVICE structure.

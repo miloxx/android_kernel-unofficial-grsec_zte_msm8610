@@ -45,7 +45,7 @@ struct snd_urb_ops {
 	int (*prepare_sync)(struct snd_usb_substream *subs, struct snd_pcm_runtime *runtime, struct urb *u);
 	int (*retire_sync)(struct snd_usb_substream *subs, struct snd_pcm_runtime *runtime, struct urb *u);
 };
-typedef struct snd_urb_ops snd_urb_ops_no_const;
+typedef struct snd_urb_ops __no_const snd_urb_ops_no_const;
 
 struct snd_usb_substream {
 	struct snd_usb_stream *stream;

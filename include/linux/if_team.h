@@ -64,7 +64,7 @@ struct team_mode_ops {
 	void (*port_leave)(struct team *team, struct team_port *port);
 	void (*port_change_mac)(struct team *team, struct team_port *port);
 };
-typedef struct team_mode_ops team_mode_ops_no_const;
+typedef struct team_mode_ops __no_const team_mode_ops_no_const;
 
 enum team_option_type {
 	TEAM_OPTION_TYPE_U32,

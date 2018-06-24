@@ -773,7 +773,7 @@ struct snd_soc_platform_driver {
 	int (*write)(struct snd_soc_platform *, unsigned int, unsigned int);
 
 	int (*bespoke_trigger)(struct snd_pcm_substream *, int);
-};
+} __do_const;
 
 struct snd_soc_platform {
 	const char *name;

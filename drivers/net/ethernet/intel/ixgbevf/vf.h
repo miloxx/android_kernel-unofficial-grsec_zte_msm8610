@@ -70,7 +70,7 @@ struct ixgbe_mac_operations {
 	s32 (*clear_vfta)(struct ixgbe_hw *);
 	s32 (*set_vfta)(struct ixgbe_hw *, u32, u32, bool);
 };
-typedef struct ixgbe_mac_operations ixgbe_mac_operations_no_const;
+typedef struct ixgbe_mac_operations __no_const ixgbe_mac_operations_no_const;
 
 enum ixgbe_mac_type {
 	ixgbe_mac_unknown = 0,
@@ -104,7 +104,7 @@ struct ixgbe_mbx_operations {
 	s32 (*check_for_ack)(struct ixgbe_hw *);
 	s32 (*check_for_rst)(struct ixgbe_hw *);
 };
-typedef struct ixgbe_mbx_operations ixgbe_mbx_operations_no_const;
+typedef struct ixgbe_mbx_operations __no_const ixgbe_mbx_operations_no_const;
 
 struct ixgbe_mbx_stats {
 	u32 msgs_tx;

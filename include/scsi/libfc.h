@@ -756,7 +756,7 @@ struct libfc_function_template {
 	 */
 	void (*disc_stop_final) (struct fc_lport *);
 };
-typedef struct libfc_function_template libfc_function_template_no_const;
+typedef struct libfc_function_template __no_const libfc_function_template_no_const;
 
 /**
  * struct fc_disc - Discovery context
