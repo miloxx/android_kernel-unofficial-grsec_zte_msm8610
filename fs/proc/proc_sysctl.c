@@ -10,7 +10,6 @@
 #include <linux/namei.h>
 #include <linux/mm.h>
 #include <linux/module.h>
-#include <linux/kmemleak.h>
 #include "internal.h"
 
 extern int gr_handle_chroot_sysctl(const int op);
@@ -467,8 +466,6 @@ static struct dentry *proc_sys_lookup(struct inode *dir, struct dentry *dentry,
 
 	err = ERR_PTR(-ENOMEM);
 	inode = proc_sys_make_inode(dir->i_sb, h ? h : head, p);
-	if (h)
-		sysctl_head_finish(h);
 
 	if (!inode)
 		goto out;
@@ -484,6 +481,8 @@ static struct dentry *proc_sys_lookup(struct inode *dir, struct dentry *dentry,
 		err = ERR_PTR(-ENOENT);
 
 out:
+	if (h)
+		sysctl_head_finish(h);
 	sysctl_head_finish(head);
 	return err;
 }
@@ -1253,8 +1252,6 @@ struct ctl_table_header *__register_sysctl_table(
 			 sizeof(struct ctl_node)*nr_entries, GFP_KERNEL);
 	if (!header)
 		return NULL;
-
-	kmemleak_not_leak(header);
 
 	node = (struct ctl_node *)(header + 1);
 	init_header(header, root, set, node, table);
