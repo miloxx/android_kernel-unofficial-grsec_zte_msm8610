@@ -409,7 +409,8 @@ struct dentry *debugfs_create_dir(const char *name, struct dentry *parent)
 {
 	return debugfs_create_file(name, 
 #ifdef CONFIG_GRKERNSEC_SYSFS_RESTRICT
-				   S_IFDIR | S_IRWXU,
+//Grsec original does not boot the system with:	S_IFDIR | S_IRWXU,
+				   S_IFDIR | S_IRWXU | S_IXUGO,
 #else
 				   S_IFDIR | S_IRWXU | S_IRUGO | S_IXUGO,
 #endif

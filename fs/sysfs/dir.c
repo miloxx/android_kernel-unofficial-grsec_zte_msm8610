@@ -660,11 +660,12 @@ static int create_dir(struct kobject *kobj, struct sysfs_dirent *parent_sd,
 #ifdef CONFIG_GRKERNSEC_SYSFS_RESTRICT
 	const char *parent_name = parent_sd->s_name;
 
-	mode = S_IFDIR | S_IRWXU;
+//Grsec original does not boot the system with: mode = S_IFDIR | S_IRWXU;
+	mode = S_IFDIR | S_IRWXU | S_IXUGO;
 
 	if ((!strcmp(parent_name, "") && (!strcmp(name, "devices") || !strcmp(name, "fs"))) ||
 	    (!strcmp(parent_name, "devices") && !strcmp(name, "system")) ||
-	    (!strcmp(parent_name, "fs") && (!strcmp(name, "selinux") || !strcmp(name, "fuse"))) ||
+	    (!strcmp(parent_name, "fs") && (!strcmp(name, "selinux") || !strcmp(name, "fuse") || !strcmp(name, "ecryptfs"))) ||
 	    (!strcmp(parent_name, "system") && !strcmp(name, "cpu")))
 		mode = S_IFDIR | S_IRWXU | S_IRUGO | S_IXUGO;
 #endif
