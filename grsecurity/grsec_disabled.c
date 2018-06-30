@@ -429,9 +429,9 @@ dev_t gr_get_dev_from_dentry(struct dentry *dentry)
 	return dentry->d_inode->i_sb->s_dev;
 }
 
-EXPORT_SYMBOL(gr_learn_resource);
-EXPORT_SYMBOL(gr_set_kernel_label);
+EXPORT_SYMBOL_GPL(gr_learn_resource);
+EXPORT_SYMBOL_GPL(gr_set_kernel_label);
 #ifdef CONFIG_SECURITY
-EXPORT_SYMBOL(gr_check_user_change);
-EXPORT_SYMBOL(gr_check_group_change);
+EXPORT_SYMBOL_GPL(gr_check_user_change);
+EXPORT_SYMBOL_GPL(gr_check_group_change);
 #endif

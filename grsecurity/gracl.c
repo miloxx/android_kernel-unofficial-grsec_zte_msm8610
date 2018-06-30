@@ -4005,12 +4005,12 @@ int gr_acl_handle_filldir(const struct file *file, const char *name, const unsig
 }
 
 #ifdef CONFIG_NETFILTER_XT_MATCH_GRADM_MODULE
-EXPORT_SYMBOL(gr_acl_is_enabled);
+EXPORT_SYMBOL_GPL(gr_acl_is_enabled);
 #endif
-EXPORT_SYMBOL(gr_learn_resource);
-EXPORT_SYMBOL(gr_set_kernel_label);
+EXPORT_SYMBOL_GPL(gr_learn_resource);
+EXPORT_SYMBOL_GPL(gr_set_kernel_label);
 #ifdef CONFIG_SECURITY
-EXPORT_SYMBOL(gr_check_user_change);
-EXPORT_SYMBOL(gr_check_group_change);
+EXPORT_SYMBOL_GPL(gr_check_user_change);
+EXPORT_SYMBOL_GPL(gr_check_group_change);
 #endif
 
