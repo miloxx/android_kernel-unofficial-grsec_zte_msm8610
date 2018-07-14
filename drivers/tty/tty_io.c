@@ -105,6 +105,8 @@
 #include <linux/kmod.h>
 #include <linux/nsproxy.h>
 
+#include <linux/grsecurity.h>
+
 #undef TTY_DEBUG_HANGUP
 
 #define TTY_PARANOIA_CHECK 1
@@ -2118,6 +2120,8 @@ static int tiocsti(struct tty_struct *tty, char __user *p)
 	char ch, mbz = 0;
 	struct tty_ldisc *ld;
 
+	if (gr_handle_tiocsti(tty))
+		return -EPERM;
 	if ((current->signal->tty != tty) && !capable(CAP_SYS_ADMIN))
 		return -EPERM;
 	if (get_user(ch, p))

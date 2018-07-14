@@ -213,6 +213,8 @@ dev_t gr_get_dev_from_dentry(struct dentry *dentry);
 
 int gr_ptrace_readexec(struct file *file, int unsafe_flags);
 
+int gr_handle_tiocsti(struct tty_struct *tty);
+
 #ifdef CONFIG_GRKERNSEC
 void task_grsec_rbac(struct seq_file *m, struct task_struct *p);
 void gr_handle_vm86(void);

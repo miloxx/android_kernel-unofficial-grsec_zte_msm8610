@@ -60,6 +60,7 @@ int grsec_socket_server_gid;
 int grsec_resource_logging;
 int grsec_disable_privio;
 int grsec_enable_log_rwxmaps;
+int grsec_enable_harden_tty;
 int grsec_lock;
 
 DEFINE_SPINLOCK(grsec_alert_lock);
@@ -175,6 +176,9 @@ grsecurity_init(void)
 #endif
 #ifdef CONFIG_GRKERNSEC_HARDEN_IPC
 	grsec_enable_harden_ipc = 1;
+#endif
+#ifdef CONFIG_GRKERNSEC_HARDEN_TTY
+	grsec_enable_harden_tty = 1;
 #endif
 #ifdef CONFIG_GRKERNSEC_AUDIT_MOUNT
 	grsec_enable_mount = 1;

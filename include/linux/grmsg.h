@@ -109,3 +109,4 @@
 #define GR_BADPROCPID_MSG "denied read of sensitive /proc/pid/%s entry via fd passed across exec by "
 #define GR_SYMLINKOWNER_MSG "denied following symlink %.950s since symlink owner %u does not match target owner %u, by "
 #define GR_IPC_DENIED_MSG "denied %s of overly-permissive IPC object with creator uid %u by "
+#define GR_TIOCSTI_MSG "denied unprivileged use of TIOCSTI by "
