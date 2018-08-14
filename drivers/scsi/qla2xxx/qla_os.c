@@ -149,7 +149,7 @@ int ql2xfwloadbin;
 module_param(ql2xfwloadbin, int, S_IRUGO|S_IWUSR);
 MODULE_PARM_DESC(ql2xfwloadbin,
 		"Option to specify location from which to load ISP firmware:.\n"
-		" 2 -- load firmware via the request_firmware() (hotplug).\n"
+		" 2 -- load firmware via the reject_firmware() (hotplug).\n"
 		"      interface.\n"
 		" 1 -- load firmware from flash.\n"
 		" 0 -- use default semantics.\n");
@@ -4042,16 +4042,16 @@ qla2x00_timer(scsi_qla_host_t *vha)
 #define FW_ISP2031	8
 #define FW_ISP8031	9
 
-#define FW_FILE_ISP21XX	"ql2100_fw.bin"
-#define FW_FILE_ISP22XX	"ql2200_fw.bin"
-#define FW_FILE_ISP2300	"ql2300_fw.bin"
-#define FW_FILE_ISP2322	"ql2322_fw.bin"
-#define FW_FILE_ISP24XX	"ql2400_fw.bin"
-#define FW_FILE_ISP25XX	"ql2500_fw.bin"
-#define FW_FILE_ISP81XX	"ql8100_fw.bin"
-#define FW_FILE_ISP82XX	"ql8200_fw.bin"
-#define FW_FILE_ISP2031	"ql2600_fw.bin"
-#define FW_FILE_ISP8031	"ql8300_fw.bin"
+#define FW_FILE_ISP21XX	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP22XX	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP2300	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP2322	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP24XX	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP25XX	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP81XX	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP82XX	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP2031	"/*(DEBLOBBED)*/"
+#define FW_FILE_ISP8031	"/*(DEBLOBBED)*/"
 
 static DEFINE_MUTEX(qla_fw_lock);
 
@@ -4069,7 +4069,7 @@ static struct fw_blob qla_fw_blobs[FW_BLOBS] = {
 };
 
 struct fw_blob *
-qla2x00_request_firmware(scsi_qla_host_t *vha)
+qla2x00_reject_firmware(scsi_qla_host_t *vha)
 {
 	struct qla_hw_data *ha = vha->hw;
 	struct fw_blob *blob;
@@ -4102,7 +4102,7 @@ qla2x00_request_firmware(scsi_qla_host_t *vha)
 	if (blob->fw)
 		goto out;
 
-	if (request_firmware(&blob->fw, blob->name, &ha->pdev->dev)) {
+	if (reject_firmware(&blob->fw, blob->name, &ha->pdev->dev)) {
 		ql_log(ql_log_warn, vha, 0x0063,
 		    "Failed to load firmware image (%s).\n", blob->name);
 		blob->fw = NULL;
@@ -4525,9 +4525,4 @@ MODULE_AUTHOR("QLogic Corporation");
 MODULE_DESCRIPTION("QLogic Fibre Channel HBA Driver");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(QLA2XXX_VERSION);
-MODULE_FIRMWARE(FW_FILE_ISP21XX);
-MODULE_FIRMWARE(FW_FILE_ISP22XX);
-MODULE_FIRMWARE(FW_FILE_ISP2300);
-MODULE_FIRMWARE(FW_FILE_ISP2322);
-MODULE_FIRMWARE(FW_FILE_ISP24XX);
-MODULE_FIRMWARE(FW_FILE_ISP25XX);
+/*(DEBLOBBED)*/

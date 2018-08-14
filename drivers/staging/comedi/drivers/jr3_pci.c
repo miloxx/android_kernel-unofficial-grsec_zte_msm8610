@@ -138,7 +138,7 @@ static int comedi_load_firmware(struct comedi_device *dev, char *name,
 		firmware_path[0] = '\0';
 		strcat(firmware_path, prefix);
 		strcat(firmware_path, name);
-		result = request_firmware(&fw, firmware_path,
+		result = reject_firmware(&fw, firmware_path,
 					  &devpriv->pci_dev->dev);
 		if (result == 0) {
 			if (!cb)
@@ -907,7 +907,7 @@ static int jr3_pci_attach(struct comedi_device *dev,
 	/*  Reset DSP card */
 	devpriv->iobase->channel[0].reset = 0;
 
-	result = comedi_load_firmware(dev, "jr3pci.idm", jr3_download_firmware);
+	result = comedi_load_firmware(dev, "/*(DEBLOBBED)*/", jr3_download_firmware);
 	dev_dbg(dev->hw_dev, "Firmare load %d\n", result);
 
 	if (result < 0)
@@ -948,7 +948,7 @@ out:
 	return result;
 }
 
-MODULE_FIRMWARE("comedi/jr3pci.idm");
+/*(DEBLOBBED)*/
 
 static int jr3_pci_detach(struct comedi_device *dev)
 {

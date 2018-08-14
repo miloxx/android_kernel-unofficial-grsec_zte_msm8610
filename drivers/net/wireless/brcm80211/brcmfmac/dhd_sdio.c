@@ -309,10 +309,9 @@ struct rte_console {
 /* Flags for SDH calls */
 #define F2SYNC	(SDIO_REQ_4BYTE | SDIO_REQ_FIXED)
 
-#define BRCMF_SDIO_FW_NAME	"brcm/brcmfmac-sdio.bin"
+#define BRCMF_SDIO_FW_NAME	"/*(DEBLOBBED)*/"
 #define BRCMF_SDIO_NV_NAME	"brcm/brcmfmac-sdio.txt"
-MODULE_FIRMWARE(BRCMF_SDIO_FW_NAME);
-MODULE_FIRMWARE(BRCMF_SDIO_NV_NAME);
+/*(DEBLOBBED)*/
 
 #define BRCMF_IDLE_IMMEDIATE	(-1)	/* Enter idle immediately */
 #define BRCMF_IDLE_ACTIVE	0	/* Do not request any SD clock change
@@ -3234,7 +3233,7 @@ static int brcmf_sdbrcm_download_code_file(struct brcmf_sdio *bus)
 
 	brcmf_dbg(INFO, "Enter\n");
 
-	ret = request_firmware(&bus->firmware, BRCMF_SDIO_FW_NAME,
+	ret = reject_firmware(&bus->firmware, BRCMF_SDIO_FW_NAME,
 			       &bus->sdiodev->func[2]->dev);
 	if (ret) {
 		brcmf_dbg(ERROR, "Fail to request firmware %d\n", ret);
@@ -3331,7 +3330,7 @@ static int brcmf_sdbrcm_download_nvram(struct brcmf_sdio *bus)
 	char *bufp;
 	int ret;
 
-	ret = request_firmware(&bus->firmware, BRCMF_SDIO_NV_NAME,
+	ret = reject_firmware(&bus->firmware, BRCMF_SDIO_NV_NAME,
 			       &bus->sdiodev->func[2]->dev);
 	if (ret) {
 		brcmf_dbg(ERROR, "Fail to request nvram %d\n", ret);

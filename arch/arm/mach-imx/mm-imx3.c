@@ -155,7 +155,7 @@ static struct sdma_script_start_addrs imx31_to2_sdma_script __initdata = {
 };
 
 static struct sdma_platform_data imx31_sdma_pdata __initdata = {
-	.fw_name = "sdma-imx31-to2.bin",
+	.fw_name = "/*(DEBLOBBED)*/",
 	.script_addrs = &imx31_to2_sdma_script,
 };
 
@@ -174,7 +174,7 @@ void __init imx31_soc_init(void)
 	mxc_register_gpio("imx31-gpio", 2, MX31_GPIO3_BASE_ADDR, SZ_16K, MX31_INT_GPIO3, 0);
 
 	if (to_version == 1) {
-		strncpy(imx31_sdma_pdata.fw_name, "sdma-imx31-to1.bin",
+		strncpy(imx31_sdma_pdata.fw_name, "/*(DEBLOBBED)*/",
 			strlen(imx31_sdma_pdata.fw_name));
 		imx31_sdma_pdata.script_addrs = &imx31_to1_sdma_script;
 	}
@@ -248,7 +248,7 @@ static struct sdma_script_start_addrs imx35_to2_sdma_script __initdata = {
 };
 
 static struct sdma_platform_data imx35_sdma_pdata __initdata = {
-	.fw_name = "sdma-imx35-to2.bin",
+	.fw_name = "/*(DEBLOBBED)*/",
 	.script_addrs = &imx35_to2_sdma_script,
 };
 
@@ -268,7 +268,7 @@ void __init imx35_soc_init(void)
 	mxc_register_gpio("imx31-gpio", 2, MX35_GPIO3_BASE_ADDR, SZ_16K, MX35_INT_GPIO3, 0);
 
 	if (to_version == 1) {
-		strncpy(imx35_sdma_pdata.fw_name, "sdma-imx35-to1.bin",
+		strncpy(imx35_sdma_pdata.fw_name, "/*(DEBLOBBED)*/",
 			strlen(imx35_sdma_pdata.fw_name));
 		imx35_sdma_pdata.script_addrs = &imx35_to1_sdma_script;
 	}

@@ -22,23 +22,7 @@
  *
 */
 
-/*
- *                      NOTES ABOUT THIS DRIVER
- *
- * This Linux driver supports:
- *   B2C2/BBTI Technisat Air2PC - ATSC (NXT2002)
- *   AverTVHD MCE A180 (NXT2004)
- *   ATI HDTV Wonder (NXT2004)
- *
- * This driver needs external firmware. Please use the command
- * "<kerneldir>/Documentation/dvb/get_dvb_firmware nxt2002" or
- * "<kerneldir>/Documentation/dvb/get_dvb_firmware nxt2004" to
- * download/extract the appropriate firmware, and then copy it to
- * /usr/lib/hotplug/firmware/ or /lib/firmware/
- * (depending on configuration of firmware hotplug).
- */
-#define NXT2002_DEFAULT_FIRMWARE "dvb-fe-nxt2002.fw"
-#define NXT2004_DEFAULT_FIRMWARE "dvb-fe-nxt2004.fw"
+/*(DEBLOBBED)*/
 #define CRC_CCIT_MASK 0x1021
 
 #include <linux/kernel.h>
@@ -878,8 +862,8 @@ static int nxt2002_init(struct dvb_frontend* fe)
 	u8 buf[2];
 
 	/* request the firmware, this will block until someone uploads it */
-	printk("nxt2002: Waiting for firmware upload (%s)...\n", NXT2002_DEFAULT_FIRMWARE);
-	ret = request_firmware(&fw, NXT2002_DEFAULT_FIRMWARE,
+	printk("nxt2002: Waiting for firmware upload (%s)...\n", "/*(DEBLOBBED)*/");
+	ret = reject_firmware(&fw, "/*(DEBLOBBED)*/",
 			       state->i2c->dev.parent);
 	printk("nxt2002: Waiting for firmware upload(2)...\n");
 	if (ret) {
@@ -943,8 +927,8 @@ static int nxt2004_init(struct dvb_frontend* fe)
 	nxt200x_writebytes(state, 0x1E, buf, 1);
 
 	/* request the firmware, this will block until someone uploads it */
-	printk("nxt2004: Waiting for firmware upload (%s)...\n", NXT2004_DEFAULT_FIRMWARE);
-	ret = request_firmware(&fw, NXT2004_DEFAULT_FIRMWARE,
+	printk("nxt2004: Waiting for firmware upload (%s)...\n", "/*(DEBLOBBED)*/");
+	ret = reject_firmware(&fw, "/*(DEBLOBBED)*/",
 			       state->i2c->dev.parent);
 	printk("nxt2004: Waiting for firmware upload(2)...\n");
 	if (ret) {

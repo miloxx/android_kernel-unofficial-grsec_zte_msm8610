@@ -149,9 +149,9 @@ static int _process_sigma_firmware(struct device *dev,
 	pr_debug("%s: loading firmware %s\n", __func__, name);
 
 	/* first load the blob */
-	ret = request_firmware(&fw, name, dev);
+	ret = maybe_reject_firmware(&fw, name, dev);
 	if (ret) {
-		pr_debug("%s: request_firmware() failed with %i\n", __func__, ret);
+		pr_debug("%s: maybe_reject_firmware() failed with %i\n", __func__, ret);
 		return ret;
 	}
 	ssfw->fw = fw;

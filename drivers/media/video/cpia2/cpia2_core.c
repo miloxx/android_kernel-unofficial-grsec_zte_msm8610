@@ -900,11 +900,11 @@ static int cpia2_send_onebyte_command(struct camera_data *cam,
 static int apply_vp_patch(struct camera_data *cam)
 {
 	const struct firmware *fw;
-	const char fw_name[] = "cpia2/stv0672_vp4.bin";
+	const char fw_name[] = "/*(DEBLOBBED)*/";
 	int i, ret;
 	struct cpia2_command cmd;
 
-	ret = request_firmware(&fw, fw_name, &cam->dev->dev);
+	ret = reject_firmware(&fw, fw_name, &cam->dev->dev);
 	if (ret) {
 		printk(KERN_ERR "cpia2: failed to load VP patch \"%s\"\n",
 		       fw_name);

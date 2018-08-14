@@ -60,11 +60,7 @@ MODULE_SUPPORTED_DEVICE("{{RME Hammerfall-DSP},"
 	        "{RME HDSP-9652},"
 		"{RME HDSP-9632}}");
 #ifdef HDSP_FW_LOADER
-MODULE_FIRMWARE("rpm_firmware.bin");
-MODULE_FIRMWARE("multiface_firmware.bin");
-MODULE_FIRMWARE("multiface_firmware_rev11.bin");
-MODULE_FIRMWARE("digiface_firmware.bin");
-MODULE_FIRMWARE("digiface_firmware_rev11.bin");
+/*(DEBLOBBED)*/
 #endif
 
 #define HDSP_MAX_CHANNELS        26
@@ -5350,26 +5346,26 @@ static int hdsp_request_fw_loader(struct hdsp *hdsp)
 	/* caution: max length of firmware filename is 30! */
 	switch (hdsp->io_type) {
 	case RPM:
-		fwfile = "rpm_firmware.bin";
+		fwfile = "/*(DEBLOBBED)*/";
 		break;
 	case Multiface:
 		if (hdsp->firmware_rev == 0xa)
-			fwfile = "multiface_firmware.bin";
+			fwfile = "/*(DEBLOBBED)*/";
 		else
-			fwfile = "multiface_firmware_rev11.bin";
+			fwfile = "/*(DEBLOBBED)*/";
 		break;
 	case Digiface:
 		if (hdsp->firmware_rev == 0xa)
-			fwfile = "digiface_firmware.bin";
+			fwfile = "/*(DEBLOBBED)*/";
 		else
-			fwfile = "digiface_firmware_rev11.bin";
+			fwfile = "/*(DEBLOBBED)*/";
 		break;
 	default:
 		snd_printk(KERN_ERR "Hammerfall-DSP: invalid io_type %d\n", hdsp->io_type);
 		return -EINVAL;
 	}
 
-	if (request_firmware(&fw, fwfile, &hdsp->pci->dev)) {
+	if (reject_firmware(&fw, fwfile, &hdsp->pci->dev)) {
 		snd_printk(KERN_ERR "Hammerfall-DSP: cannot load firmware %s\n", fwfile);
 		return -ENOENT;
 	}

@@ -806,12 +806,12 @@ static void lme_coldreset(struct usb_device *dev)
 static int lme_firmware_switch(struct usb_device *udev, int cold)
 {
 	const struct firmware *fw = NULL;
-	const char fw_c_s7395[] = "dvb-usb-lme2510c-s7395.fw";
-	const char fw_c_lg[] = "dvb-usb-lme2510c-lg.fw";
-	const char fw_c_s0194[] = "dvb-usb-lme2510c-s0194.fw";
-	const char fw_c_rs2000[] = "dvb-usb-lme2510c-rs2000.fw";
-	const char fw_lg[] = "dvb-usb-lme2510-lg.fw";
-	const char fw_s0194[] = "dvb-usb-lme2510-s0194.fw";
+	const char fw_c_s7395[] = "/*(DEBLOBBED)*/";
+	const char fw_c_lg[] = "/*(DEBLOBBED)*/";
+	const char fw_c_s0194[] = "/*(DEBLOBBED)*/";
+	const char fw_c_rs2000[] = "/*(DEBLOBBED)*/";
+	const char fw_lg[] = "/*(DEBLOBBED)*/";
+	const char fw_s0194[] = "/*(DEBLOBBED)*/";
 	const char *fw_lme;
 	int ret = 0, cold_fw;
 
@@ -826,7 +826,7 @@ static int lme_firmware_switch(struct usb_device *udev, int cold)
 			dvb_usb_lme2510_firmware = TUNER_S0194;
 		case TUNER_S0194:
 			fw_lme = fw_s0194;
-			ret = request_firmware(&fw, fw_lme, &udev->dev);
+			ret = reject_firmware(&fw, fw_lme, &udev->dev);
 			if (ret == 0) {
 				cold = 0;
 				break;
@@ -834,7 +834,7 @@ static int lme_firmware_switch(struct usb_device *udev, int cold)
 			dvb_usb_lme2510_firmware = TUNER_LG;
 		case TUNER_LG:
 			fw_lme = fw_lg;
-			ret = request_firmware(&fw, fw_lme, &udev->dev);
+			ret = reject_firmware(&fw, fw_lme, &udev->dev);
 			if (ret == 0)
 				break;
 			info("FRM No Firmware Found - please install");
@@ -850,7 +850,7 @@ static int lme_firmware_switch(struct usb_device *udev, int cold)
 			dvb_usb_lme2510_firmware = TUNER_S7395;
 		case TUNER_S7395:
 			fw_lme = fw_c_s7395;
-			ret = request_firmware(&fw, fw_lme, &udev->dev);
+			ret = reject_firmware(&fw, fw_lme, &udev->dev);
 			if (ret == 0) {
 				cold = 0;
 				break;
@@ -858,13 +858,13 @@ static int lme_firmware_switch(struct usb_device *udev, int cold)
 			dvb_usb_lme2510_firmware = TUNER_LG;
 		case TUNER_LG:
 			fw_lme = fw_c_lg;
-			ret = request_firmware(&fw, fw_lme, &udev->dev);
+			ret = reject_firmware(&fw, fw_lme, &udev->dev);
 			if (ret == 0)
 				break;
 			dvb_usb_lme2510_firmware = TUNER_S0194;
 		case TUNER_S0194:
 			fw_lme = fw_c_s0194;
-			ret = request_firmware(&fw, fw_lme, &udev->dev);
+			ret = reject_firmware(&fw, fw_lme, &udev->dev);
 			if (ret == 0)
 				break;
 			info("FRM No Firmware Found - please install");
@@ -876,7 +876,7 @@ static int lme_firmware_switch(struct usb_device *udev, int cold)
 		break;
 	case 0x22f0:
 		fw_lme = fw_c_rs2000;
-		ret = request_firmware(&fw, fw_lme, &udev->dev);
+		ret = reject_firmware(&fw, fw_lme, &udev->dev);
 		dvb_usb_lme2510_firmware = TUNER_RS2000;
 		break;
 	default:

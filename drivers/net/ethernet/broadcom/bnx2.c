@@ -59,11 +59,11 @@
 #define DRV_MODULE_NAME		"bnx2"
 #define DRV_MODULE_VERSION	"2.2.1"
 #define DRV_MODULE_RELDATE	"Dec 18, 2011"
-#define FW_MIPS_FILE_06		"bnx2/bnx2-mips-06-6.2.3.fw"
-#define FW_RV2P_FILE_06		"bnx2/bnx2-rv2p-06-6.0.15.fw"
-#define FW_MIPS_FILE_09		"bnx2/bnx2-mips-09-6.2.1b.fw"
-#define FW_RV2P_FILE_09_Ax	"bnx2/bnx2-rv2p-09ax-6.0.17.fw"
-#define FW_RV2P_FILE_09		"bnx2/bnx2-rv2p-09-6.0.17.fw"
+#define FW_MIPS_FILE_06		"/*(DEBLOBBED)*/"
+#define FW_RV2P_FILE_06		"/*(DEBLOBBED)*/"
+#define FW_MIPS_FILE_09		"/*(DEBLOBBED)*/"
+#define FW_RV2P_FILE_09_Ax	"/*(DEBLOBBED)*/"
+#define FW_RV2P_FILE_09		"/*(DEBLOBBED)*/"
 
 #define RUN_AT(x) (jiffies + (x))
 
@@ -77,11 +77,7 @@ MODULE_AUTHOR("Michael Chan <mchan@broadcom.com>");
 MODULE_DESCRIPTION("Broadcom NetXtreme II BCM5706/5708/5709/5716 Driver");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(DRV_MODULE_VERSION);
-MODULE_FIRMWARE(FW_MIPS_FILE_06);
-MODULE_FIRMWARE(FW_RV2P_FILE_06);
-MODULE_FIRMWARE(FW_MIPS_FILE_09);
-MODULE_FIRMWARE(FW_RV2P_FILE_09);
-MODULE_FIRMWARE(FW_RV2P_FILE_09_Ax);
+/*(DEBLOBBED)*/
 
 static int disable_msi = 0;
 
@@ -3670,13 +3666,13 @@ static int bnx2_request_uncached_firmware(struct bnx2 *bp)
 		rv2p_fw_file = FW_RV2P_FILE_06;
 	}
 
-	rc = request_firmware(&bp->mips_firmware, mips_fw_file, &bp->pdev->dev);
+	rc = reject_firmware(&bp->mips_firmware, mips_fw_file, &bp->pdev->dev);
 	if (rc) {
 		pr_err("Can't load firmware file \"%s\"\n", mips_fw_file);
 		goto out;
 	}
 
-	rc = request_firmware(&bp->rv2p_firmware, rv2p_fw_file, &bp->pdev->dev);
+	rc = reject_firmware(&bp->rv2p_firmware, rv2p_fw_file, &bp->pdev->dev);
 	if (rc) {
 		pr_err("Can't load firmware file \"%s\"\n", rv2p_fw_file);
 		goto err_release_mips_firmware;
@@ -3711,7 +3707,7 @@ err_release_mips_firmware:
 	goto out;
 }
 
-static int bnx2_request_firmware(struct bnx2 *bp)
+static int bnx2_reject_firmware(struct bnx2 *bp)
 {
 	return bp->rv2p_firmware ? 0 : bnx2_request_uncached_firmware(bp);
 }
@@ -6301,7 +6297,7 @@ bnx2_open(struct net_device *dev)
 	struct bnx2 *bp = netdev_priv(dev);
 	int rc;
 
-	rc = bnx2_request_firmware(bp);
+	rc = bnx2_reject_firmware(bp);
 	if (rc < 0)
 		goto out;
 

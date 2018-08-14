@@ -59,11 +59,11 @@
 #define IWL5000_UCODE_API_MIN 1
 #define IWL5150_UCODE_API_MIN 1
 
-#define IWL5000_FW_PRE "iwlwifi-5000-"
-#define IWL5000_MODULE_FIRMWARE(api) IWL5000_FW_PRE __stringify(api) ".ucode"
+#define IWL5000_FW_PRE "/*(DEBLOBBED)*/"
+#define IWL5000_MODULE_FIRMWARE(api) IWL5000_FW_PRE /*(DEBLOBBED)*/
 
-#define IWL5150_FW_PRE "iwlwifi-5150-"
-#define IWL5150_MODULE_FIRMWARE(api) IWL5150_FW_PRE __stringify(api) ".ucode"
+#define IWL5150_FW_PRE "/*(DEBLOBBED)*/"
+#define IWL5150_MODULE_FIRMWARE(api) IWL5150_FW_PRE /*(DEBLOBBED)*/
 
 /* NIC configuration for 5000 series */
 static void iwl5000_nic_config(struct iwl_priv *priv)
@@ -416,5 +416,4 @@ const struct iwl_cfg iwl5150_abg_cfg = {
 	IWL_DEVICE_5150,
 };
 
-MODULE_FIRMWARE(IWL5000_MODULE_FIRMWARE(IWL5000_UCODE_API_OK));
-MODULE_FIRMWARE(IWL5150_MODULE_FIRMWARE(IWL5150_UCODE_API_OK));
+/*(DEBLOBBED)*/

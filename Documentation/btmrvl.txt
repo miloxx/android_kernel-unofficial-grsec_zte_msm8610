@@ -108,12 +108,4 @@ Use hcitool to issue raw hci command, refer to hcitool manual
 =======================================================================
 
 
-SD8688 firmware:
-
-/lib/firmware/sd8688_helper.bin
-/lib/firmware/sd8688.bin
-
-
-The images can be downloaded from:
-
-git.infradead.org/users/dwmw2/linux-firmware.git/libertas/
+/*(DEBLOBBED)*/

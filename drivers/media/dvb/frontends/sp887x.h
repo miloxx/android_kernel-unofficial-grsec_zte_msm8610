@@ -14,7 +14,7 @@ struct sp887x_config
 	u8 demod_address;
 
 	/* request firmware for device */
-	int (*request_firmware)(struct dvb_frontend* fe, const struct firmware **fw, char* name);
+	int (*reject_firmware)(struct dvb_frontend* fe, const struct firmware **fw, char* name);
 };
 
 #if defined(CONFIG_DVB_SP887X) || (defined(CONFIG_DVB_SP887X_MODULE) && defined(MODULE))

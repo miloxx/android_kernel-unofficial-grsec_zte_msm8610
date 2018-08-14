@@ -123,9 +123,9 @@ config EXTRA_FIRMWARE
 	  the directory specified by the EXTRA_FIRMWARE_DIR option, which is
 	  by default the firmware subdirectory of the kernel source tree.
 
-	  For example, you might set CONFIG_EXTRA_FIRMWARE="usb8388.bin", copy
-	  the usb8388.bin file into the firmware directory, and build the kernel.
-	  Then any request_firmware("usb8388.bin") will be satisfied internally
+	  For example, you might set CONFIG_EXTRA_FIRMWARE="whatever.bin", copy
+	  the whatever.bin file into the firmware directory, and build the kernel.
+	  Then any request_firmware("whatever.bin") will be satisfied internally
 	  without needing to call out to userspace.
 
 	  WARNING: If you include additional firmware files into your binary

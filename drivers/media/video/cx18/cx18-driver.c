@@ -1092,7 +1092,7 @@ static int __devinit cx18_probe(struct pci_dev *pci_dev,
 		cx18_call_all(cx, tuner, s_type_addr, &setup);
 		if (setup.type == TUNER_XC2028) {
 			static struct xc2028_ctrl ctrl = {
-				.fname = XC2028_DEFAULT_FIRMWARE,
+				.fname = "/*(DEBLOBBED)*/",
 				.max_len = 64,
 			};
 			struct v4l2_priv_tun_config cfg = {

@@ -68,13 +68,7 @@ MODULE_AUTHOR("Gábor Stefanik");
 MODULE_AUTHOR("Rafał Miłecki");
 MODULE_LICENSE("GPL");
 
-MODULE_FIRMWARE("b43/ucode11.fw");
-MODULE_FIRMWARE("b43/ucode13.fw");
-MODULE_FIRMWARE("b43/ucode14.fw");
-MODULE_FIRMWARE("b43/ucode15.fw");
-MODULE_FIRMWARE("b43/ucode16_mimo.fw");
-MODULE_FIRMWARE("b43/ucode5.fw");
-MODULE_FIRMWARE("b43/ucode9.fw");
+/*(DEBLOBBED)*/
 
 static int modparam_bad_frames_preempt;
 module_param_named(bad_frames_preempt, modparam_bad_frames_preempt, int, 0444);
@@ -2077,10 +2071,7 @@ static void b43_release_firmware(struct b43_wldev *dev)
 static void b43_print_fw_helptext(struct b43_wl *wl, bool error)
 {
 	const char text[] =
-		"You must go to " \
-		"http://wireless.kernel.org/en/users/Drivers/b43#devicefirmware " \
-		"and download the correct firmware for this driver version. " \
-		"Please carefully read all instructions on this website.\n";
+		"/*(DEBLOBBED)*/";
 
 	if (error)
 		b43err(wl, text);
@@ -2119,7 +2110,7 @@ int b43_do_request_fw(struct b43_request_fw_context *ctx,
 	switch (ctx->req_type) {
 	case B43_FWTYPE_PROPRIETARY:
 		snprintf(ctx->fwname, sizeof(ctx->fwname),
-			 "b43%s/%s.fw",
+			 "/*(DEBLOBBED)*/",
 			 modparam_fwpostfix, name);
 		break;
 	case B43_FWTYPE_OPENSOURCE:
@@ -2131,7 +2122,7 @@ int b43_do_request_fw(struct b43_request_fw_context *ctx,
 		B43_WARN_ON(1);
 		return -ENOSYS;
 	}
-	err = request_firmware(&blob, ctx->fwname, ctx->dev->dev->dev);
+	err = maybe_reject_firmware(&blob, ctx->fwname, ctx->dev->dev->dev);
 	if (err == -ENOENT) {
 		snprintf(ctx->errors[ctx->req_type],
 			 sizeof(ctx->errors[ctx->req_type]),
@@ -2393,7 +2384,7 @@ error:
 static int b43_one_core_attach(struct b43_bus_dev *dev, struct b43_wl *wl);
 static void b43_one_core_detach(struct b43_bus_dev *dev);
 
-static void b43_request_firmware(struct work_struct *work)
+static void b43_maybe_reject_firmware(struct work_struct *work)
 {
 	struct b43_wl *wl = container_of(work,
 			    struct b43_wl, firmware_load);
@@ -2544,6 +2535,11 @@ static int b43_upload_microcode(struct b43_wldev *dev)
 	/* Default to firmware/hardware crypto acceleration. */
 	dev->hwcrypto_enabled = true;
 
+	if (!dev->fw.opensource) {
+		b43err(dev->wl, "Rejected non-Free firmware\n");
+		err = -EOPNOTSUPP;
+		goto error;
+	}
 	if (dev->fw.opensource) {
 		u16 fwcapa;
 
@@ -2573,7 +2569,7 @@ static int b43_upload_microcode(struct b43_wldev *dev)
 			(fwdate >> 12) & 0xF, (fwdate >> 8) & 0xF, fwdate & 0xFF,
 			(fwtime >> 11) & 0x1F, (fwtime >> 5) & 0x3F, fwtime & 0x1F);
 		if (dev->fw.pcm_request_failed) {
-			b43warn(dev->wl, "No \"pcm5.fw\" firmware file found. "
+			b43warn(dev->wl, "No \"/*(DEBLOBBED)*/\" firmware file found. "
 				"Hardware accelerated cryptography is disabled.\n");
 			b43_print_fw_helptext(dev->wl, 0);
 		}
@@ -5334,7 +5330,7 @@ static int b43_bcma_probe(struct bcma_device *core)
 		goto bcma_err_wireless_exit;
 
 	/* setup and start work to load firmware */
-	INIT_WORK(&wl->firmware_load, b43_request_firmware);
+	INIT_WORK(&wl->firmware_load, b43_maybe_reject_firmware);
 	schedule_work(&wl->firmware_load);
 
 bcma_out:
@@ -5407,7 +5403,7 @@ int b43_ssb_probe(struct ssb_device *sdev, const struct ssb_device_id *id)
 		goto err_wireless_exit;
 
 	/* setup and start work to load firmware */
-	INIT_WORK(&wl->firmware_load, b43_request_firmware);
+	INIT_WORK(&wl->firmware_load, b43_maybe_reject_firmware);
 	schedule_work(&wl->firmware_load);
 
       out:

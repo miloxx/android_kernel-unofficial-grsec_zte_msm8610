@@ -1075,7 +1075,7 @@ static int wl12xx_fetch_firmware(struct wl1271 *wl, bool plt)
 
 	wl1271_debug(DEBUG_BOOT, "booting firmware %s", fw_name);
 
-	ret = request_firmware(&fw, fw_name, wl->dev);
+	ret = reject_firmware(&fw, fw_name, wl->dev);
 
 	if (ret < 0) {
 		wl1271_error("could not get firmware %s: %d", fw_name, ret);
@@ -1114,7 +1114,7 @@ static int wl1271_fetch_nvs(struct wl1271 *wl)
 	const struct firmware *fw;
 	int ret;
 
-	ret = request_firmware(&fw, WL12XX_NVS_NAME, wl->dev);
+	ret = reject_firmware(&fw, WL12XX_NVS_NAME, wl->dev);
 
 	if (ret < 0) {
 		wl1271_error("could not get nvs file %s: %d", WL12XX_NVS_NAME,

@@ -445,16 +445,16 @@ static int airstar_dvbt_attach(struct flexcop_device *fc,
 
 /* AirStar ATSC 1st generation */
 #if FE_SUPPORTED(BCM3510)
-static int flexcop_fe_request_firmware(struct dvb_frontend *fe,
+static int flexcop_fe_reject_firmware(struct dvb_frontend *fe,
 	const struct firmware **fw, char* name)
 {
 	struct flexcop_device *fc = fe->dvb->priv;
-	return request_firmware(fw, name, fc->dev);
+	return reject_firmware(fw, name, fc->dev);
 }
 
 static struct bcm3510_config air2pc_atsc_first_gen_config = {
 	.demod_address    = 0x0f,
-	.request_firmware = flexcop_fe_request_firmware,
+	.reject_firmware = flexcop_fe_reject_firmware,
 };
 
 static int airstar_atsc1_attach(struct flexcop_device *fc,

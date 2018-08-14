@@ -404,7 +404,7 @@ struct snd_korg1212 {
 MODULE_DESCRIPTION("korg1212");
 MODULE_LICENSE("GPL");
 MODULE_SUPPORTED_DEVICE("{{KORG,korg1212}}");
-MODULE_FIRMWARE("korg/k1212.dsp");
+/*(DEBLOBBED)*/
 
 static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;     /* Index 0-MAX */
 static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;	   /* ID for this card */
@@ -2343,7 +2343,7 @@ static int __devinit snd_korg1212_create(struct snd_card *card, struct pci_dev *
         korg1212->AdatTimeCodePhy = korg1212->sharedBufferPhy +
 		offsetof(struct KorgSharedBuffer, AdatTimeCode);
 
-	err = request_firmware(&dsp_code, "korg/k1212.dsp", &pci->dev);
+	err = reject_firmware(&dsp_code, "/*(DEBLOBBED)*/", &pci->dev);
 	if (err < 0) {
 		release_firmware(dsp_code);
 		snd_printk(KERN_ERR "firmware not available\n");

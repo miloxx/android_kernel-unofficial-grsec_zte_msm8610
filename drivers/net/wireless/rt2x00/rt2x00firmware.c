@@ -30,7 +30,7 @@
 #include "rt2x00.h"
 #include "rt2x00lib.h"
 
-static int rt2x00lib_request_firmware(struct rt2x00_dev *rt2x00dev)
+static int rt2x00lib_reject_firmware(struct rt2x00_dev *rt2x00dev)
 {
 	struct device *device = wiphy_dev(rt2x00dev->hw->wiphy);
 	const struct firmware *fw;
@@ -50,7 +50,7 @@ static int rt2x00lib_request_firmware(struct rt2x00_dev *rt2x00dev)
 
 	INFO(rt2x00dev, "Loading firmware file '%s'.\n", fw_name);
 
-	retval = request_firmware(&fw, fw_name, device);
+	retval = reject_firmware(&fw, fw_name, device);
 	if (retval) {
 		ERROR(rt2x00dev, "Failed to request Firmware.\n");
 		return retval;
@@ -103,7 +103,7 @@ int rt2x00lib_load_firmware(struct rt2x00_dev *rt2x00dev)
 		return 0;
 
 	if (!rt2x00dev->fw) {
-		retval = rt2x00lib_request_firmware(rt2x00dev);
+		retval = rt2x00lib_reject_firmware(rt2x00dev);
 		if (retval)
 			return retval;
 	}

@@ -228,13 +228,9 @@ bool init_firmware(struct net_device *dev)
 	struct r8192_priv *priv = rtllib_priv(dev);
 	bool			rt_status = true;
 
-	u8	*firmware_img_buf[3] = { &Rtl8192PciEFwBootArray[0],
-					 &Rtl8192PciEFwMainArray[0],
-					 &Rtl8192PciEFwDataArray[0]};
+	u8	*firmware_img_buf[3] = { /*(DEBLOBBED)*/};
 
-	u32	firmware_img_len[3] = { sizeof(Rtl8192PciEFwBootArray),
-					sizeof(Rtl8192PciEFwMainArray),
-					sizeof(Rtl8192PciEFwDataArray)};
+	u32	firmware_img_len[3] = { /*(DEBLOBBED)*/};
 	u32	file_length = 0;
 	u8	*mapped_file = NULL;
 	u8	init_step = 0;
@@ -265,13 +261,13 @@ bool init_firmware(struct net_device *dev)
 			case FW_SOURCE_IMG_FILE:
 			{
 				if (pfirmware->firmware_buf_size[init_step] == 0) {
-					const char *fw_name[3] = { "RTL8192E/boot.img",
-							   "RTL8192E/main.img",
-							   "RTL8192E/data.img"
+					const char *fw_name[3] = { "/*(DEBLOBBED)*/",
+							   "/*(DEBLOBBED)*/",
+							   "/*(DEBLOBBED)*/"
 							 };
 					const struct firmware	*fw_entry;
 					int rc;
-					rc = request_firmware(&fw_entry,
+					rc = reject_firmware(&fw_entry,
 					 fw_name[init_step], &priv->pdev->dev);
 					if (rc < 0) {
 						RT_TRACE(COMP_FIRMWARE, "request firm"

@@ -249,16 +249,16 @@ static int whiteheat_firmware_download(struct usb_serial *serial,
 
 	dbg("%s", __func__);
 
-	if (request_ihex_firmware(&firmware_fw, "whiteheat.fw",
+	if (reject_firmware(&firmware_fw, "/*(DEBLOBBED)*/",
 				  &serial->dev->dev)) {
 		dev_err(&serial->dev->dev,
-			"%s - request \"whiteheat.fw\" failed\n", __func__);
+			"%s - request \"/*(DEBLOBBED)*/\" failed\n", __func__);
 		goto out;
 	}
-	if (request_ihex_firmware(&loader_fw, "whiteheat_loader.fw",
+	if (reject_firmware(&loader_fw, "/*(DEBLOBBED)*/",
 			     &serial->dev->dev)) {
 		dev_err(&serial->dev->dev,
-			"%s - request \"whiteheat_loader.fw\" failed\n",
+			"%s - request \"/*(DEBLOBBED)*/\" failed\n",
 			__func__);
 		goto out;
 	}
@@ -1460,8 +1460,7 @@ MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
 MODULE_LICENSE("GPL");
 
-MODULE_FIRMWARE("whiteheat.fw");
-MODULE_FIRMWARE("whiteheat_loader.fw");
+/*(DEBLOBBED)*/
 
 module_param(urb_pool_size, int, 0);
 MODULE_PARM_DESC(urb_pool_size, "Number of urbs to use for buffering");

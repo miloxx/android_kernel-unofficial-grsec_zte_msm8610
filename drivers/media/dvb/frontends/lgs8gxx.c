@@ -593,7 +593,7 @@ static int lgs8g75_init_data(struct lgs8gxx_state *priv)
 	int rc;
 	int i;
 
-	rc = request_firmware(&fw, "lgs8g75.fw", &priv->i2c->dev);
+	rc = reject_firmware(&fw, "/*(DEBLOBBED)*/", &priv->i2c->dev);
 	if (rc)
 		return rc;
 

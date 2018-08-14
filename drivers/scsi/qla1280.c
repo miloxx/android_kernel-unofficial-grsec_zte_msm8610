@@ -571,9 +571,9 @@ struct qla_fw {
 #define QL_NUM_FW_IMAGES 3
 
 struct qla_fw qla1280_fw_tbl[QL_NUM_FW_IMAGES] = {
-	{"qlogic/1040.bin",  NULL},	/* image 0 */
-	{"qlogic/1280.bin",  NULL},	/* image 1 */
-	{"qlogic/12160.bin", NULL},	/* image 2 */
+	{"/*(DEBLOBBED)*/",  NULL},	/* image 0 */
+	{"/*(DEBLOBBED)*/",  NULL},	/* image 1 */
+	{"/*(DEBLOBBED)*/", NULL},	/* image 2 */
 };
 
 /* NOTE: Order of boards in this table must match order in qla1280_pci_tbl */
@@ -1529,7 +1529,7 @@ qla1280_initialize_adapter(struct scsi_qla_host *ha)
 }
 
 /*
- * qla1280_request_firmware
+ * qla1280_reject_firmware
  *      Acquire firmware for chip.  Retain in memory
  *      for error recovery.
  *
@@ -1541,7 +1541,7 @@ qla1280_initialize_adapter(struct scsi_qla_host *ha)
  *      cast to pointer via ERR_PTR().
  */
 static const struct firmware *
-qla1280_request_firmware(struct scsi_qla_host *ha)
+qla1280_reject_firmware(struct scsi_qla_host *ha)
 {
 	const struct firmware *fw;
 	int err;
@@ -1557,7 +1557,7 @@ qla1280_request_firmware(struct scsi_qla_host *ha)
 		goto out;
 
 	fwname = qla1280_fw_tbl[index].fwname;
-	err = request_firmware(&fw, fwname, &ha->pdev->dev);
+	err = reject_firmware(&fw, fwname, &ha->pdev->dev);
 
 	if (err) {
 		printk(KERN_ERR "Failed to load image \"%s\" err %d\n",
@@ -1716,7 +1716,7 @@ qla1280_load_firmware_pio(struct scsi_qla_host *ha)
 	uint16_t mb[MAILBOX_REGISTER_COUNT], i;
 	int err = 0;
 
-	fw = qla1280_request_firmware(ha);
+	fw = qla1280_reject_firmware(ha);
 	if (IS_ERR(fw))
 		return PTR_ERR(fw);
 
@@ -1763,7 +1763,7 @@ qla1280_load_firmware_dma(struct scsi_qla_host *ha)
 		return -ENOMEM;
 #endif
 
-	fw = qla1280_request_firmware(ha);
+	fw = qla1280_reject_firmware(ha);
 	if (IS_ERR(fw))
 		return PTR_ERR(fw);
 
@@ -4487,9 +4487,7 @@ module_exit(qla1280_exit);
 MODULE_AUTHOR("Qlogic & Jes Sorensen");
 MODULE_DESCRIPTION("Qlogic ISP SCSI (qla1x80/qla1x160) driver");
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("qlogic/1040.bin");
-MODULE_FIRMWARE("qlogic/1280.bin");
-MODULE_FIRMWARE("qlogic/12160.bin");
+/*(DEBLOBBED)*/
 MODULE_VERSION(QLA1280_VERSION);
 
 /*

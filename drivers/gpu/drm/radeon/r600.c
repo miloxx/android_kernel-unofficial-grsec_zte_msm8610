@@ -52,47 +52,7 @@
 #define ARUBA_RLC_UCODE_SIZE 1536
 
 /* Firmware Names */
-MODULE_FIRMWARE("radeon/R600_pfp.bin");
-MODULE_FIRMWARE("radeon/R600_me.bin");
-MODULE_FIRMWARE("radeon/RV610_pfp.bin");
-MODULE_FIRMWARE("radeon/RV610_me.bin");
-MODULE_FIRMWARE("radeon/RV630_pfp.bin");
-MODULE_FIRMWARE("radeon/RV630_me.bin");
-MODULE_FIRMWARE("radeon/RV620_pfp.bin");
-MODULE_FIRMWARE("radeon/RV620_me.bin");
-MODULE_FIRMWARE("radeon/RV635_pfp.bin");
-MODULE_FIRMWARE("radeon/RV635_me.bin");
-MODULE_FIRMWARE("radeon/RV670_pfp.bin");
-MODULE_FIRMWARE("radeon/RV670_me.bin");
-MODULE_FIRMWARE("radeon/RS780_pfp.bin");
-MODULE_FIRMWARE("radeon/RS780_me.bin");
-MODULE_FIRMWARE("radeon/RV770_pfp.bin");
-MODULE_FIRMWARE("radeon/RV770_me.bin");
-MODULE_FIRMWARE("radeon/RV730_pfp.bin");
-MODULE_FIRMWARE("radeon/RV730_me.bin");
-MODULE_FIRMWARE("radeon/RV710_pfp.bin");
-MODULE_FIRMWARE("radeon/RV710_me.bin");
-MODULE_FIRMWARE("radeon/R600_rlc.bin");
-MODULE_FIRMWARE("radeon/R700_rlc.bin");
-MODULE_FIRMWARE("radeon/CEDAR_pfp.bin");
-MODULE_FIRMWARE("radeon/CEDAR_me.bin");
-MODULE_FIRMWARE("radeon/CEDAR_rlc.bin");
-MODULE_FIRMWARE("radeon/REDWOOD_pfp.bin");
-MODULE_FIRMWARE("radeon/REDWOOD_me.bin");
-MODULE_FIRMWARE("radeon/REDWOOD_rlc.bin");
-MODULE_FIRMWARE("radeon/JUNIPER_pfp.bin");
-MODULE_FIRMWARE("radeon/JUNIPER_me.bin");
-MODULE_FIRMWARE("radeon/JUNIPER_rlc.bin");
-MODULE_FIRMWARE("radeon/CYPRESS_pfp.bin");
-MODULE_FIRMWARE("radeon/CYPRESS_me.bin");
-MODULE_FIRMWARE("radeon/CYPRESS_rlc.bin");
-MODULE_FIRMWARE("radeon/PALM_pfp.bin");
-MODULE_FIRMWARE("radeon/PALM_me.bin");
-MODULE_FIRMWARE("radeon/SUMO_rlc.bin");
-MODULE_FIRMWARE("radeon/SUMO_pfp.bin");
-MODULE_FIRMWARE("radeon/SUMO_me.bin");
-MODULE_FIRMWARE("radeon/SUMO2_pfp.bin");
-MODULE_FIRMWARE("radeon/SUMO2_me.bin");
+/*(DEBLOBBED)*/
 
 int r600_debugfs_mc_info_init(struct radeon_device *rdev);
 
@@ -2049,8 +2009,8 @@ int r600_init_microcode(struct radeon_device *rdev)
 
 	DRM_INFO("Loading %s Microcode\n", chip_name);
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_pfp.bin", chip_name);
-	err = request_firmware(&rdev->pfp_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+	err = reject_firmware(&rdev->pfp_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (rdev->pfp_fw->size != pfp_req_size) {
@@ -2061,8 +2021,8 @@ int r600_init_microcode(struct radeon_device *rdev)
 		goto out;
 	}
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_me.bin", chip_name);
-	err = request_firmware(&rdev->me_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+	err = reject_firmware(&rdev->me_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (rdev->me_fw->size != me_req_size) {
@@ -2072,8 +2032,8 @@ int r600_init_microcode(struct radeon_device *rdev)
 		err = -EINVAL;
 	}
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_rlc.bin", rlc_chip_name);
-	err = request_firmware(&rdev->rlc_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", rlc_chip_name);
+	err = reject_firmware(&rdev->rlc_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (rdev->rlc_fw->size != rlc_req_size) {

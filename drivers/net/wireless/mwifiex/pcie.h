@@ -28,7 +28,7 @@
 
 #include    "main.h"
 
-#define PCIE8766_DEFAULT_FW_NAME "mrvl/pcie8766_uapsta.bin"
+#define PCIE8766_DEFAULT_FW_NAME "/*(DEBLOBBED)*/"
 
 /* Constants for Buffer Descriptor (BD) rings */
 #define MWIFIEX_MAX_TXRX_BD			0x20

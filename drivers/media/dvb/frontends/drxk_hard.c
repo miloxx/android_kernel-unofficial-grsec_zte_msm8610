@@ -5969,7 +5969,7 @@ static int load_microcode(struct drxk_state *state, const char *mc_name)
 
 	dprintk(1, "\n");
 
-	err = request_firmware(&fw, mc_name, state->i2c->dev.parent);
+	err = reject_firmware(&fw, mc_name, state->i2c->dev.parent);
 	if (err < 0) {
 		printk(KERN_ERR
 		       "drxk: Could not load firmware file %s.\n", mc_name);

@@ -708,7 +708,7 @@ static int keyspan_pda_fake_startup(struct usb_serial *serial)
 			__func__);
 		return -ENODEV;
 	}
-	if (request_ihex_firmware(&fw, fw_name, &serial->dev->dev)) {
+	if (/*KEYSPAN_PDA*/request_ihex_firmware(&fw, fw_name, &serial->dev->dev)) {
 		dev_err(&serial->dev->dev, "failed to load firmware \"%s\"\n",
 			fw_name);
 		return -ENOENT;

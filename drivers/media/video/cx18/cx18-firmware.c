@@ -106,7 +106,7 @@ static int load_cpu_fw_direct(const char *fn, u8 __iomem *mem, struct cx18 *cx)
 	u32 __iomem *dst = (u32 __iomem *)mem;
 	const u32 *src;
 
-	if (request_firmware(&fw, fn, &cx->pci_dev->dev)) {
+	if (reject_firmware(&fw, fn, &cx->pci_dev->dev)) {
 		CX18_ERR("Unable to open firmware %s\n", fn);
 		CX18_ERR("Did you put the firmware in the hotplug firmware directory?\n");
 		return -ENOMEM;
@@ -150,7 +150,7 @@ static int load_apu_fw_direct(const char *fn, u8 __iomem *dst, struct cx18 *cx,
 	u32 apu_version = 0;
 	int sz;
 
-	if (request_firmware(&fw, fn, &cx->pci_dev->dev)) {
+	if (reject_firmware(&fw, fn, &cx->pci_dev->dev)) {
 		CX18_ERR("unable to open firmware %s\n", fn);
 		CX18_ERR("did you put the firmware in the hotplug firmware directory?\n");
 		cx18_setup_page(cx, 0);
@@ -395,7 +395,7 @@ int cx18_firmware_init(struct cx18 *cx)
 	cx18_sw1_irq_enable(cx, IRQ_CPU_TO_EPU | IRQ_APU_TO_EPU);
 	cx18_sw2_irq_enable(cx, IRQ_CPU_TO_EPU_ACK | IRQ_APU_TO_EPU_ACK);
 
-	sz = load_cpu_fw_direct("v4l-cx23418-cpu.fw", cx->enc_mem, cx);
+	sz = load_cpu_fw_direct("/*(DEBLOBBED)*/", cx->enc_mem, cx);
 	if (sz <= 0)
 		return sz;
 
@@ -403,7 +403,7 @@ int cx18_firmware_init(struct cx18 *cx)
 	cx18_init_scb(cx);
 
 	fw_entry_addr = 0;
-	sz = load_apu_fw_direct("v4l-cx23418-apu.fw", cx->enc_mem, cx,
+	sz = load_apu_fw_direct("/*(DEBLOBBED)*/", cx->enc_mem, cx,
 				&fw_entry_addr);
 	if (sz <= 0)
 		return sz;

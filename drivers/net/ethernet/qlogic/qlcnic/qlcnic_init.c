@@ -1290,7 +1290,7 @@ qlcnic_get_next_fwtype(struct qlcnic_adapter *adapter)
 
 
 
-void qlcnic_request_firmware(struct qlcnic_adapter *adapter)
+void qlcnic_reject_firmware(struct qlcnic_adapter *adapter)
 {
 	struct pci_dev *pdev = adapter->pdev;
 	int rc;
@@ -1303,7 +1303,7 @@ next:
 	if (adapter->fw_type == QLCNIC_FLASH_ROMIMAGE) {
 		adapter->fw = NULL;
 	} else {
-		rc = request_firmware(&adapter->fw,
+		rc = reject_firmware(&adapter->fw,
 				fw_name[adapter->fw_type], &pdev->dev);
 		if (rc != 0)
 			goto next;

@@ -1239,20 +1239,20 @@ static int ucc_uart_probe(struct platform_device *ofdev)
 				dev_err(&ofdev->dev, "unknown CPU model\n");
 				return -ENXIO;
 			}
-			sprintf(filename, "fsl_qe_ucode_uart_%u_%u%u.bin",
+			sprintf(filename, "/*(DEBLOBBED)*/",
 				soc, rev_h, rev_l);
 
 			dev_info(&ofdev->dev, "waiting for firmware %s\n",
 				filename);
 
 			/*
-			 * We call request_firmware_nowait instead of
-			 * request_firmware so that the driver can load and
+			 * We call reject_firmware_nowait instead of
+			 * reject_firmware so that the driver can load and
 			 * initialize the ports without holding up the rest of
 			 * the kernel.  If hotplug support is enabled in the
 			 * kernel, then we use it.
 			 */
-			ret = request_firmware_nowait(THIS_MODULE,
+			ret = reject_firmware_nowait(THIS_MODULE,
 				FW_ACTION_HOTPLUG, filename, &ofdev->dev,
 				GFP_KERNEL, &ofdev->dev, uart_firmware_cont);
 			if (ret) {

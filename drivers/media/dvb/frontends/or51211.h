@@ -31,7 +31,7 @@ struct or51211_config
 	u8 demod_address;
 
 	/* Request firmware for device */
-	int (*request_firmware)(struct dvb_frontend* fe, const struct firmware **fw, char* name);
+	int (*reject_firmware)(struct dvb_frontend* fe, const struct firmware **fw, char* name);
 	void (*setmode)(struct dvb_frontend * fe, int mode);
 	void (*reset)(struct dvb_frontend * fe);
 	void (*sleep)(struct dvb_frontend * fe);

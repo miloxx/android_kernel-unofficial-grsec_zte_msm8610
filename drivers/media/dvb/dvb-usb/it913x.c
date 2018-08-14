@@ -403,9 +403,9 @@ static int it913x_rc_query(struct dvb_usb_device *d)
 }
 
 /* Firmware sets raw */
-const char fw_it9135_v1[] = "dvb-usb-it9135-01.fw";
-const char fw_it9135_v2[] = "dvb-usb-it9135-02.fw";
-const char fw_it9137[] = "dvb-usb-it9137-01.fw";
+const char fw_it9135_v1[] = "/*(DEBLOBBED)*/";
+const char fw_it9135_v2[] = "/*(DEBLOBBED)*/";
+const char fw_it9137[] = "/*(DEBLOBBED)*/";
 
 static int ite_firmware_select(struct usb_device *udev,
 	struct dvb_usb_device_properties *props)
@@ -830,7 +830,7 @@ static struct dvb_usb_device_properties it913x_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 	.usb_ctrl = DEVICE_SPECIFIC,
 	.download_firmware = it913x_download_firmware,
-	.firmware = "dvb-usb-it9137-01.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.no_reconnect = 1,
 	.size_of_priv = sizeof(struct it913x_state),
 	.num_adapters = 2,

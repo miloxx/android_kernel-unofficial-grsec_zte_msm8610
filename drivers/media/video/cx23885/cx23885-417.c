@@ -40,7 +40,7 @@
 #include "cx23885-ioctl.h"
 
 #define CX23885_FIRM_IMAGE_SIZE 376836
-#define CX23885_FIRM_IMAGE_NAME "v4l-cx23885-enc.fw"
+#define CX23885_FIRM_IMAGE_NAME "/*(DEBLOBBED)*/"
 
 static unsigned int mpegbufs = 32;
 module_param(mpegbufs, int, 0644);
@@ -927,7 +927,7 @@ static int cx23885_load_firmware(struct cx23885_dev *dev)
 		return -1;
 	}
 
-	retval = request_firmware(&firmware, CX23885_FIRM_IMAGE_NAME,
+	retval = reject_firmware(&firmware, CX23885_FIRM_IMAGE_NAME,
 				  &dev->pci->dev);
 
 	if (retval != 0) {

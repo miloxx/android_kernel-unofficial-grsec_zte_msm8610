@@ -351,7 +351,7 @@ struct qlcnic_flt_entry {
 #define QLCNIC_FLASH_ROMIMAGE		1
 #define QLCNIC_UNKNOWN_ROMIMAGE		0xff
 
-#define QLCNIC_UNIFIED_ROMIMAGE_NAME	"phanfw.bin"
+#define QLCNIC_UNIFIED_ROMIMAGE_NAME	"/*(DEBLOBBED)*/"
 #define QLCNIC_FLASH_ROMIMAGE_NAME	"flash"
 
 extern char qlcnic_driver_name[];
@@ -1426,7 +1426,7 @@ int qlcnic_dump_fw(struct qlcnic_adapter *);
 /* Functions from qlcnic_init.c */
 int qlcnic_load_firmware(struct qlcnic_adapter *adapter);
 int qlcnic_need_fw_reset(struct qlcnic_adapter *adapter);
-void qlcnic_request_firmware(struct qlcnic_adapter *adapter);
+void qlcnic_reject_firmware(struct qlcnic_adapter *adapter);
 void qlcnic_release_firmware(struct qlcnic_adapter *adapter);
 int qlcnic_pinit_from_rom(struct qlcnic_adapter *adapter);
 int qlcnic_setup_idc_param(struct qlcnic_adapter *adapter);

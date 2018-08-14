@@ -84,7 +84,7 @@
 #define ADAU1701_OSCIPOW_OPD		0x04
 #define ADAU1701_DACSET_DACINIT		1
 
-#define ADAU1701_FIRMWARE "adau1701.bin"
+#define ADAU1701_FIRMWARE "/*(DEBLOBBED)*/"
 
 struct adau1701 {
 	unsigned int dai_fmt;

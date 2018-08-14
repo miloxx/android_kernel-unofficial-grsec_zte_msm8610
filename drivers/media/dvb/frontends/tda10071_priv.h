@@ -90,7 +90,7 @@ struct tda10071_reg_val_mask {
 };
 
 /* firmware filename */
-#define TDA10071_DEFAULT_FIRMWARE      "dvb-fe-tda10071.fw"
+/*(DEBLOBBED)*/
 
 /* firmware commands */
 #define CMD_DEMOD_INIT          0x10

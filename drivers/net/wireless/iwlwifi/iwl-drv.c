@@ -81,7 +81,7 @@
  * @op_mode: the running op_mode
  * @fw_index: firmware revision to try loading
  * @firmware_name: composite filename of ucode file to load
- * @request_firmware_complete: the firmware has been obtained from user space
+ * @reject_firmware_complete: the firmware has been obtained from user space
  */
 struct iwl_drv {
 	struct iwl_fw fw;
@@ -92,7 +92,7 @@ struct iwl_drv {
 	int fw_index;                   /* firmware we're trying to load */
 	char firmware_name[25];         /* name of firmware file to load */
 
-	struct completion request_firmware_complete;
+	struct completion reject_firmware_complete;
 };
 
 
@@ -154,7 +154,7 @@ static void iwl_ucode_callback(const struct firmware *ucode_raw, void *context);
 #define UCODE_EXPERIMENTAL_INDEX	100
 #define UCODE_EXPERIMENTAL_TAG		"exp"
 
-static int iwl_request_firmware(struct iwl_drv *drv, bool first)
+static int iwl_reject_firmware(struct iwl_drv *drv, bool first)
 {
 	const struct iwl_cfg *cfg = cfg(drv);
 	const char *name_pre = cfg->fw_name_pre;
@@ -178,14 +178,14 @@ static int iwl_request_firmware(struct iwl_drv *drv, bool first)
 		return -ENOENT;
 	}
 
-	sprintf(drv->firmware_name, "%s%s%s", name_pre, tag, ".ucode");
+	sprintf(drv->firmware_name, "/*(DEBLOBBED)*/");
 
 	IWL_DEBUG_INFO(drv, "attempting to load firmware %s'%s'\n",
 		       (drv->fw_index == UCODE_EXPERIMENTAL_INDEX)
 				? "EXPERIMENTAL " : "",
 		       drv->firmware_name);
 
-	return request_firmware_nowait(THIS_MODULE, 1, drv->firmware_name,
+	return reject_firmware_nowait(THIS_MODULE, 1, drv->firmware_name,
 				       trans(drv)->dev,
 				       GFP_KERNEL, drv, iwl_ucode_callback);
 }
@@ -922,7 +922,7 @@ static void iwl_ucode_callback(const struct firmware *ucode_raw, void *context)
 
 	/* We have our copies now, allow OS release its copies */
 	release_firmware(ucode_raw);
-	complete(&drv->request_firmware_complete);
+	complete(&drv->reject_firmware_complete);
 
 	drv->op_mode = iwl_dvm_ops.start(drv->shrd->trans, &drv->fw);
 
@@ -934,7 +934,7 @@ static void iwl_ucode_callback(const struct firmware *ucode_raw, void *context)
  try_again:
 	/* try next, if any */
 	release_firmware(ucode_raw);
-	if (iwl_request_firmware(drv, false))
+	if (iwl_reject_firmware(drv, false))
 		goto out_unbind;
 	return;
 
@@ -943,7 +943,7 @@ static void iwl_ucode_callback(const struct firmware *ucode_raw, void *context)
 	iwl_dealloc_ucode(drv);
 	release_firmware(ucode_raw);
  out_unbind:
-	complete(&drv->request_firmware_complete);
+	complete(&drv->reject_firmware_complete);
 	device_release_driver(trans(drv)->dev);
 }
 
@@ -963,9 +963,9 @@ int iwl_drv_start(struct iwl_shared *shrd,
 	drv->shrd = shrd;
 	shrd->drv = drv;
 
-	init_completion(&drv->request_firmware_complete);
+	init_completion(&drv->reject_firmware_complete);
 
-	ret = iwl_request_firmware(drv, true);
+	ret = iwl_reject_firmware(drv, true);
 
 	if (ret) {
 		dev_printk(KERN_ERR, trans->dev, "Couldn't request the fw");
@@ -980,7 +980,7 @@ void iwl_drv_stop(struct iwl_shared *shrd)
 {
 	struct iwl_drv *drv = shrd->drv;
 
-	wait_for_completion(&drv->request_firmware_complete);
+	wait_for_completion(&drv->reject_firmware_complete);
 
 	/* op_mode can be NULL if its start failed */
 	if (drv->op_mode)

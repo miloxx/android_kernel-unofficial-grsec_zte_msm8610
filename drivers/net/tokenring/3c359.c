@@ -74,10 +74,10 @@
 static char version[] __devinitdata  = 
 "3c359.c v1.2.0 2/17/01 - Mike Phillips (mikep@linuxtr.net)" ; 
 
-#define FW_NAME		"3com/3C359.bin"
+#define FW_NAME		"/*(DEBLOBBED)*/"
 MODULE_AUTHOR("Mike Phillips <mikep@linuxtr.net>") ; 
 MODULE_DESCRIPTION("3Com 3C359 Velocity XL Token Ring Adapter Driver\n") ;
-MODULE_FIRMWARE(FW_NAME);
+/*(DEBLOBBED)*/
 
 /* Module parameters */
 
@@ -369,7 +369,7 @@ static int xl_init_firmware(struct xl_private *xl_priv)
 {
 	int err;
 
-	err = request_firmware(&xl_priv->fw, FW_NAME, &xl_priv->pdev->dev);
+	err = reject_firmware(&xl_priv->fw, FW_NAME, &xl_priv->pdev->dev);
 	if (err) {
 		printk(KERN_ERR "Failed to load firmware \"%s\"\n", FW_NAME);
 		return err;

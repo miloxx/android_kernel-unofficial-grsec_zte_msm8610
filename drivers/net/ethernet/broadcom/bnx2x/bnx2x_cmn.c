@@ -1724,13 +1724,12 @@ static void bnx2x_squeeze_objects(struct bnx2x *bp)
 bool bnx2x_test_firmware_version(struct bnx2x *bp, bool is_err)
 {
 	/* build FW version dword */
-	u32 my_fw = (BCM_5710_FW_MAJOR_VERSION) +
-		    (BCM_5710_FW_MINOR_VERSION << 8) +
-		    (BCM_5710_FW_REVISION_VERSION << 16) +
-		    (BCM_5710_FW_ENGINEERING_VERSION << 24);
+	/*(DEBLOBBED)*/
 
 	/* read loaded FW from chip */
 	u32 loaded_fw = REG_RD(bp, XSEM_REG_PRAM);
+
+	u32 my_fw = ~loaded_fw;
 
 	DP(NETIF_MSG_IFUP, "loaded fw %x, my fw %x\n", loaded_fw, my_fw);
 

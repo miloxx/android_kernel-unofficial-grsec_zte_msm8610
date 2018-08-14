@@ -22,13 +22,7 @@
  *
 */
 
-/*
- * This driver needs external firmware. Please use the command
- * "<kerneldir>/Documentation/dvb/get_dvb_firmware or51211" to
- * download/extract it, and then copy it to /usr/lib/hotplug/firmware
- * or /lib/firmware (depending on configuration of firmware hotplug).
- */
-#define OR51211_DEFAULT_FIRMWARE "dvb-fe-or51211.fw"
+/*(DEBLOBBED)*/
 
 #include <linux/kernel.h>
 #include <linux/module.h>
@@ -376,9 +370,9 @@ static int or51211_init(struct dvb_frontend* fe)
 	if (!state->initialized) {
 		/* Request the firmware, this will block until it uploads */
 		printk(KERN_INFO "or51211: Waiting for firmware upload "
-		       "(%s)...\n", OR51211_DEFAULT_FIRMWARE);
-		ret = config->request_firmware(fe, &fw,
-					       OR51211_DEFAULT_FIRMWARE);
+		       "(%s)...\n", "/*(DEBLOBBED)*/");
+		ret = config->reject_firmware(fe, &fw,
+					       "/*(DEBLOBBED)*/");
 		printk(KERN_INFO "or51211:Got Hotplug firmware\n");
 		if (ret) {
 			printk(KERN_WARNING "or51211: No firmware uploaded "

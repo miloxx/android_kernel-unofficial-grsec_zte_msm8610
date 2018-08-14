@@ -1139,37 +1139,7 @@ distributed in the snd-util-3.0.tar.gz package. You have to edit two
 defines in the ssinit.c and then compile the program. You may run ssinit 
 manually (after each boot) or add it to /etc/rc.d/rc.local.
 
-The ssinit program needs the microcode file that comes with the DOS/Windows
-driver of the card. You will need to use version 1.30.00 or later
-of the microcode file (sndscape.co0 or sndscape.co1 depending on
-your card model). THE OLD sndscape.cod WILL NOT WORK. IT WILL HANG YOUR
-MACHINE. The only way to get the new microcode file is to download
-and install the DOS/Windows driver from ftp://ftp.ensoniq.com/pub.
-
-Then you have to select the proper microcode file to use: soundscape.co0
-is the right one for most cards and sndscape.co1 is for few (older) cards
-made by Reveal and/or Spea. The driver has capability to detect the card
-version during boot. Look at the boot log messages in /var/adm/messages
-and locate the sound driver initialization message for the SoundScape
-card. If the driver displays string <Ensoniq Soundscape (old)>, you have
-an old card and you will need to use sndscape.co1. For other cards use
-soundscape.co0. New Soundscape revisions such as Elite and PnP use
-code files with higher numbers (.co2, .co3, etc.).
-
-NOTE!	Ensoniq Soundscape VIVO is not compatible with other Soundscape cards.
-	Currently it's possible to use it in Linux only with OSS/Linux
-	drivers.
-
-Check /var/adm/messages after running ssinit. The driver prints
-the board version after downloading the microcode file. That version
-number must match the number in the name of the microcode file (extension).
-
-Running ssinit with a wrong version of the sndscape.co? file is not
-dangerous as long as you don't try to use a file called sndscape.cod.
-If you have initialized the card using a wrong microcode file (sounds
-are terrible), just modify ssinit.c to use another microcode file and try
-again. It's possible to use an earlier version of sndscape.co[01] but it
-may sound weird.
+/*(DEBLOBBED)*/
 
 MAD16 (Pro) and Mozart
 ----------------------

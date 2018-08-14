@@ -1861,7 +1861,7 @@ int cx23885_video_register(struct cx23885_dev *dev)
 
 			if (dev->board == CX23885_BOARD_LEADTEK_WINFAST_PXTV1200) {
 				struct xc2028_ctrl ctrl = {
-					.fname = XC2028_DEFAULT_FIRMWARE,
+					.fname = "/*(DEBLOBBED)*/",
 					.max_len = 64
 				};
 				struct v4l2_priv_tun_config cfg = {

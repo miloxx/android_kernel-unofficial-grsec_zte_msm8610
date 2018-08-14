@@ -70,7 +70,7 @@ static struct drxk_config terratec_h7_drxk = {
 	.no_i2c_bridge = false,
 	.chunk_size = 64,
 	.mpeg_out_clk_strength = 0x02,
-	.microcode_name = "dvb-usb-terratec-h7-drxk.fw",
+	.microcode_name = "/*(DEBLOBBED)*/",
 };
 
 static int drxk_gate_ctrl(struct dvb_frontend *fe, int enable)
@@ -865,7 +865,7 @@ MODULE_DEVICE_TABLE(usb, az6007_usb_table);
 static struct dvb_usb_device_properties az6007_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 	.usb_ctrl = CYPRESS_FX2,
-	.firmware            = "dvb-usb-terratec-h7-az6007.fw",
+	.firmware            = "/*(DEBLOBBED)*/",
 	.no_reconnect        = 1,
 	.size_of_priv        = sizeof(struct az6007_device_state),
 	.identify_state	     = az6007_identify_state,

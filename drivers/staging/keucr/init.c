@@ -125,6 +125,7 @@ int ENE_LoadBinCode(struct us_data *us, BYTE flag)
 	if (us->BIN_FLAG == flag)
 		return USB_STOR_TRANSPORT_GOOD;
 
+	return /*(DEBLOBBED)*/ USB_STOR_TRANSPORT_ERROR;
 	buf = kmalloc(0x800, GFP_KERNEL);
 	if (buf == NULL)
 		return USB_STOR_TRANSPORT_ERROR;

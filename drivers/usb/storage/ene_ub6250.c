@@ -1883,35 +1883,35 @@ static int ene_load_bincode(struct us_data *us, unsigned char flag)
 	/* For SD */
 	case SD_INIT1_PATTERN:
 		US_DEBUGP("SD_INIT1_PATTERN\n");
-		fw_name = "ene-ub6250/sd_init1.bin";
+		fw_name = "/*(DEBLOBBED)*/";
 		break;
 	case SD_INIT2_PATTERN:
 		US_DEBUGP("SD_INIT2_PATTERN\n");
-		fw_name = "ene-ub6250/sd_init2.bin";
+		fw_name = "/*(DEBLOBBED)*/";
 		break;
 	case SD_RW_PATTERN:
 		US_DEBUGP("SD_RDWR_PATTERN\n");
-		fw_name = "ene-ub6250/sd_rdwr.bin";
+		fw_name = "/*(DEBLOBBED)*/";
 		break;
 	/* For MS */
 	case MS_INIT_PATTERN:
 		US_DEBUGP("MS_INIT_PATTERN\n");
-		fw_name = "ene-ub6250/ms_init.bin";
+		fw_name = "/*(DEBLOBBED)*/";
 		break;
 	case MSP_RW_PATTERN:
 		US_DEBUGP("MSP_RW_PATTERN\n");
-		fw_name = "ene-ub6250/msp_rdwr.bin";
+		fw_name = "/*(DEBLOBBED)*/";
 		break;
 	case MS_RW_PATTERN:
 		US_DEBUGP("MS_RW_PATTERN\n");
-		fw_name = "ene-ub6250/ms_rdwr.bin";
+		fw_name = "/*(DEBLOBBED)*/";
 		break;
 	default:
 		US_DEBUGP("----------- Unknown PATTERN ----------\n");
 		goto nofw;
 	}
 
-	err = request_firmware(&sd_fw, fw_name, &us->pusb_dev->dev);
+	err = reject_firmware(&sd_fw, fw_name, &us->pusb_dev->dev);
 	if (err) {
 		US_DEBUGP("load firmware %s failed\n", fw_name);
 		goto nofw;

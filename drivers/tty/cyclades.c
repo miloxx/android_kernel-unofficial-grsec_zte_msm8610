@@ -3538,7 +3538,7 @@ static int __devinit cyz_load_fw(struct pci_dev *pdev, void __iomem *base_addr,
 	unsigned int i;
 	int retval;
 
-	retval = request_firmware(&fw, "cyzfirm.bin", &pdev->dev);
+	retval = reject_firmware(&fw, "/*(DEBLOBBED)*/", &pdev->dev);
 	if (retval) {
 		dev_err(&pdev->dev, "can't get firmware\n");
 		goto err;
@@ -4178,4 +4178,4 @@ module_exit(cy_cleanup_module);
 MODULE_LICENSE("GPL");
 MODULE_VERSION(CY_VERSION);
 MODULE_ALIAS_CHARDEV_MAJOR(CYCLADES_MAJOR);
-MODULE_FIRMWARE("cyzfirm.bin");
+/*(DEBLOBBED)*/

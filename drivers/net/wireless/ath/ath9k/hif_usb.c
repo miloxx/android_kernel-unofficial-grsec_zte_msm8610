@@ -18,11 +18,10 @@
 #include "htc.h"
 
 /* identify firmware images */
-#define FIRMWARE_AR7010_1_1     "htc_7010.fw"
-#define FIRMWARE_AR9271         "htc_9271.fw"
+#define FIRMWARE_AR7010_1_1     "/*(DEBLOBBED)*/"
+#define FIRMWARE_AR9271         "/*(DEBLOBBED)*/"
 
-MODULE_FIRMWARE(FIRMWARE_AR7010_1_1);
-MODULE_FIRMWARE(FIRMWARE_AR9271);
+/*(DEBLOBBED)*/
 
 static struct usb_device_id ath9k_hif_usb_ids[] = {
 	{ USB_DEVICE(0x0cf3, 0x9271) }, /* Atheros */
@@ -1223,7 +1222,7 @@ static int ath9k_hif_usb_probe(struct usb_interface *interface,
 	else
 		hif_dev->fw_name = FIRMWARE_AR9271;
 
-	ret = request_firmware_nowait(THIS_MODULE, true, hif_dev->fw_name,
+	ret = reject_firmware_nowait(THIS_MODULE, true, hif_dev->fw_name,
 				      &hif_dev->udev->dev, GFP_KERNEL,
 				      hif_dev, ath9k_hif_usb_firmware_cb);
 	if (ret) {

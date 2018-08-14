@@ -739,7 +739,7 @@ static int __devinit siu_probe(struct platform_device *pdev)
 	siu_i2s_data = info;
 	info->dev = &pdev->dev;
 
-	ret = request_firmware(&fw_entry, "siu_spb.bin", &pdev->dev);
+	ret = reject_firmware(&fw_entry, "/*(DEBLOBBED)*/", &pdev->dev);
 	if (ret)
 		goto ereqfw;
 

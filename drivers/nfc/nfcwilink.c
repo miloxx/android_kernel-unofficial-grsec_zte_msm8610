@@ -191,7 +191,7 @@ static int nfcwilink_get_bts_file_name(struct nfcwilink *drv, char *file_name)
 	}
 
 	snprintf(file_name, BTS_FILE_NAME_MAX_SIZE,
-			"TINfcInit_%d.%d.%d.%d.bts",
+			"/*(DEBLOBBED)*/",
 			drv->nfcc_info.hw_id,
 			drv->nfcc_info.sw_ver_x,
 			drv->nfcc_info.sw_ver_z,
@@ -269,9 +269,9 @@ static int nfcwilink_download_fw(struct nfcwilink *drv)
 	if (rc)
 		goto exit;
 
-	rc = request_firmware(&fw, file_name, &drv->pdev->dev);
+	rc = reject_firmware(&fw, file_name, &drv->pdev->dev);
 	if (rc) {
-		nfc_dev_err(&drv->pdev->dev, "request_firmware failed %d", rc);
+		nfc_dev_err(&drv->pdev->dev, "reject_firmware failed %d", rc);
 
 		/* if the file is not found, don't exit with failure */
 		if (rc == -ENOENT)
@@ -285,7 +285,7 @@ static int nfcwilink_download_fw(struct nfcwilink *drv)
 
 	if ((len == 0) || (ptr == NULL)) {
 		nfc_dev_dbg(&drv->pdev->dev,
-				"request_firmware returned size %d", len);
+				"reject_firmware returned size %d", len);
 		goto release_fw;
 	}
 

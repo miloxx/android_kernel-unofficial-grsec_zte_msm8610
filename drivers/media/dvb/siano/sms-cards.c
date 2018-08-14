@@ -48,23 +48,23 @@ static struct sms_board sms_boards[] = {
 	[SMS1XXX_BOARD_HAUPPAUGE_CATAMOUNT] = {
 		.name	= "Hauppauge Catamount",
 		.type	= SMS_STELLAR,
-		.fw[DEVICE_MODE_DVBT_BDA] = "sms1xxx-stellar-dvbt-01.fw",
+		.fw[DEVICE_MODE_DVBT_BDA] = "/*(DEBLOBBED)*/",
 	},
 	[SMS1XXX_BOARD_HAUPPAUGE_OKEMO_A] = {
 		.name	= "Hauppauge Okemo-A",
 		.type	= SMS_NOVA_A0,
-		.fw[DEVICE_MODE_DVBT_BDA] = "sms1xxx-nova-a-dvbt-01.fw",
+		.fw[DEVICE_MODE_DVBT_BDA] = "/*(DEBLOBBED)*/",
 	},
 	[SMS1XXX_BOARD_HAUPPAUGE_OKEMO_B] = {
 		.name	= "Hauppauge Okemo-B",
 		.type	= SMS_NOVA_B0,
-		.fw[DEVICE_MODE_DVBT_BDA] = "sms1xxx-nova-b-dvbt-01.fw",
+		.fw[DEVICE_MODE_DVBT_BDA] = "/*(DEBLOBBED)*/",
 	},
 	[SMS1XXX_BOARD_HAUPPAUGE_WINDHAM] = {
 		.name	= "Hauppauge WinTV MiniStick",
 		.type	= SMS_NOVA_B0,
-		.fw[DEVICE_MODE_ISDBT_BDA] = "sms1xxx-hcw-55xxx-isdbt-02.fw",
-		.fw[DEVICE_MODE_DVBT_BDA] = "sms1xxx-hcw-55xxx-dvbt-02.fw",
+		.fw[DEVICE_MODE_ISDBT_BDA] = "/*(DEBLOBBED)*/",
+		.fw[DEVICE_MODE_DVBT_BDA] = "/*(DEBLOBBED)*/",
 		.rc_codes = RC_MAP_HAUPPAUGE,
 		.board_cfg.leds_power = 26,
 		.board_cfg.led0 = 27,
@@ -77,7 +77,7 @@ static struct sms_board sms_boards[] = {
 	[SMS1XXX_BOARD_HAUPPAUGE_TIGER_MINICARD] = {
 		.name	= "Hauppauge WinTV MiniCard",
 		.type	= SMS_NOVA_B0,
-		.fw[DEVICE_MODE_DVBT_BDA] = "sms1xxx-hcw-55xxx-dvbt-02.fw",
+		.fw[DEVICE_MODE_DVBT_BDA] = "/*(DEBLOBBED)*/",
 		.lna_ctrl  = 29,
 		.board_cfg.foreign_lna0_ctrl = 29,
 		.rf_switch = 17,
@@ -86,7 +86,7 @@ static struct sms_board sms_boards[] = {
 	[SMS1XXX_BOARD_HAUPPAUGE_TIGER_MINICARD_R2] = {
 		.name	= "Hauppauge WinTV MiniCard",
 		.type	= SMS_NOVA_B0,
-		.fw[DEVICE_MODE_DVBT_BDA] = "sms1xxx-hcw-55xxx-dvbt-02.fw",
+		.fw[DEVICE_MODE_DVBT_BDA] = "/*(DEBLOBBED)*/",
 		.lna_ctrl  = -1,
 	},
 	[SMS1XXX_BOARD_SIANO_NICE] = {

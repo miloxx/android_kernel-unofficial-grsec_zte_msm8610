@@ -65,7 +65,7 @@ struct saa7134_go7007 {
 };
 
 static struct go7007_board_info board_voyager = {
-	.firmware	 = "go7007tv.bin",
+	.firmware	 = "/*(DEBLOBBED)*/",
 	.flags		 = 0,
 	.sensor_flags	 = GO7007_SENSOR_656 |
 				GO7007_SENSOR_VALID_ENABLE |
@@ -84,7 +84,7 @@ static struct go7007_board_info board_voyager = {
 		},
 	},
 };
-MODULE_FIRMWARE("go7007tv.bin");
+/*(DEBLOBBED)*/
 
 /********************* Driver for GPIO HPI interface *********************/
 

@@ -6,14 +6,7 @@
  * Copyright (C) 2004 Sun Microsystems Inc.
  * Copyright (C) 2005-2012 Broadcom Corporation.
  *
- * Firmware is:
- *	Derived from proprietary unpublished source code,
- *	Copyright (C) 2000-2003 Broadcom Corporation.
- *
- *	Permission is hereby granted for the distribution of this firmware
- *	data in hexadecimal or equivalent format, provided this copyright
- *	notice is accompanying it.
- */
+/*(DEBLOBBED)*/
 
 
 #include <linux/module.h>
@@ -205,9 +198,9 @@ static inline void _tg3_flag_clear(enum TG3_FLAGS flag, unsigned long *bits)
 #define TG3_FW_UPDATE_TIMEOUT_SEC	5
 #define TG3_FW_UPDATE_FREQ_SEC		(TG3_FW_UPDATE_TIMEOUT_SEC / 2)
 
-#define FIRMWARE_TG3		"tigon/tg3.bin"
-#define FIRMWARE_TG3TSO		"tigon/tg3_tso.bin"
-#define FIRMWARE_TG3TSO5	"tigon/tg3_tso5.bin"
+#define FIRMWARE_TG3		"/*(DEBLOBBED)*/"
+#define FIRMWARE_TG3TSO		"/*(DEBLOBBED)*/"
+#define FIRMWARE_TG3TSO5	"/*(DEBLOBBED)*/"
 
 static char version[] __devinitdata =
 	DRV_MODULE_NAME ".c:v" DRV_MODULE_VERSION " (" DRV_MODULE_RELDATE ")";
@@ -216,9 +209,7 @@ MODULE_AUTHOR("David S. Miller (davem@redhat.com) and Jeff Garzik (jgarzik@pobox
 MODULE_DESCRIPTION("Broadcom Tigon3 ethernet driver");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(DRV_MODULE_VERSION);
-MODULE_FIRMWARE(FIRMWARE_TG3);
-MODULE_FIRMWARE(FIRMWARE_TG3TSO);
-MODULE_FIRMWARE(FIRMWARE_TG3TSO5);
+/*(DEBLOBBED)*/
 
 static int tg3_debug = -1;	/* -1 == use TG3_DEF_MSG_ENABLE as value */
 module_param(tg3_debug, int, 0);
@@ -9846,11 +9837,11 @@ static int tg3_test_msi(struct tg3 *tp)
 	return err;
 }
 
-static int tg3_request_firmware(struct tg3 *tp)
+static int tg3_reject_firmware(struct tg3 *tp)
 {
 	const __be32 *fw_data;
 
-	if (request_firmware(&tp->fw, tp->fw_needed, &tp->pdev->dev)) {
+	if (reject_firmware(&tp->fw, tp->fw_needed, &tp->pdev->dev)) {
 		netdev_err(tp->dev, "Failed to load firmware \"%s\"\n",
 			   tp->fw_needed);
 		return -ENOENT;
@@ -9983,7 +9974,7 @@ static int tg3_open(struct net_device *dev)
 	int i, err;
 
 	if (tp->fw_needed) {
-		err = tg3_request_firmware(tp);
+		err = tg3_reject_firmware(tp);
 		if (tp->pci_chip_rev_id == CHIPREV_ID_5701_A0) {
 			if (err)
 				return err;

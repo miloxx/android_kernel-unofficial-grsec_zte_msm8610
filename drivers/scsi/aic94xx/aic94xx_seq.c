@@ -1233,7 +1233,7 @@ int asd_release_firmware(void)
 	return 0;
 }
 
-static int asd_request_firmware(struct asd_ha_struct *asd_ha)
+static int asd_reject_firmware(struct asd_ha_struct *asd_ha)
 {
 	int err, i;
 	struct sequencer_file_header header;
@@ -1245,7 +1245,7 @@ static int asd_request_firmware(struct asd_ha_struct *asd_ha)
 		/* already loaded */
 		return 0;
 
-	err = request_firmware(&sequencer_fw,
+	err = reject_firmware(&sequencer_fw,
 			       SAS_RAZOR_SEQUENCER_FW_FILE,
 			       &asd_ha->pcidev->dev);
 	if (err)
@@ -1316,7 +1316,7 @@ int asd_init_seqs(struct asd_ha_struct *asd_ha)
 {
 	int err;
 
-	err = asd_request_firmware(asd_ha);
+	err = asd_reject_firmware(asd_ha);
 
 	if (err) {
 		asd_printk("Failed to load sequencer firmware file %s, error %d\n",
@@ -1413,4 +1413,4 @@ void asd_update_port_links(struct asd_ha_struct *asd_ha, struct asd_phy *phy)
 		asd_printk("couldn't update DDB 0:error:%d\n", err);
 }
 
-MODULE_FIRMWARE(SAS_RAZOR_SEQUENCER_FW_FILE);
+/*(DEBLOBBED)*/

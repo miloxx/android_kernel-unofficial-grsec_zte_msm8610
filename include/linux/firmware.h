@@ -72,4 +72,77 @@ static inline void release_firmware(const struct firmware *fw)
 }
 #endif
 
+#ifndef _LINUX_LIBRE_FIRMWARE_H
+#define _LINUX_LIBRE_FIRMWARE_H
+
+#include <linux/device.h>
+
+#define NONFREE_FIRMWARE "/*(DEBLOBBED)*/"
+
+static inline int
+report_missing_free_firmware(const char *name, const char *what)
+{
+	printk(KERN_ERR "%s: Missing Free %s\n", name,
+	       what ? what : "firmware");
+	return -EINVAL;
+}
+static inline int
+reject_firmware(const struct firmware **fw,
+		const char *name, struct device *device)
+{
+	const struct firmware *xfw = NULL;
+	int retval;
+	report_missing_free_firmware(dev_name(device), NULL);
+	retval = request_firmware(&xfw, NONFREE_FIRMWARE, device);
+	if (!retval)
+		release_firmware(xfw);
+	return -EINVAL;
+}
+static inline int
+maybe_reject_firmware(const struct firmware **fw,
+		      const char *name, struct device *device)
+{
+	if (strstr (name, NONFREE_FIRMWARE))
+		return reject_firmware(fw, name, device);
+	else
+		return request_firmware(fw, name, device);
+}
+static inline void
+discard_rejected_firmware(const struct firmware *fw, void *context)
+{
+	release_firmware(fw);
+}
+static inline int
+reject_firmware_nowait(struct module *module, int uevent,
+		       const char *name, struct device *device,
+		       gfp_t gfp, void *context,
+		       void (*cont)(const struct firmware *fw,
+				    void *context))
+{
+	int retval;
+	report_missing_free_firmware(dev_name(device), NULL);
+	retval = request_firmware_nowait(module, uevent, NONFREE_FIRMWARE,
+					 device, gfp, NULL,
+					 discard_rejected_firmware);
+	if (retval)
+		return retval;
+	return -EINVAL;
+}
+static inline int
+maybe_reject_firmware_nowait(struct module *module, int uevent,
+			     const char *name, struct device *device,
+			     gfp_t gfp, void *context,
+			     void (*cont)(const struct firmware *fw,
+					  void *context))
+{
+	if (strstr (name, NONFREE_FIRMWARE))
+		return reject_firmware_nowait(module, uevent, name,
+					      device, gfp, context, cont);
+	else
+		return request_firmware_nowait(module, uevent, name,
+					       device, gfp, context, cont);
+}
+
+#endif /* _LINUX_LIBRE_FIRMWARE_H */
+
 #endif

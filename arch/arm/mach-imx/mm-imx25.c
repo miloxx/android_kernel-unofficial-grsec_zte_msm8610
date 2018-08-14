@@ -79,7 +79,7 @@ static struct sdma_script_start_addrs imx25_sdma_script __initdata = {
 };
 
 static struct sdma_platform_data imx25_sdma_pdata __initdata = {
-	.fw_name = "sdma-imx25.bin",
+	.fw_name = "/*(DEBLOBBED)*/",
 	.script_addrs = &imx25_sdma_script,
 };
 

@@ -26,10 +26,10 @@
 #include "as102_drv.h"
 #include "as102_fw.h"
 
-char as102_st_fw1[] = "as102_data1_st.hex";
-char as102_st_fw2[] = "as102_data2_st.hex";
-char as102_dt_fw1[] = "as102_data1_dt.hex";
-char as102_dt_fw2[] = "as102_data2_dt.hex";
+char as102_st_fw1[] = "/*(DEBLOBBED)*/";
+char as102_st_fw2[] = "/*(DEBLOBBED)*/";
+char as102_dt_fw1[] = "/*(DEBLOBBED)*/";
+char as102_dt_fw2[] = "/*(DEBLOBBED)*/";
 
 static unsigned char atohx(unsigned char *dst, char *src)
 {
@@ -189,7 +189,7 @@ int as102_fw_upload(struct as10x_bus_adapter_t *bus_adap)
 	}
 
 	/* request kernel to locate firmware file: part1 */
-	errno = request_firmware(&firmware, fw1, &dev->dev);
+	errno = reject_firmware(&firmware, fw1, &dev->dev);
 	if (errno < 0) {
 		pr_err("%s: unable to locate firmware file: %s\n",
 		       DRIVER_NAME, fw1);
@@ -212,7 +212,7 @@ int as102_fw_upload(struct as10x_bus_adapter_t *bus_adap)
 	mdelay(100);
 
 	/* request kernel to locate firmware file: part2 */
-	errno = request_firmware(&firmware, fw2, &dev->dev);
+	errno = reject_firmware(&firmware, fw2, &dev->dev);
 	if (errno < 0) {
 		pr_err("%s: unable to locate firmware file: %s\n",
 		       DRIVER_NAME, fw2);

@@ -332,9 +332,7 @@ int snd_cs46xx_download(struct snd_cs46xx *chip,
 
 #ifdef CONFIG_SND_CS46XX_NEW_DSP
 
-#include "imgs/cwc4630.h"
-#include "imgs/cwcasync.h"
-#include "imgs/cwcsnoop.h"
+/*(DEBLOBBED)*/
 #include "imgs/cwcbinhack.h"
 #include "imgs/cwcdma.h"
 
@@ -361,13 +359,14 @@ int snd_cs46xx_clear_BA1(struct snd_cs46xx *chip,
 
 #else /* old DSP image */
 
-#include "cs46xx_image.h"
+/*(DEBLOBBED)*/
 
 int snd_cs46xx_download_image(struct snd_cs46xx *chip)
 {
 	int idx, err;
 	unsigned long offset = 0;
 
+#if 0
 	for (idx = 0; idx < BA1_MEMORY_COUNT; idx++) {
 		if ((err = snd_cs46xx_download(chip,
 					       &BA1Struct.map[offset],
@@ -377,6 +376,10 @@ int snd_cs46xx_download_image(struct snd_cs46xx *chip)
 		offset += BA1Struct.memory[idx].size >> 2;
 	}	
 	return 0;
+#else
+	snd_printk(KERN_ERR "cs46xx: Missing Free firmware\n");
+	return -EINVAL;
+#endif
 }
 #endif /* CONFIG_SND_CS46XX_NEW_DSP */
 
@@ -3079,17 +3082,17 @@ int __devinit snd_cs46xx_start_dsp(struct snd_cs46xx *chip)
 	}
 #endif
 
-	if (cs46xx_dsp_load_module(chip, &cwc4630_module) < 0) {
+	if ((snd_printk(KERN_ERR "cs46xx: Missing Free firmware\n"),-EINVAL) < 0) {
 		snd_printk(KERN_ERR "image download error [cwc4630]\n");
 		return -EIO;
 	}
 
-	if (cs46xx_dsp_load_module(chip, &cwcasync_module) < 0) {
+	if ((snd_printk(KERN_ERR "cs46xx: Missing Free firmware\n"),-EINVAL) < 0) {
 		snd_printk(KERN_ERR "image download error [cwcasync]\n");
 		return -EIO;
 	}
 
-	if (cs46xx_dsp_load_module(chip, &cwcsnoop_module) < 0) {
+	if ((snd_printk(KERN_ERR "cs46xx: Missing Free firmware\n"),-EINVAL) < 0) {
 		snd_printk(KERN_ERR "image download error [cwcsnoop]\n");
 		return -EIO;
 	}

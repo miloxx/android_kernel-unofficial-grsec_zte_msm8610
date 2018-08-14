@@ -727,11 +727,11 @@ nvc0_graph_create_fw(struct drm_device *dev, const char *fwname,
 	char f[32];
 	int ret;
 
-	snprintf(f, sizeof(f), "nouveau/nv%02x_%s", dev_priv->chipset, fwname);
-	ret = request_firmware(&fw, f, &dev->pdev->dev);
+	snprintf(f, sizeof(f), "/*(DEBLOBBED)*/", dev_priv->chipset, fwname);
+	ret = reject_firmware(&fw, f, &dev->pdev->dev);
 	if (ret) {
-		snprintf(f, sizeof(f), "nouveau/%s", fwname);
-		ret = request_firmware(&fw, f, &dev->pdev->dev);
+		snprintf(f, sizeof(f), "/*(DEBLOBBED)*/", fwname);
+		ret = reject_firmware(&fw, f, &dev->pdev->dev);
 		if (ret) {
 			NV_ERROR(dev, "failed to load %s\n", fwname);
 			return ret;

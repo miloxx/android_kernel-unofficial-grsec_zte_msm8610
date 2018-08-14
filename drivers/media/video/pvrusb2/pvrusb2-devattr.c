@@ -55,7 +55,7 @@ static const struct pvr2_device_client_desc pvr2_cli_29xxx[] = {
 };
 
 static const char *pvr2_fw1_names_29xxx[] = {
-		"v4l-pvrusb2-29xxx-01.fw",
+		"/*(DEBLOBBED)*/",
 };
 
 static const struct pvr2_device_desc pvr2_device_29xxx = {
@@ -88,7 +88,7 @@ static const struct pvr2_device_client_desc pvr2_cli_24xxx[] = {
 };
 
 static const char *pvr2_fw1_names_24xxx[] = {
-		"v4l-pvrusb2-24xxx-01.fw",
+		"/*(DEBLOBBED)*/",
 };
 
 static const struct pvr2_device_desc pvr2_device_24xxx = {
@@ -370,7 +370,7 @@ static const struct pvr2_device_client_desc pvr2_cli_73xxx[] = {
 };
 
 static const char *pvr2_fw1_names_73xxx[] = {
-		"v4l-pvrusb2-73xxx-01.fw",
+		"/*(DEBLOBBED)*/",
 };
 
 static const struct pvr2_device_desc pvr2_device_73xxx = {
@@ -476,7 +476,7 @@ static const struct pvr2_dvb_props pvr2_751xx_dvb_props = {
 #endif
 
 static const char *pvr2_fw1_names_75xxx[] = {
-		"v4l-pvrusb2-73xxx-01.fw",
+		"/*(DEBLOBBED)*/",
 };
 
 static const struct pvr2_device_desc pvr2_device_750xx = {

@@ -277,11 +277,11 @@ static int kworld_sbtvd_gate_ctrl(struct dvb_frontend* fe, int enable)
  * tda1004x based DVB-T cards, helper functions
  */
 
-static int philips_tda1004x_request_firmware(struct dvb_frontend *fe,
+static int philips_tda1004x_reject_firmware(struct dvb_frontend *fe,
 					   const struct firmware **fw, char *name)
 {
 	struct saa7134_dev *dev = fe->dvb->priv;
-	return request_firmware(fw, name, &dev->pci->dev);
+	return reject_firmware(fw, name, &dev->pci->dev);
 }
 
 /* ------------------------------------------------------------------
@@ -405,7 +405,7 @@ static struct tda1004x_config philips_tu1216_60_config = {
 	.agc_config    = TDA10046_AGC_DEFAULT,
 	.if_freq       = TDA10046_FREQ_3617,
 	.tuner_address = 0x60,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config philips_tu1216_61_config = {
@@ -417,7 +417,7 @@ static struct tda1004x_config philips_tu1216_61_config = {
 	.agc_config    = TDA10046_AGC_DEFAULT,
 	.if_freq       = TDA10046_FREQ_3617,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 /* ------------------------------------------------------------------ */
@@ -513,7 +513,7 @@ static struct tda1004x_config philips_europa_config = {
 	.agc_config    = TDA10046_AGC_IFO_AUTO_POS,
 	.if_freq       = TDA10046_FREQ_052,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config medion_cardbus = {
@@ -524,7 +524,7 @@ static struct tda1004x_config medion_cardbus = {
 	.agc_config    = TDA10046_AGC_IFO_AUTO_NEG,
 	.if_freq       = TDA10046_FREQ_3613,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config technotrend_budget_t3000_config = {
@@ -535,7 +535,7 @@ static struct tda1004x_config technotrend_budget_t3000_config = {
 	.agc_config    = TDA10046_AGC_DEFAULT,
 	.if_freq       = TDA10046_FREQ_3617,
 	.tuner_address = 0x63,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 /* ------------------------------------------------------------------
@@ -663,7 +663,7 @@ static struct tda1004x_config tda827x_lifeview_config = {
 	.gpio_config   = TDA10046_GP11_I,
 	.if_freq       = TDA10046_FREQ_045,
 	.tuner_address = 0x60,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config philips_tiger_config = {
@@ -677,7 +677,7 @@ static struct tda1004x_config philips_tiger_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch= 1,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config cinergy_ht_config = {
@@ -690,7 +690,7 @@ static struct tda1004x_config cinergy_ht_config = {
 	.if_freq       = TDA10046_FREQ_045,
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config cinergy_ht_pci_config = {
@@ -703,7 +703,7 @@ static struct tda1004x_config cinergy_ht_pci_config = {
 	.if_freq       = TDA10046_FREQ_045,
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x60,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config philips_tiger_s_config = {
@@ -717,7 +717,7 @@ static struct tda1004x_config philips_tiger_s_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch= 1,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config pinnacle_pctv_310i_config = {
@@ -730,7 +730,7 @@ static struct tda1004x_config pinnacle_pctv_310i_config = {
 	.if_freq       = TDA10046_FREQ_045,
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config hauppauge_hvr_1110_config = {
@@ -743,7 +743,7 @@ static struct tda1004x_config hauppauge_hvr_1110_config = {
 	.if_freq       = TDA10046_FREQ_045,
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config asus_p7131_dual_config = {
@@ -757,7 +757,7 @@ static struct tda1004x_config asus_p7131_dual_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch= 2,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config lifeview_trio_config = {
@@ -769,7 +769,7 @@ static struct tda1004x_config lifeview_trio_config = {
 	.gpio_config   = TDA10046_GP00_I,
 	.if_freq       = TDA10046_FREQ_045,
 	.tuner_address = 0x60,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config tevion_dvbt220rf_config = {
@@ -781,7 +781,7 @@ static struct tda1004x_config tevion_dvbt220rf_config = {
 	.gpio_config   = TDA10046_GP11_I,
 	.if_freq       = TDA10046_FREQ_045,
 	.tuner_address = 0x60,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config md8800_dvbt_config = {
@@ -794,7 +794,7 @@ static struct tda1004x_config md8800_dvbt_config = {
 	.if_freq       = TDA10046_FREQ_045,
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x60,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config asus_p7131_4871_config = {
@@ -808,7 +808,7 @@ static struct tda1004x_config asus_p7131_4871_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch= 2,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config asus_p7131_hybrid_lna_config = {
@@ -822,7 +822,7 @@ static struct tda1004x_config asus_p7131_hybrid_lna_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch= 2,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config kworld_dvb_t_210_config = {
@@ -836,7 +836,7 @@ static struct tda1004x_config kworld_dvb_t_210_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch= 1,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config avermedia_super_007_config = {
@@ -850,7 +850,7 @@ static struct tda1004x_config avermedia_super_007_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x60,
 	.antenna_switch= 1,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config twinhan_dtv_dvb_3056_config = {
@@ -864,7 +864,7 @@ static struct tda1004x_config twinhan_dtv_dvb_3056_config = {
 	.i2c_gate      = 0x42,
 	.tuner_address = 0x61,
 	.antenna_switch = 1,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct tda1004x_config asus_tiger_3in1_config = {
@@ -878,7 +878,7 @@ static struct tda1004x_config asus_tiger_3in1_config = {
 	.i2c_gate      = 0x4b,
 	.tuner_address = 0x61,
 	.antenna_switch = 1,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 /* ------------------------------------------------------------------
@@ -918,7 +918,7 @@ static struct tda1004x_config ads_tech_duo_config = {
 	.gpio_config   = TDA10046_GP00_I,
 	.if_freq       = TDA10046_FREQ_045,
 	.tuner_address = 0x61,
-	.request_firmware = philips_tda1004x_request_firmware
+	.reject_firmware = philips_tda1004x_reject_firmware
 };
 
 static struct zl10353_config behold_h6_config = {

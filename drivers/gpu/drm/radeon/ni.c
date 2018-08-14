@@ -58,23 +58,7 @@ extern int si_rlc_init(struct radeon_device *rdev);
 #define ARUBA_RLC_UCODE_SIZE 1536
 
 /* Firmware Names */
-MODULE_FIRMWARE("radeon/BARTS_pfp.bin");
-MODULE_FIRMWARE("radeon/BARTS_me.bin");
-MODULE_FIRMWARE("radeon/BARTS_mc.bin");
-MODULE_FIRMWARE("radeon/BTC_rlc.bin");
-MODULE_FIRMWARE("radeon/TURKS_pfp.bin");
-MODULE_FIRMWARE("radeon/TURKS_me.bin");
-MODULE_FIRMWARE("radeon/TURKS_mc.bin");
-MODULE_FIRMWARE("radeon/CAICOS_pfp.bin");
-MODULE_FIRMWARE("radeon/CAICOS_me.bin");
-MODULE_FIRMWARE("radeon/CAICOS_mc.bin");
-MODULE_FIRMWARE("radeon/CAYMAN_pfp.bin");
-MODULE_FIRMWARE("radeon/CAYMAN_me.bin");
-MODULE_FIRMWARE("radeon/CAYMAN_mc.bin");
-MODULE_FIRMWARE("radeon/CAYMAN_rlc.bin");
-MODULE_FIRMWARE("radeon/ARUBA_pfp.bin");
-MODULE_FIRMWARE("radeon/ARUBA_me.bin");
-MODULE_FIRMWARE("radeon/ARUBA_rlc.bin");
+/*(DEBLOBBED)*/
 
 #define BTC_IO_MC_REGS_SIZE 29
 
@@ -175,35 +159,7 @@ static const u32 caicos_io_mc_regs[BTC_IO_MC_REGS_SIZE][2] = {
 };
 
 static const u32 cayman_io_mc_regs[BTC_IO_MC_REGS_SIZE][2] = {
-	{0x00000077, 0xff010100},
-	{0x00000078, 0x00000000},
-	{0x00000079, 0x00001434},
-	{0x0000007a, 0xcc08ec08},
-	{0x0000007b, 0x00040000},
-	{0x0000007c, 0x000080c0},
-	{0x0000007d, 0x09000000},
-	{0x0000007e, 0x00210404},
-	{0x00000081, 0x08a8e800},
-	{0x00000082, 0x00030444},
-	{0x00000083, 0x00000000},
-	{0x00000085, 0x00000001},
-	{0x00000086, 0x00000002},
-	{0x00000087, 0x48490000},
-	{0x00000088, 0x20244647},
-	{0x00000089, 0x00000005},
-	{0x0000008b, 0x66030000},
-	{0x0000008c, 0x00006603},
-	{0x0000008d, 0x00000100},
-	{0x0000008f, 0x00001c0a},
-	{0x00000090, 0xff000001},
-	{0x00000094, 0x00101101},
-	{0x00000095, 0x00000fff},
-	{0x00000096, 0x00116fff},
-	{0x00000097, 0x60010000},
-	{0x00000098, 0x10010000},
-	{0x00000099, 0x00006000},
-	{0x0000009a, 0x00001000},
-	{0x0000009f, 0x00976b00}
+	{/*(DEBLOBBED)*/}
 };
 
 int ni_mc_load_microcode(struct radeon_device *rdev)
@@ -347,8 +303,8 @@ int ni_init_microcode(struct radeon_device *rdev)
 
 	DRM_INFO("Loading %s Microcode\n", chip_name);
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_pfp.bin", chip_name);
-	err = request_firmware(&rdev->pfp_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+	err = reject_firmware(&rdev->pfp_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (rdev->pfp_fw->size != pfp_req_size) {
@@ -359,8 +315,8 @@ int ni_init_microcode(struct radeon_device *rdev)
 		goto out;
 	}
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_me.bin", chip_name);
-	err = request_firmware(&rdev->me_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+	err = reject_firmware(&rdev->me_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (rdev->me_fw->size != me_req_size) {
@@ -370,8 +326,8 @@ int ni_init_microcode(struct radeon_device *rdev)
 		err = -EINVAL;
 	}
 
-	snprintf(fw_name, sizeof(fw_name), "radeon/%s_rlc.bin", rlc_chip_name);
-	err = request_firmware(&rdev->rlc_fw, fw_name, &pdev->dev);
+	snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", rlc_chip_name);
+	err = reject_firmware(&rdev->rlc_fw, fw_name, &pdev->dev);
 	if (err)
 		goto out;
 	if (rdev->rlc_fw->size != rlc_req_size) {
@@ -383,8 +339,8 @@ int ni_init_microcode(struct radeon_device *rdev)
 
 	/* no MC ucode on TN */
 	if (!(rdev->flags & RADEON_IS_IGP)) {
-		snprintf(fw_name, sizeof(fw_name), "radeon/%s_mc.bin", chip_name);
-		err = request_firmware(&rdev->mc_fw, fw_name, &pdev->dev);
+		snprintf(fw_name, sizeof(fw_name), "/*(DEBLOBBED)*/", chip_name);
+		err = reject_firmware(&rdev->mc_fw, fw_name, &pdev->dev);
 		if (err)
 			goto out;
 		if (rdev->mc_fw->size != mc_req_size) {

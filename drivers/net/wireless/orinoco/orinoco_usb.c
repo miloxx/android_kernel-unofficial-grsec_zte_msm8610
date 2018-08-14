@@ -120,7 +120,7 @@ static int debug;
 module_param(debug, int, 0644);
 MODULE_PARM_DESC(debug, "Debug enabled or not");
 
-MODULE_FIRMWARE("orinoco_ezusb_fw");
+/*(DEBLOBBED)*/
 
 /*
  * Under some conditions, the card gets stuck and stops paying attention
@@ -1676,7 +1676,7 @@ static int ezusb_probe(struct usb_interface *interface,
 		goto error;
 	}
 
-	if (request_firmware(&fw_entry, "orinoco_ezusb_fw",
+	if (reject_firmware(&fw_entry, "/*(DEBLOBBED)*/",
 			     &interface->dev) == 0) {
 		firmware.size = fw_entry->size;
 		firmware.code = fw_entry->data;

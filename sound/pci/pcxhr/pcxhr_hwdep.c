@@ -367,18 +367,18 @@ static int pcxhr_dsp_load(struct pcxhr_mgr *mgr, int index,
 int pcxhr_setup_firmware(struct pcxhr_mgr *mgr)
 {
 	static char *fw_files[][5] = {
-	[0] = { "xlxint.dat", "xlxc882hr.dat",
-		"dspe882.e56", "dspb882hr.b56", "dspd882.d56" },
-	[1] = { "xlxint.dat", "xlxc882e.dat",
-		"dspe882.e56", "dspb882e.b56", "dspd882.d56" },
-	[2] = { "xlxint.dat", "xlxc1222hr.dat",
-		"dspe882.e56", "dspb1222hr.b56", "dspd1222.d56" },
-	[3] = { "xlxint.dat", "xlxc1222e.dat",
-		"dspe882.e56", "dspb1222e.b56", "dspd1222.d56" },
-	[4] = { NULL, "xlxc222.dat",
-		"dspe924.e56", "dspb924.b56", "dspd222.d56" },
-	[5] = { NULL, "xlxc924.dat",
-		"dspe924.e56", "dspb924.b56", "dspd222.d56" },
+	[0] = { "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/",
+		"/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/" },
+	[1] = { "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/",
+		"/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/" },
+	[2] = { "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/",
+		"/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/" },
+	[3] = { "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/",
+		"/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/" },
+	[4] = { NULL, "/*(DEBLOBBED)*/",
+		"/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/" },
+	[5] = { NULL, "/*(DEBLOBBED)*/",
+		"/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/" },
 	};
 	char path[32];
 
@@ -389,8 +389,8 @@ int pcxhr_setup_firmware(struct pcxhr_mgr *mgr)
 	for (i = 0; i < 5; i++) {
 		if (!fw_files[fw_set][i])
 			continue;
-		sprintf(path, "pcxhr/%s", fw_files[fw_set][i]);
-		if (request_firmware(&fw_entry, path, &mgr->pci->dev)) {
+		sprintf(path, "/*(DEBLOBBED)*/", fw_files[fw_set][i]);
+		if (reject_firmware(&fw_entry, path, &mgr->pci->dev)) {
 			snd_printk(KERN_ERR "pcxhr: can't load firmware %s\n",
 				   path);
 			return -ENOENT;
@@ -405,25 +405,7 @@ int pcxhr_setup_firmware(struct pcxhr_mgr *mgr)
 	return 0;
 }
 
-MODULE_FIRMWARE("pcxhr/xlxint.dat");
-MODULE_FIRMWARE("pcxhr/xlxc882hr.dat");
-MODULE_FIRMWARE("pcxhr/xlxc882e.dat");
-MODULE_FIRMWARE("pcxhr/dspe882.e56");
-MODULE_FIRMWARE("pcxhr/dspb882hr.b56");
-MODULE_FIRMWARE("pcxhr/dspb882e.b56");
-MODULE_FIRMWARE("pcxhr/dspd882.d56");
-
-MODULE_FIRMWARE("pcxhr/xlxc1222hr.dat");
-MODULE_FIRMWARE("pcxhr/xlxc1222e.dat");
-MODULE_FIRMWARE("pcxhr/dspb1222hr.b56");
-MODULE_FIRMWARE("pcxhr/dspb1222e.b56");
-MODULE_FIRMWARE("pcxhr/dspd1222.d56");
-
-MODULE_FIRMWARE("pcxhr/xlxc222.dat");
-MODULE_FIRMWARE("pcxhr/xlxc924.dat");
-MODULE_FIRMWARE("pcxhr/dspe924.e56");
-MODULE_FIRMWARE("pcxhr/dspb924.b56");
-MODULE_FIRMWARE("pcxhr/dspd222.d56");
+/*(DEBLOBBED)*/
 
 
 #else /* old style firmware loading */

@@ -641,7 +641,7 @@ static int smscore_load_firmware_from_file(struct smscore_device_t *coredev,
 					      SMS_DEVICE_FAMILY2))
 		return -EINVAL;
 
-	rc = request_firmware(&fw, filename, coredev->device);
+	rc = reject_firmware(&fw, filename, coredev->device);
 	if (rc < 0) {
 		sms_info("failed to open \"%s\"", filename);
 		return rc;
@@ -773,21 +773,21 @@ static int smscore_detect_mode(struct smscore_device_t *coredev)
 static char *smscore_fw_lkup[][SMS_NUM_OF_DEVICE_TYPES] = {
 	/*Stellar		NOVA A0		Nova B0		VEGA*/
 	/*DVBT*/
-	{"none", "dvb_nova_12mhz.inp", "dvb_nova_12mhz_b0.inp", "none"},
+	{"none", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "none"},
 	/*DVBH*/
-	{"none", "dvb_nova_12mhz.inp", "dvb_nova_12mhz_b0.inp", "none"},
+	{"none", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "none"},
 	/*TDMB*/
-	{"none", "tdmb_nova_12mhz.inp", "tdmb_nova_12mhz_b0.inp", "none"},
+	{"none", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "none"},
 	/*DABIP*/
 	{"none", "none", "none", "none"},
 	/*BDA*/
-	{"none", "dvb_nova_12mhz.inp", "dvb_nova_12mhz_b0.inp", "none"},
+	{"none", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "none"},
 	/*ISDBT*/
-	{"none", "isdbt_nova_12mhz.inp", "isdbt_nova_12mhz_b0.inp", "none"},
+	{"none", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "none"},
 	/*ISDBTBDA*/
-	{"none", "isdbt_nova_12mhz.inp", "isdbt_nova_12mhz_b0.inp", "none"},
+	{"none", "/*(DEBLOBBED)*/", "/*(DEBLOBBED)*/", "none"},
 	/*CMMB*/
-	{"none", "none", "none", "cmmb_vega_12mhz.inp"}
+	{"none", "none", "none", "/*(DEBLOBBED)*/"}
 };
 
 static inline char *sms_get_fw_name(struct smscore_device_t *coredev,

@@ -45,9 +45,7 @@
  *          module.  The default settings of all new parameters are set to 
  *          load the driver as it did in previous versions.
  * 04-07-1999: Anthony Barbachan <barbcode@xmen.cis.fordham.edu>
- *          Added module parameter pss_firmware to allow the user to tell 
- *          the driver where the firmware file is located.  The default 
- *          setting is the previous hardcoded setting "/etc/sound/pss_synth".
+ *          Added module parameter pss_firmware /*(DEBLOBBED)*//*.
  * 00-03-03: Christoph Hellwig <chhellwig@infradead.org>
  *	    Adapted to module_init/module_exit
  * 11-10-2000: Bartlomiej Zolnierkiewicz <bkz@linux-ide.org>
@@ -1135,7 +1133,7 @@ static int mpu_io __initdata	= -1;
 static int mpu_irq __initdata	= -1;
 static bool pss_no_sound = 0;	/* Just configure non-sound components */
 static bool pss_keep_settings  = 1;	/* Keep hardware settings at module exit */
-static char *pss_firmware = "/etc/sound/pss_synth";
+static char *pss_firmware = "/*(DEBLOBBED)*/";
 
 module_param(pss_io, int, 0);
 MODULE_PARM_DESC(pss_io, "Set i/o base of PSS card (probably 0x220 or 0x240)");
@@ -1158,7 +1156,7 @@ MODULE_PARM_DESC(pss_no_sound, "Configure sound compoents (0 - no, 1 - yes)");
 module_param(pss_keep_settings, bool, 0);
 MODULE_PARM_DESC(pss_keep_settings, "Keep hardware setting at driver unloading (0 - no, 1 - yes)");
 module_param(pss_firmware, charp, 0);
-MODULE_PARM_DESC(pss_firmware, "Location of the firmware file (default - /etc/sound/pss_synth)");
+MODULE_PARM_DESC(pss_firmware, "Location of the firmware file (default - /*(DEBLOBBED)*/)");
 module_param(pss_mixer, bool, 0);
 MODULE_PARM_DESC(pss_mixer, "Enable (1) or disable (0) PSS mixer (controlling of output volume, bass, treble, synth volume). The mixer is not available on all PSS cards.");
 MODULE_AUTHOR("Hannu Savolainen, Vladimir Michl");

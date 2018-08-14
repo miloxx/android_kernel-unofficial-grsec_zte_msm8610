@@ -1482,11 +1482,11 @@ static int dw2102_load_firmware(struct usb_device *dev,
 	u8 reset;
 	u8 reset16[] = {0, 0, 0, 0, 0, 0, 0};
 	const struct firmware *fw;
-	const char *fw_2101 = "dvb-usb-dw2101.fw";
+	const char *fw_2101 = "/*(DEBLOBBED)*/";
 
 	switch (dev->descriptor.idProduct) {
 	case 0x2101:
-		ret = request_firmware(&fw, fw_2101, &dev->dev);
+		ret = reject_firmware(&fw, fw_2101, &dev->dev);
 		if (ret != 0) {
 			err(err_str, fw_2101);
 			return ret;
@@ -1590,7 +1590,7 @@ static int dw2102_load_firmware(struct usb_device *dev,
 static struct dvb_usb_device_properties dw2102_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-dw2102.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.no_reconnect = 1,
 
 	.i2c_algo = &dw2102_serit_i2c_algo,
@@ -1645,7 +1645,7 @@ static struct dvb_usb_device_properties dw2102_properties = {
 static struct dvb_usb_device_properties dw2104_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-dw2104.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.no_reconnect = 1,
 
 	.i2c_algo = &dw2104_i2c_algo,
@@ -1695,7 +1695,7 @@ static struct dvb_usb_device_properties dw2104_properties = {
 static struct dvb_usb_device_properties dw3101_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-dw3101.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.no_reconnect = 1,
 
 	.i2c_algo = &dw3101_i2c_algo,
@@ -1743,7 +1743,7 @@ static struct dvb_usb_device_properties s6x0_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 	.usb_ctrl = DEVICE_SPECIFIC,
 	.size_of_priv = sizeof(struct s6x0_state),
-	.firmware = "dvb-usb-s630.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.no_reconnect = 1,
 
 	.i2c_algo = &s6x0_i2c_algo,
@@ -1883,7 +1883,7 @@ static int dw2102_probe(struct usb_interface *intf,
 		return -ENOMEM;
 	/* copy default structure */
 	/* fill only different fields */
-	p1100->firmware = "dvb-usb-p1100.fw";
+	p1100->firmware = "/*(DEBLOBBED)*/";
 	p1100->devices[0] = d1100;
 	p1100->rc.legacy.rc_map_table = rc_map_tbs_table;
 	p1100->rc.legacy.rc_map_size = ARRAY_SIZE(rc_map_tbs_table);
@@ -1895,7 +1895,7 @@ static int dw2102_probe(struct usb_interface *intf,
 		kfree(p1100);
 		return -ENOMEM;
 	}
-	s660->firmware = "dvb-usb-s660.fw";
+	s660->firmware = "/*(DEBLOBBED)*/";
 	s660->num_device_descs = 3;
 	s660->devices[0] = d660;
 	s660->devices[1] = d480_1;
@@ -1909,7 +1909,7 @@ static int dw2102_probe(struct usb_interface *intf,
 		kfree(s660);
 		return -ENOMEM;
 	}
-	p7500->firmware = "dvb-usb-p7500.fw";
+	p7500->firmware = "/*(DEBLOBBED)*/";
 	p7500->devices[0] = d7500;
 	p7500->rc.legacy.rc_map_table = rc_map_tbs_table;
 	p7500->rc.legacy.rc_map_size = ARRAY_SIZE(rc_map_tbs_table);

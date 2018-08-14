@@ -183,17 +183,15 @@
 #define E100_WATCHDOG_PERIOD	(2 * HZ)
 #define E100_NAPI_WEIGHT	16
 
-#define FIRMWARE_D101M		"e100/d101m_ucode.bin"
-#define FIRMWARE_D101S		"e100/d101s_ucode.bin"
-#define FIRMWARE_D102E		"e100/d102e_ucode.bin"
+#define FIRMWARE_D101M		"/*(DEBLOBBED)*/"
+#define FIRMWARE_D101S		"/*(DEBLOBBED)*/"
+#define FIRMWARE_D102E		"/*(DEBLOBBED)*/"
 
 MODULE_DESCRIPTION(DRV_DESCRIPTION);
 MODULE_AUTHOR(DRV_COPYRIGHT);
 MODULE_LICENSE("GPL");
 MODULE_VERSION(DRV_VERSION);
-MODULE_FIRMWARE(FIRMWARE_D101M);
-MODULE_FIRMWARE(FIRMWARE_D101S);
-MODULE_FIRMWARE(FIRMWARE_D102E);
+/*(DEBLOBBED)*/
 
 static int debug = 3;
 static int eeprom_bad_csum_allow = 0;
@@ -1243,7 +1241,7 @@ static void e100_configure(struct nic *nic, struct cb *cb, struct sk_buff *skb)
 #define INTDELAY (u16)1536 /* 0x600 */
 
 /* Initialize firmware */
-static const struct firmware *e100_request_firmware(struct nic *nic)
+static const struct firmware *e100_reject_firmware(struct nic *nic)
 {
 	const char *fw_name;
 	const struct firmware *fw = nic->fw;
@@ -1267,16 +1265,17 @@ static const struct firmware *e100_request_firmware(struct nic *nic)
 	/* If the firmware has not previously been loaded, request a pointer
 	 * to it. If it was previously loaded, we are reinitializing the
 	 * adapter, possibly in a resume from hibernate, in which case
-	 * request_firmware() cannot be used.
+	 * reject_firmware() cannot be used.
 	 */
 	if (!fw)
-		err = request_firmware(&fw, fw_name, &nic->pdev->dev);
+		err = reject_firmware(&fw, fw_name, &nic->pdev->dev);
 
 	if (err) {
 		netif_err(nic, probe, nic->netdev,
 			  "Failed to load firmware \"%s\": %d\n",
 			  fw_name, err);
-		return ERR_PTR(err);
+		netif_err(nic, probe, nic->netdev, "Proceeding without firmware\n");
+		return NULL;
 	}
 
 	/* Firmware should be precisely UCODE_SIZE (words) plus three bytes
@@ -1344,7 +1343,7 @@ static inline int e100_load_ucode_wait(struct nic *nic)
 	int err = 0, counter = 50;
 	struct cb *cb = nic->cb_to_clean;
 
-	fw = e100_request_firmware(nic);
+	fw = e100_reject_firmware(nic);
 	/* If it's NULL, then no ucode is required */
 	if (!fw || IS_ERR(fw))
 		return PTR_ERR(fw);

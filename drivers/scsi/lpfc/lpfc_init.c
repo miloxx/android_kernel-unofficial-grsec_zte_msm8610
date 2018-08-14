@@ -9124,7 +9124,7 @@ lpfc_sli4_get_els_iocb_cnt(struct lpfc_hba *phba)
 /**
  * lpfc_write_firmware - attempt to write a firmware image to the port
  * @phba: pointer to lpfc hba data structure.
- * @fw: pointer to firmware image returned from request_firmware.
+ * @fw: pointer to firmware image returned from reject_firmware.
  *
  * returns the number of bytes written if write is successful.
  * returns a negative error value if there were errors.
@@ -9392,7 +9392,7 @@ lpfc_pci_probe_one_s4(struct pci_dev *pdev, const struct pci_device_id *pid)
 	if (bf_get(lpfc_sli_intf_if_type, &phba->sli4_hba.sli_intf) ==
 	    LPFC_SLI_INTF_IF_TYPE_2) {
 		snprintf(file_name, 16, "%s.grp", phba->ModelName);
-		error = request_firmware(&fw, file_name, &phba->pcidev->dev);
+		error = reject_firmware(&fw, file_name, &phba->pcidev->dev);
 		if (!error) {
 			lpfc_write_firmware(phba, fw);
 			release_firmware(fw);

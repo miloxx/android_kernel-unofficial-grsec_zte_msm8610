@@ -456,7 +456,7 @@ static int __init init_trix(void)
 	if (!trix_boot)
 	{
 		fw_load = 1;
-		trix_boot_len = mod_firmware_load("/etc/sound/trxpro.bin",
+		trix_boot_len = mod_firmware_load("/*(DEBLOBBED)*/",
 						    (char **) &trix_boot);
 	}
 

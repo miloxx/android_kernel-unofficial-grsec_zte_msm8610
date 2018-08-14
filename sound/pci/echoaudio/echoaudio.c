@@ -55,8 +55,8 @@ static int get_firmware(const struct firmware **fw_entry,
 #endif
 
 	DE_ACT(("firmware requested: %s\n", card_fw[fw_index].data));
-	snprintf(name, sizeof(name), "ea/%s", card_fw[fw_index].data);
-	err = request_firmware(fw_entry, name, pci_device(chip));
+	snprintf(name, sizeof(name), "/*(DEBLOBBED)*/", card_fw[fw_index].data);
+	err = reject_firmware(fw_entry, name, pci_device(chip));
 	if (err < 0)
 		snd_printk(KERN_ERR "get_firmware(): Firmware not available (%d)\n", err);
 #ifdef CONFIG_PM

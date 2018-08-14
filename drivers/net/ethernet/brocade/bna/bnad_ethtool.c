@@ -1078,7 +1078,7 @@ bnad_flash_device(struct net_device *netdev, struct ethtool_flash *eflash)
 	const struct firmware *fw;
 	int ret = 0;
 
-	ret = request_firmware(&fw, eflash->data, &bnad->pcidev->dev);
+	ret = reject_firmware(&fw, eflash->data, &bnad->pcidev->dev);
 	if (ret) {
 		pr_err("BNA: Can't locate firmware %s\n", eflash->data);
 		goto out;

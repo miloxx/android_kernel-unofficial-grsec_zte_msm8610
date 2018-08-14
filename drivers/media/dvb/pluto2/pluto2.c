@@ -505,12 +505,12 @@ static int lg_tdtpe001p_tuner_set_params(struct dvb_frontend *fe)
 	return 0;
 }
 
-static int pluto2_request_firmware(struct dvb_frontend *fe,
+static int pluto2_reject_firmware(struct dvb_frontend *fe,
 				   const struct firmware **fw, char *name)
 {
 	struct pluto *pluto = frontend_to_pluto(fe);
 
-	return request_firmware(fw, name, &pluto->pdev->dev);
+	return reject_firmware(fw, name, &pluto->pdev->dev);
 }
 
 static struct tda1004x_config pluto2_fe_config __devinitdata = {
@@ -520,7 +520,7 @@ static struct tda1004x_config pluto2_fe_config __devinitdata = {
 	.xtal_freq = TDA10046_XTAL_16M,
 	.agc_config = TDA10046_AGC_DEFAULT,
 	.if_freq = TDA10046_FREQ_3617,
-	.request_firmware = pluto2_request_firmware,
+	.reject_firmware = pluto2_reject_firmware,
 };
 
 static int __devinit frontend_init(struct pluto *pluto)

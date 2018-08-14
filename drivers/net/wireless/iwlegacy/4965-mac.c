@@ -4642,7 +4642,7 @@ static void il4965_ucode_callback(const struct firmware *ucode_raw,
 static int il4965_mac_setup_register(struct il_priv *il, u32 max_probe_length);
 
 static int __must_check
-il4965_request_firmware(struct il_priv *il, bool first)
+il4965_reject_firmware(struct il_priv *il, bool first)
 {
 	const char *name_pre = il->cfg->fw_name_pre;
 	char tag[8];
@@ -4660,11 +4660,11 @@ il4965_request_firmware(struct il_priv *il, bool first)
 		return -ENOENT;
 	}
 
-	sprintf(il->firmware_name, "%s%s%s", name_pre, tag, ".ucode");
+	sprintf(il->firmware_name, "/*(DEBLOBBED)*/");
 
 	D_INFO("attempting to load firmware '%s'\n", il->firmware_name);
 
-	return request_firmware_nowait(THIS_MODULE, 1, il->firmware_name,
+	return reject_firmware_nowait(THIS_MODULE, 1, il->firmware_name,
 				       &il->pci_dev->dev, GFP_KERNEL, il,
 				       il4965_ucode_callback);
 }
@@ -4966,7 +4966,7 @@ il4965_ucode_callback(const struct firmware *ucode_raw, void *context)
 
 try_again:
 	/* try next, if any */
-	if (il4965_request_firmware(il, false))
+	if (il4965_reject_firmware(il, false))
 		goto out_unbind;
 	release_firmware(ucode_raw);
 	return;
@@ -6621,7 +6621,7 @@ il4965_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 
 	init_completion(&il->_4965.firmware_loading_complete);
 
-	err = il4965_request_firmware(il, true);
+	err = il4965_reject_firmware(il, true);
 	if (err)
 		goto out_destroy_workqueue;
 

@@ -31,8 +31,8 @@
 
 #define DRV_NAME "iwmc3200top"
 #define FW_API_VER 1
-#define _FW_NAME(api) DRV_NAME "." #api ".fw"
-#define FW_NAME(api) _FW_NAME(api)
+/*(DEBLOBBED)*/
+#define FW_NAME(api) "/*(DEBLOBBED)*/"
 
 #define IWMC_SDIO_BLK_SIZE			256
 #define IWMC_DEFAULT_TR_BLK			64

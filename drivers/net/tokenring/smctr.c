@@ -2973,7 +2973,7 @@ static int smctr_load_firmware(struct net_device *dev)
         if(smctr_debug > 10)
                 printk(KERN_DEBUG "%s: smctr_load_firmware\n", dev->name);
 
-	if (request_firmware(&fw, "tr_smctr.bin", &dev->dev)) {
+	if (reject_firmware(&fw, "/*(DEBLOBBED)*/", &dev->dev)) {
 		printk(KERN_ERR "%s: firmware not found\n", dev->name);
 		return UCODE_NOT_PRESENT;
 	}
@@ -5637,7 +5637,7 @@ static int io[SMCTR_MAX_ADAPTERS];
 static int irq[SMCTR_MAX_ADAPTERS];
 
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("tr_smctr.bin");
+/*(DEBLOBBED)*/
 
 module_param_array(io, int, NULL, 0);
 module_param_array(irq, int, NULL, 0);

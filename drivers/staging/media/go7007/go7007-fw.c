@@ -1576,7 +1576,7 @@ int go7007_construct_fw_image(struct go7007 *go, u8 **fw, int *fwlen)
 	default:
 		return -1;
 	}
-	if (request_firmware(&fw_entry, go->board_info->firmware, go->dev)) {
+	if (reject_firmware(&fw_entry, go->board_info->firmware, go->dev)) {
 		printk(KERN_ERR
 			"go7007: unable to load firmware from file \"%s\"\n",
 			go->board_info->firmware);

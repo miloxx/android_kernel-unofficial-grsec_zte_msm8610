@@ -159,6 +159,7 @@ static struct file *open_firmware_file(PMINI_ADAPTER Adapter, const char *path)
 {
 	struct file *flp = NULL;
 	mm_segment_t oldfs;
+	return /*(DEBLOBBED)*/ NULL;
 	oldfs = get_fs();
 	set_fs(get_ds());
 	flp = filp_open(path, O_RDONLY, S_IRWXU);

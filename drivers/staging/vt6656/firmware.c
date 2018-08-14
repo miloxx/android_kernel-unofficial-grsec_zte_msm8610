@@ -41,7 +41,7 @@ static int          msglevel                =MSG_LEVEL_INFO;
 //static int          msglevel                =MSG_LEVEL_DEBUG;
 
 #define FIRMWARE_VERSION	0x133		/* version 1.51 */
-#define FIRMWARE_NAME		"vntwusb.fw"
+#define FIRMWARE_NAME		"/*(DEBLOBBED)*/"
 
 #define FIRMWARE_CHUNK_SIZE	0x400
 
@@ -75,7 +75,7 @@ FIRMWAREbDownload(
 		struct device *dev = &pDevice->usb->dev;
 		int rc;
 
-		rc = request_firmware(&pDevice->firmware, FIRMWARE_NAME, dev);
+		rc = reject_firmware(&pDevice->firmware, FIRMWARE_NAME, dev);
 		if (rc) {
 			dev_err(dev, "firmware file %s request failed (%d)\n",
 				FIRMWARE_NAME, rc);
@@ -114,7 +114,7 @@ out:
 	spin_lock_irq(&pDevice->lock);
 	return result;
 }
-MODULE_FIRMWARE(FIRMWARE_NAME);
+/*(DEBLOBBED)*/
 
 BOOL
 FIRMWAREbBrach2Sram(

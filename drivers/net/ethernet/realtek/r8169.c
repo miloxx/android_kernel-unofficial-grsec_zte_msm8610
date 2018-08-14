@@ -36,14 +36,14 @@
 #define MODULENAME "r8169"
 #define PFX MODULENAME ": "
 
-#define FIRMWARE_8168D_1	"rtl_nic/rtl8168d-1.fw"
-#define FIRMWARE_8168D_2	"rtl_nic/rtl8168d-2.fw"
-#define FIRMWARE_8168E_1	"rtl_nic/rtl8168e-1.fw"
-#define FIRMWARE_8168E_2	"rtl_nic/rtl8168e-2.fw"
-#define FIRMWARE_8168E_3	"rtl_nic/rtl8168e-3.fw"
-#define FIRMWARE_8168F_1	"rtl_nic/rtl8168f-1.fw"
-#define FIRMWARE_8168F_2	"rtl_nic/rtl8168f-2.fw"
-#define FIRMWARE_8105E_1	"rtl_nic/rtl8105e-1.fw"
+#define FIRMWARE_8168D_1	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8168D_2	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8168E_1	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8168E_2	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8168E_3	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8168F_1	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8168F_2	"/*(DEBLOBBED)*/"
+#define FIRMWARE_8105E_1	"/*(DEBLOBBED)*/"
 
 #ifdef RTL8169_DEBUG
 #define assert(expr) \
@@ -764,14 +764,7 @@ module_param_named(debug, debug.msg_enable, int, 0);
 MODULE_PARM_DESC(debug, "Debug verbosity level (0=none, ..., 16=all)");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(RTL8169_VERSION);
-MODULE_FIRMWARE(FIRMWARE_8168D_1);
-MODULE_FIRMWARE(FIRMWARE_8168D_2);
-MODULE_FIRMWARE(FIRMWARE_8168E_1);
-MODULE_FIRMWARE(FIRMWARE_8168E_2);
-MODULE_FIRMWARE(FIRMWARE_8168E_3);
-MODULE_FIRMWARE(FIRMWARE_8105E_1);
-MODULE_FIRMWARE(FIRMWARE_8168F_1);
-MODULE_FIRMWARE(FIRMWARE_8168F_2);
+/*(DEBLOBBED)*/
 
 static void rtl_lock_work(struct rtl8169_private *tp)
 {
@@ -3930,7 +3923,7 @@ static void rtl_request_uncached_firmware(struct rtl8169_private *tp)
 	if (!rtl_fw)
 		goto err_warn;
 
-	rc = request_firmware(&rtl_fw->fw, name, &tp->pci_dev->dev);
+	rc = reject_firmware(&rtl_fw->fw, name, &tp->pci_dev->dev);
 	if (rc < 0)
 		goto err_free;
 
@@ -3954,7 +3947,7 @@ out_no_firmware:
 	goto out;
 }
 
-static void rtl_request_firmware(struct rtl8169_private *tp)
+static void rtl_reject_firmware(struct rtl8169_private *tp)
 {
 	if (IS_ERR(tp->rtl_fw))
 		rtl_request_uncached_firmware(tp);
@@ -5693,7 +5686,7 @@ static int rtl_open(struct net_device *dev)
 
 	smp_mb();
 
-	rtl_request_firmware(tp);
+	rtl_reject_firmware(tp);
 
 	retval = request_irq(pdev->irq, rtl8169_interrupt,
 			     (tp->features & RTL_FEATURE_MSI) ? 0 : IRQF_SHARED,

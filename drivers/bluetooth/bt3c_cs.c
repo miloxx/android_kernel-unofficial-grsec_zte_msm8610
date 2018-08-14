@@ -61,7 +61,7 @@
 MODULE_AUTHOR("Marcel Holtmann <marcel@holtmann.org>");
 MODULE_DESCRIPTION("Bluetooth driver for the 3Com Bluetooth PCMCIA card");
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("BT3CPCC.bin");
+/*(DEBLOBBED)*/
 
 
 
@@ -593,7 +593,7 @@ static int bt3c_open(bt3c_info_t *info)
 	hdev->owner = THIS_MODULE;
 
 	/* Load firmware */
-	err = request_firmware(&firmware, "BT3CPCC.bin", &info->p_dev->dev);
+	err = reject_firmware(&firmware, "/*(DEBLOBBED)*/", &info->p_dev->dev);
 	if (err < 0) {
 		BT_ERR("Firmware request failed");
 		goto error;

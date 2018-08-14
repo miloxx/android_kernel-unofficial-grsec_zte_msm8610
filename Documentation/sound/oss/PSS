@@ -31,11 +31,4 @@ mpu_irq		The interrupt to use for the synthesizer. It must differ
 The mpu_io/mpu_irq fields are optional. If they are not specified the 
 synthesizer parts are not configured.
 
-When the module is loaded it looks for a file called 
-/etc/sound/pss_synth. This is the firmware file from the DOS install disks.
-This fil holds a general MIDI emulation. The file expected is called
-genmidi.ld on newer DOS driver install disks and synth.ld on older ones.
-
-You can also load alternative DSP algorithms into the card if you wish. One
-alternative driver can be found at http://www.mpg123.de/
-
+/*(DEBLOBBED)*/

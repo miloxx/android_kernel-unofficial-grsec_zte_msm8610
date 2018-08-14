@@ -444,6 +444,7 @@ static int ft1000_reset_card(struct net_device *dev)
 		// Setting MAGNEMITE ASIC to big endian mode
 		ft1000_write_reg(dev, FT1000_REG_SUP_CTRL, HOST_INTF_BE);
 		// Download bootloader
+		return /*(DEBLOBBED)*/ false;
 		card_bootload(dev);
 
 		// Take DSP out of reset
@@ -2193,14 +2194,14 @@ struct net_device *init_ft1000_card(struct pcmcia_device *link,
 	info->AsicID = ft1000_read_reg(dev, FT1000_REG_ASIC_ID);
 	if (info->AsicID == ELECTRABUZZ_ID) {
 		DEBUG(0, "ft1000_hw: ELECTRABUZZ ASIC\n");
-		if (request_firmware(&fw_entry, "ft1000.img", &link->dev) != 0) {
-			printk(KERN_INFO "ft1000: Could not open ft1000.img\n");
+		if (reject_firmware(&fw_entry, "/*(DEBLOBBED)*/", &link->dev) != 0) {
+			printk(KERN_INFO "ft1000: Could not open /*(DEBLOBBED)*/\n");
 			goto err_unreg;
 		}
 	} else {
 		DEBUG(0, "ft1000_hw: MAGNEMITE ASIC\n");
-		if (request_firmware(&fw_entry, "ft2000.img", &link->dev) != 0) {
-			printk(KERN_INFO "ft1000: Could not open ft2000.img\n");
+		if (reject_firmware(&fw_entry, "/*(DEBLOBBED)*/", &link->dev) != 0) {
+			printk(KERN_INFO "ft1000: Could not open /*(DEBLOBBED)*/\n");
 			goto err_unreg;
 		}
 	}

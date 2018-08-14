@@ -2696,11 +2696,7 @@ union drv_info_to_mcp {
 	struct fcoe_stats_info	fcoe_stat;
 	struct iscsi_stats_info	iscsi_stat;
 };
-#define BCM_5710_FW_MAJOR_VERSION			7
-#define BCM_5710_FW_MINOR_VERSION			2
-#define BCM_5710_FW_REVISION_VERSION		16
-#define BCM_5710_FW_ENGINEERING_VERSION		0
-#define BCM_5710_FW_COMPILE_FLAGS			1
+/*(DEBLOBBED)*/
 
 
 /*

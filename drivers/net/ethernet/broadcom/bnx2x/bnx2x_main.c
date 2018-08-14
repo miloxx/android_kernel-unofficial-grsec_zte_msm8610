@@ -62,18 +62,17 @@
 #include "bnx2x_cmn.h"
 #include "bnx2x_dcb.h"
 #include "bnx2x_sp.h"
+#define bnx2x_init_block(bp, start, end) \
+  return (printk(KERN_ERR "%s: Missing Free firmware\n", bp->dev->name),\
+	  -EINVAL)
 
 #include <linux/firmware.h>
 #include "bnx2x_fw_file_hdr.h"
 /* FW files */
-#define FW_FILE_VERSION					\
-	__stringify(BCM_5710_FW_MAJOR_VERSION) "."	\
-	__stringify(BCM_5710_FW_MINOR_VERSION) "."	\
-	__stringify(BCM_5710_FW_REVISION_VERSION) "."	\
-	__stringify(BCM_5710_FW_ENGINEERING_VERSION)
-#define FW_FILE_NAME_E1		"bnx2x/bnx2x-e1-" FW_FILE_VERSION ".fw"
-#define FW_FILE_NAME_E1H	"bnx2x/bnx2x-e1h-" FW_FILE_VERSION ".fw"
-#define FW_FILE_NAME_E2		"bnx2x/bnx2x-e2-" FW_FILE_VERSION ".fw"
+/*(DEBLOBBED)*/
+#define FW_FILE_NAME_E1		"/*(DEBLOBBED)*/"
+#define FW_FILE_NAME_E1H	"/*(DEBLOBBED)*/"
+#define FW_FILE_NAME_E2		"/*(DEBLOBBED)*/"
 
 /* Time in jiffies before concluding the transmitter is hung */
 #define TX_TIMEOUT		(5*HZ)
@@ -89,9 +88,7 @@ MODULE_DESCRIPTION("Broadcom NetXtreme II "
 		   "57840/57840_MF Driver");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(DRV_MODULE_VERSION);
-MODULE_FIRMWARE(FW_FILE_NAME_E1);
-MODULE_FIRMWARE(FW_FILE_NAME_E1H);
-MODULE_FIRMWARE(FW_FILE_NAME_E2);
+/*(DEBLOBBED)*/
 
 static int multi_mode = 1;
 module_param(multi_mode, int, 0);
@@ -11016,65 +11013,7 @@ static void __devinit bnx2x_get_pcie_width_speed(struct bnx2x *bp,
 	*speed = (val & PCICFG_LINK_SPEED) >> PCICFG_LINK_SPEED_SHIFT;
 }
 
-static int bnx2x_check_firmware(struct bnx2x *bp)
-{
-	const struct firmware *firmware = bp->firmware;
-	struct bnx2x_fw_file_hdr *fw_hdr;
-	struct bnx2x_fw_file_section *sections;
-	u32 offset, len, num_ops;
-	u16 *ops_offsets;
-	int i;
-	const u8 *fw_ver;
-
-	if (firmware->size < sizeof(struct bnx2x_fw_file_hdr)) {
-		BNX2X_ERR("Wrong FW size\n");
-		return -EINVAL;
-	}
-
-	fw_hdr = (struct bnx2x_fw_file_hdr *)firmware->data;
-	sections = (struct bnx2x_fw_file_section *)fw_hdr;
-
-	/* Make sure none of the offsets and sizes make us read beyond
-	 * the end of the firmware data */
-	for (i = 0; i < sizeof(*fw_hdr) / sizeof(*sections); i++) {
-		offset = be32_to_cpu(sections[i].offset);
-		len = be32_to_cpu(sections[i].len);
-		if (offset + len > firmware->size) {
-			BNX2X_ERR("Section %d length is out of bounds\n", i);
-			return -EINVAL;
-		}
-	}
-
-	/* Likewise for the init_ops offsets */
-	offset = be32_to_cpu(fw_hdr->init_ops_offsets.offset);
-	ops_offsets = (u16 *)(firmware->data + offset);
-	num_ops = be32_to_cpu(fw_hdr->init_ops.len) / sizeof(struct raw_op);
-
-	for (i = 0; i < be32_to_cpu(fw_hdr->init_ops_offsets.len) / 2; i++) {
-		if (be16_to_cpu(ops_offsets[i]) > num_ops) {
-			BNX2X_ERR("Section offset %d is out of bounds\n", i);
-			return -EINVAL;
-		}
-	}
-
-	/* Check FW version */
-	offset = be32_to_cpu(fw_hdr->fw_version.offset);
-	fw_ver = firmware->data + offset;
-	if ((fw_ver[0] != BCM_5710_FW_MAJOR_VERSION) ||
-	    (fw_ver[1] != BCM_5710_FW_MINOR_VERSION) ||
-	    (fw_ver[2] != BCM_5710_FW_REVISION_VERSION) ||
-	    (fw_ver[3] != BCM_5710_FW_ENGINEERING_VERSION)) {
-		BNX2X_ERR("Bad FW version:%d.%d.%d.%d. Should be %d.%d.%d.%d\n",
-		       fw_ver[0], fw_ver[1], fw_ver[2], fw_ver[3],
-		       BCM_5710_FW_MAJOR_VERSION,
-		       BCM_5710_FW_MINOR_VERSION,
-		       BCM_5710_FW_REVISION_VERSION,
-		       BCM_5710_FW_ENGINEERING_VERSION);
-		return -EINVAL;
-	}
-
-	return 0;
-}
+/*(DEBLOBBED)*/
 
 static inline void be32_to_cpu_n(const u8 *_source, u8 *_target, u32 n)
 {
@@ -11169,24 +11108,24 @@ static int bnx2x_init_firmware(struct bnx2x *bp)
 	}
 	BNX2X_DEV_INFO("Loading %s\n", fw_file_name);
 
-	rc = request_firmware(&bp->firmware, fw_file_name, &bp->pdev->dev);
+	rc = reject_firmware(&bp->firmware, fw_file_name, &bp->pdev->dev);
 	if (rc) {
 		BNX2X_ERR("Can't load firmware file %s\n",
 			  fw_file_name);
-		goto request_firmware_exit;
+		goto reject_firmware_exit;
 	}
 
-	rc = bnx2x_check_firmware(bp);
+	/*(DEBLOBBED)*/
 	if (rc) {
 		BNX2X_ERR("Corrupt firmware file %s\n", fw_file_name);
-		goto request_firmware_exit;
+		goto reject_firmware_exit;
 	}
 
 	fw_hdr = (struct bnx2x_fw_file_hdr *)bp->firmware->data;
 
 	/* Initialize the pointers to the init arrays */
 	/* Blob */
-	BNX2X_ALLOC_AND_SET(init_data, request_firmware_exit, be32_to_cpu_n);
+	BNX2X_ALLOC_AND_SET(init_data, reject_firmware_exit, be32_to_cpu_n);
 
 	/* Opcodes */
 	BNX2X_ALLOC_AND_SET(init_ops, init_ops_alloc_err, bnx2x_prep_ops);
@@ -11223,7 +11162,7 @@ init_offsets_alloc_err:
 	kfree(bp->init_ops);
 init_ops_alloc_err:
 	kfree(bp->init_data);
-request_firmware_exit:
+reject_firmware_exit:
 	release_firmware(bp->firmware);
 	bp->firmware = NULL;
 

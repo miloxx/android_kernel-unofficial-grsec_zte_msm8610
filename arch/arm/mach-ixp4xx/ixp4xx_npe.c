@@ -529,7 +529,7 @@ int npe_load_firmware(struct npe *npe, const char *name, struct device *dev)
 	int i, j, err, data_size, instr_size, blocks, table_end;
 	u32 cmd;
 
-	if ((err = request_firmware(&fw_entry, name, dev)) != 0)
+	if ((err = reject_firmware(&fw_entry, name, dev)) != 0)
 		return err;
 
 	err = -EINVAL;

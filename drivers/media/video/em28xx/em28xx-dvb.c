@@ -314,14 +314,14 @@ struct drxk_config terratec_h5_drxk = {
 	.adr = 0x29,
 	.single_master = 1,
 	.no_i2c_bridge = 1,
-	.microcode_name = "dvb-usb-terratec-h5-drxk.fw",
+	.microcode_name = "/*(DEBLOBBED)*/",
 };
 
 struct drxk_config hauppauge_930c_drxk = {
 	.adr = 0x29,
 	.single_master = 1,
 	.no_i2c_bridge = 1,
-	.microcode_name = "dvb-usb-hauppauge-hvr930c-drxk.fw",
+	.microcode_name = "/*(DEBLOBBED)*/",
 	.chunk_size = 56,
 };
 
@@ -334,7 +334,7 @@ struct drxk_config maxmedia_ub425_tc_drxk = {
 struct drxk_config pctv_520e_drxk = {
 	.adr = 0x29,
 	.single_master = 1,
-	.microcode_name = "dvb-demod-drxk-pctv.fw",
+	.microcode_name = "/*(DEBLOBBED)*/",
 	.chunk_size = 58,
 };
 

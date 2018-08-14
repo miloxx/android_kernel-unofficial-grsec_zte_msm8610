@@ -1571,9 +1571,9 @@ static int usbduxfastsub_probe(struct usb_interface *uinterf,
 	usbduxfastsub[index].probed = 1;
 	up(&start_stop_sem);
 
-	ret = request_firmware_nowait(THIS_MODULE,
+	ret = reject_firmware_nowait(THIS_MODULE,
 				      FW_ACTION_HOTPLUG,
-				      "usbduxfast_firmware.bin",
+				      "/*(DEBLOBBED)*/",
 				      &udev->dev,
 				      GFP_KERNEL,
 				      usbduxfastsub + index,

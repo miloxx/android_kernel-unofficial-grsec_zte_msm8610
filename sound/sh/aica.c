@@ -49,7 +49,7 @@ MODULE_AUTHOR("Adrian McMenamin <adrian@mcmen.demon.co.uk>");
 MODULE_DESCRIPTION("Dreamcast AICA sound (pcm) driver");
 MODULE_LICENSE("GPL");
 MODULE_SUPPORTED_DEVICE("{{Yamaha/SEGA, AICA}}");
-MODULE_FIRMWARE("aica_firmware.bin");
+/*(DEBLOBBED)*/
 
 /* module parameters */
 #define CARD_NAME "AICA"
@@ -563,7 +563,7 @@ static int load_aica_firmware(void)
 	int err;
 	const struct firmware *fw_entry;
 	spu_reset();
-	err = request_firmware(&fw_entry, "aica_firmware.bin", &pd->dev);
+	err = reject_firmware(&fw_entry, "/*(DEBLOBBED)*/", &pd->dev);
 	if (unlikely(err))
 		return err;
 	/* write firmware into memory */

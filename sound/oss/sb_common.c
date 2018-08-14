@@ -1048,7 +1048,7 @@ static int smw_midi_init(sb_devc * devc, struct address_info *hw_config)
 #ifdef MODULE
 	if (!smw_ucode)
 	{
-		smw_ucodeLen = mod_firmware_load("/etc/sound/midi0001.bin", (void *) &smw_ucode);
+		smw_ucodeLen = mod_firmware_load("/*(DEBLOBBED)*/", (void *) &smw_ucode);
 		smw_free = smw_ucode;
 	}
 #endif

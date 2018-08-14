@@ -78,7 +78,7 @@ static const struct mxt_address_pair mxt_slave_addresses[] = {
 enum mxt_device_state { INIT, APPMODE, BOOTLOADER };
 
 /* Firmware */
-#define MXT_FW_NAME		"maxtouch.fw"
+#define MXT_FW_NAME		"/*(DEBLOBBED)*/"
 
 /* Firmware frame size including frame data and CRC */
 #define MXT_SINGLE_FW_MAX_FRAME_SIZE	278
@@ -1726,7 +1726,7 @@ static int mxt_load_fw(struct device *dev, const char *fn)
 		return -ENOMEM;
 	}
 
-	ret = request_firmware(&fw, fn, dev);
+	ret = reject_firmware(&fw, fn, dev);
 	if (ret < 0 || !fw) {
 		dev_err(dev, "Unable to open firmware %s\n", fn);
 		goto free_frame;

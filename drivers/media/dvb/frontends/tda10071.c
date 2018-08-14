@@ -839,7 +839,7 @@ static int tda10071_init(struct dvb_frontend *fe)
 	struct tda10071_cmd cmd;
 	int ret, i, len, remaining, fw_size;
 	const struct firmware *fw;
-	u8 *fw_file = TDA10071_DEFAULT_FIRMWARE;
+	u8 *fw_file = "/*(DEBLOBBED)*/";
 	u8 tmp, buf[4];
 	struct tda10071_reg_val_mask tab[] = {
 		{ 0xcd, 0x00, 0x07 },
@@ -927,7 +927,7 @@ static int tda10071_init(struct dvb_frontend *fe)
 		priv->warm = 0;
 
 		/* request the firmware, this will block and timeout */
-		ret = request_firmware(&fw, fw_file, priv->i2c->dev.parent);
+		ret = reject_firmware(&fw, fw_file, priv->i2c->dev.parent);
 		if (ret) {
 			err("did not find the firmware file. (%s) "
 				"Please see linux/Documentation/dvb/ for more" \

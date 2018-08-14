@@ -68,10 +68,10 @@ static const char *get_fw_name(struct i2c_client *client)
 	if (firmware[0])
 		return firmware;
 	if (is_cx2388x(state))
-		return "v4l-cx23885-avcore-01.fw";
+		return "/*(DEBLOBBED)*/";
 	if (is_cx231xx(state))
-		return "v4l-cx231xx-avcore-01.fw";
-	return "v4l-cx25840.fw";
+		return "/*(DEBLOBBED)*/";
+	return "/*(DEBLOBBED)*/";
 }
 
 static int check_fw_load(struct i2c_client *client, int size)
@@ -123,7 +123,7 @@ int cx25840_loadfw(struct i2c_client *client)
 		MAX_BUF_SIZE = 16;  /* cx231xx cannot accept more than 16 bytes at a time */
 	}
 
-	if (request_firmware(&fw, fwname, FWDEV(client)) != 0) {
+	if (reject_firmware(&fw, fwname, FWDEV(client)) != 0) {
 		v4l_err(client, "unable to open firmware %s\n", fwname);
 		return -EINVAL;
 	}

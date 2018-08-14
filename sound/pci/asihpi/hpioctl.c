@@ -37,13 +37,7 @@ Common Linux HPI ioctl and module probe/remove functions
 #include <linux/module.h>
 
 #ifdef MODULE_FIRMWARE
-MODULE_FIRMWARE("asihpi/dsp5000.bin");
-MODULE_FIRMWARE("asihpi/dsp6200.bin");
-MODULE_FIRMWARE("asihpi/dsp6205.bin");
-MODULE_FIRMWARE("asihpi/dsp6400.bin");
-MODULE_FIRMWARE("asihpi/dsp6600.bin");
-MODULE_FIRMWARE("asihpi/dsp8700.bin");
-MODULE_FIRMWARE("asihpi/dsp8900.bin");
+/*(DEBLOBBED)*/
 #endif
 
 static int prealloc_stream_buf;

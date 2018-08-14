@@ -310,16 +310,16 @@ static int microtune_mt7202dtf_tuner_set_params(struct dvb_frontend *fe)
 	return (div * 166666 - 36000000);
 }
 
-static int microtune_mt7202dtf_request_firmware(struct dvb_frontend* fe, const struct firmware **fw, char* name)
+static int microtune_mt7202dtf_reject_firmware(struct dvb_frontend* fe, const struct firmware **fw, char* name)
 {
 	struct dvb_bt8xx_card* bt = (struct dvb_bt8xx_card*) fe->dvb->priv;
 
-	return request_firmware(fw, name, &bt->bt->dev->dev);
+	return reject_firmware(fw, name, &bt->bt->dev->dev);
 }
 
 static struct sp887x_config microtune_mt7202dtf_config = {
 	.demod_address = 0x70,
-	.request_firmware = microtune_mt7202dtf_request_firmware,
+	.reject_firmware = microtune_mt7202dtf_reject_firmware,
 };
 
 static int advbt771_samsung_tdtc9251dh0_demod_init(struct dvb_frontend* fe)
@@ -412,11 +412,11 @@ static struct dst_config dst_config = {
 	.demod_address = 0x55,
 };
 
-static int or51211_request_firmware(struct dvb_frontend* fe, const struct firmware **fw, char* name)
+static int or51211_reject_firmware(struct dvb_frontend* fe, const struct firmware **fw, char* name)
 {
 	struct dvb_bt8xx_card* bt = (struct dvb_bt8xx_card*) fe->dvb->priv;
 
-	return request_firmware(fw, name, &bt->bt->dev->dev);
+	return reject_firmware(fw, name, &bt->bt->dev->dev);
 }
 
 static void or51211_setmode(struct dvb_frontend * fe, int mode)
@@ -459,7 +459,7 @@ static void or51211_sleep(struct dvb_frontend * fe)
 
 static struct or51211_config or51211_config = {
 	.demod_address = 0x15,
-	.request_firmware = or51211_request_firmware,
+	.reject_firmware = or51211_reject_firmware,
 	.setmode = or51211_setmode,
 	.reset = or51211_reset,
 	.sleep = or51211_sleep,

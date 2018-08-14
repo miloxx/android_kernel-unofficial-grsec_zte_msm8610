@@ -307,10 +307,10 @@ static int mwifiex_init_hw_fw(struct mwifiex_adapter *adapter)
 
 	memset(&fw, 0, sizeof(struct mwifiex_fw_image));
 
-	err = request_firmware(&adapter->firmware, adapter->fw_name,
+	err = reject_firmware(&adapter->firmware, adapter->fw_name,
 			       adapter->dev);
 	if (err < 0) {
-		dev_err(adapter->dev, "request_firmware() returned"
+		dev_err(adapter->dev, "reject_firmware() returned"
 				" error code %#x\n", err);
 		ret = -1;
 		goto done;

@@ -201,14 +201,14 @@ static DEFINE_PCI_DEVICE_TABLE(cxgb4_pci_tbl) = {
 	{ 0, }
 };
 
-#define FW_FNAME "cxgb4/t4fw.bin"
+#define FW_FNAME "/*(DEBLOBBED)*/"
 
 MODULE_DESCRIPTION(DRV_DESC);
 MODULE_AUTHOR("Chelsio Communications");
 MODULE_LICENSE("Dual BSD/GPL");
 MODULE_VERSION(DRV_VERSION);
 MODULE_DEVICE_TABLE(pci, cxgb4_pci_tbl);
-MODULE_FIRMWARE(FW_FNAME);
+/*(DEBLOBBED)*/
 
 static int dflt_msg_enable = DFLT_MSG_ENABLE;
 
@@ -831,7 +831,7 @@ static int upgrade_fw(struct adapter *adap)
 	const struct firmware *fw;
 	struct device *dev = adap->pdev_dev;
 
-	ret = request_firmware(&fw, FW_FNAME, dev);
+	ret = reject_firmware(&fw, FW_FNAME, dev);
 	if (ret < 0) {
 		dev_err(dev, "unable to load firmware image " FW_FNAME
 			", error %d\n", ret);
@@ -1815,7 +1815,7 @@ static int set_flash(struct net_device *netdev, struct ethtool_flash *ef)
 	struct adapter *adap = netdev2adap(netdev);
 
 	ef->data[sizeof(ef->data) - 1] = '\0';
-	ret = request_firmware(&fw, ef->data, adap->pdev_dev);
+	ret = reject_firmware(&fw, ef->data, adap->pdev_dev);
 	if (ret < 0)
 		return ret;
 

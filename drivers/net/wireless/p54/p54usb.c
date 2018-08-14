@@ -31,8 +31,7 @@ MODULE_AUTHOR("Michael Wu <flamingice@sourmilk.net>");
 MODULE_DESCRIPTION("Prism54 USB wireless driver");
 MODULE_LICENSE("GPL");
 MODULE_ALIAS("prism54usb");
-MODULE_FIRMWARE("isl3886usb");
-MODULE_FIRMWARE("isl3887usb");
+/*(DEBLOBBED)*/
 
 /*
  * Note:
@@ -123,15 +122,15 @@ static const struct {
 	{
 		.type = P54U_NET2280,
 		.intf = FW_LM86,
-		.fw = "isl3886usb",
-		.fw_legacy = "isl3890usb",
+		.fw = "/*(DEBLOBBED)*/",
+		.fw_legacy = "/*(DEBLOBBED)*/",
 		.hw = "ISL3886 + net2280",
 	},
 	{
 		.type = P54U_3887,
 		.intf = FW_LM87,
-		.fw = "isl3887usb",
-		.fw_legacy = "isl3887usb_bare",
+		.fw = "/*(DEBLOBBED)*/",
+		.fw_legacy = "/*(DEBLOBBED)*/",
 		.hw = "ISL3887",
 	},
 };
@@ -850,12 +849,12 @@ static int p54u_load_firmware(struct ieee80211_hw *dev)
 	if (i == __NUM_P54U_HWTYPES)
 		return -EOPNOTSUPP;
 
-	err = request_firmware(&priv->fw, p54u_fwlist[i].fw, &priv->udev->dev);
+	err = reject_firmware(&priv->fw, p54u_fwlist[i].fw, &priv->udev->dev);
 	if (err) {
 		dev_err(&priv->udev->dev, "(p54usb) cannot load firmware %s "
 					  "(%d)!\n", p54u_fwlist[i].fw, err);
 
-		err = request_firmware(&priv->fw, p54u_fwlist[i].fw_legacy,
+		err = reject_firmware(&priv->fw, p54u_fwlist[i].fw_legacy,
 				       &priv->udev->dev);
 		if (err)
 			return err;

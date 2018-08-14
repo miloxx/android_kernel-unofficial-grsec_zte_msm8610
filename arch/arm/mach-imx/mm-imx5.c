@@ -142,7 +142,7 @@ static struct sdma_script_start_addrs imx51_sdma_script __initdata = {
 };
 
 static struct sdma_platform_data imx51_sdma_pdata __initdata = {
-	.fw_name = "sdma-imx51.bin",
+	.fw_name = "/*(DEBLOBBED)*/",
 	.script_addrs = &imx51_sdma_script,
 };
 
@@ -161,7 +161,7 @@ static struct sdma_script_start_addrs imx53_sdma_script __initdata = {
 };
 
 static struct sdma_platform_data imx53_sdma_pdata __initdata = {
-	.fw_name = "sdma-imx53.bin",
+	.fw_name = "/*(DEBLOBBED)*/",
 	.script_addrs = &imx53_sdma_script,
 };
 

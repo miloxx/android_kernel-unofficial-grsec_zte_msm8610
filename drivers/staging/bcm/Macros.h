@@ -300,7 +300,7 @@ typedef enum _E_PHS_DSC_ACTION {
 #define DEVICE_INT_OUT_EP_REG0    0x0F011870
 #define DEVICE_INT_OUT_EP_REG1    0x0F011874
 
-#define BIN_FILE "/lib/firmware/macxvi200.bin"
+#define BIN_FILE "/*(DEBLOBBED)*/"
 #define CFG_FILE "/lib/firmware/macxvi.cfg"
 #define SF_MAX_ALLOWED_PACKETS_TO_BACKUP 128
 #define MIN_VAL(x, y) ((x) < (y) ? (x) : (y))

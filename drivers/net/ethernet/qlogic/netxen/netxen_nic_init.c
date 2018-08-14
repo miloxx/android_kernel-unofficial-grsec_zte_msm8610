@@ -1230,7 +1230,7 @@ netxen_p3_has_mn(struct netxen_adapter *adapter)
 	return 0;
 }
 
-void netxen_request_firmware(struct netxen_adapter *adapter)
+void netxen_reject_firmware(struct netxen_adapter *adapter)
 {
 	struct pci_dev *pdev = adapter->pdev;
 	int rc = 0;
@@ -1243,7 +1243,7 @@ next:
 	if (adapter->fw_type == NX_FLASH_ROMIMAGE) {
 		adapter->fw = NULL;
 	} else {
-		rc = request_firmware(&adapter->fw,
+		rc = reject_firmware(&adapter->fw,
 				fw_name[adapter->fw_type], &pdev->dev);
 		if (rc != 0)
 			goto next;

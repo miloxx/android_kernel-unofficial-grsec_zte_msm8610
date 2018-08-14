@@ -55,11 +55,11 @@ typedef struct _OsFileHandle_
 extern OsFileHandle *OsOpenFile(char *path_name);
 extern void          OsCloseFile(OsFileHandle *fp);
 /*****************************************************************************/
-#define DSP_TELINDUS_FILE "dspdload.bin"
+#define DSP_TELINDUS_FILE "/*(DEBLOBBED)*/"
 /* special DSP file for BRI cards for Qsig and CornetN because of missing memory */
-#define DSP_QSIG_TELINDUS_FILE "dspdqsig.bin"
-#define DSP_MDM_TELINDUS_FILE "dspdvmdm.bin"
-#define DSP_FAX_TELINDUS_FILE "dspdvfax.bin"
+#define DSP_QSIG_TELINDUS_FILE "/*(DEBLOBBED)*/"
+#define DSP_MDM_TELINDUS_FILE "/*(DEBLOBBED)*/"
+#define DSP_FAX_TELINDUS_FILE "/*(DEBLOBBED)*/"
 #define DSP_DIRECTORY_ENTRIES 64
 #define DSP_MEMORY_TYPE_EXTERNAL_DM         0
 #define DSP_MEMORY_TYPE_EXTERNAL_PM         1

@@ -2458,7 +2458,7 @@ try_blob_fw:
 	    "Attempting to load firmware from blob.\n");
 
 	/* Load firmware blob. */
-	blob = ha->hablob = qla2x00_request_firmware(vha);
+	blob = ha->hablob = qla2x00_reject_firmware(vha);
 	if (!blob) {
 		ql_log(ql_log_fatal, vha, 0x00a3,
 		    "Firmware image not preset.\n");

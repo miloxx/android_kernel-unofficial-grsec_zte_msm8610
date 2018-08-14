@@ -224,7 +224,7 @@ static long read_local_version(struct kim_data_s *kim_gdata, char *bts_scr_name)
 	if (version & 0x8000)
 		maj_ver |= 0x0008;
 
-	sprintf(bts_scr_name, "TIInit_%d.%d.%d.bts", chip, maj_ver, min_ver);
+	sprintf(bts_scr_name, "/*(DEBLOBBED)*/", chip, maj_ver, min_ver);
 
 	/* to be accessed later via sysfs entry */
 	kim_gdata->version.full = version;
@@ -278,11 +278,11 @@ static long download_firmware(struct kim_data_s *kim_gdata)
 		return err;
 	}
 	err =
-	    request_firmware(&kim_gdata->fw_entry, bts_scr_name,
+	    reject_firmware(&kim_gdata->fw_entry, bts_scr_name,
 			     &kim_gdata->kim_pdev->dev);
 	if (unlikely((err != 0) || (kim_gdata->fw_entry->data == NULL) ||
 		     (kim_gdata->fw_entry->size == 0))) {
-		pr_err(" request_firmware failed(errno %ld) for %s", err,
+		pr_err(" reject_firmware failed(errno %ld) for %s", err,
 			   bts_scr_name);
 		return -EINVAL;
 	}
@@ -745,7 +745,7 @@ static int kim_probe(struct platform_device *pdev)
 		pr_err(" unable to configure gpio %ld", kim_gdata->nshutdown);
 		return status;
 	}
-	/* get reference of pdev for request_firmware
+	/* get reference of pdev for reject_firmware
 	 */
 	kim_gdata->kim_pdev = pdev;
 	init_completion(&kim_gdata->kim_rcvd);

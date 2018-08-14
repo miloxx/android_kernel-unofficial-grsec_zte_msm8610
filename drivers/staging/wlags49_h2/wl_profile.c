@@ -241,7 +241,7 @@ void parse_config(struct net_device *dev)
 		set_fs(get_ds());
 
 		/* ;?just to fake something */
-		strcpy(/*wvlan_config->fw_image_*/filename, "/etc/agere/fw.bin");
+		strcpy(/*wvlan_config->fw_image_*/filename, "/*(DEBLOBBED)*/");
 		file_desc = open(/*wvlan_config->fw_image_*/filename, 0, 0);
 		if (file_desc == -1) {
 			DBG_ERROR(DbgInfo, "No image file found\n");

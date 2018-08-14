@@ -383,13 +383,11 @@ static struct iwm_if_ops if_sdio_ops = {
 	.send_chunk = if_sdio_send_chunk,
 	.debugfs_init = if_sdio_debugfs_init,
 	.debugfs_exit = if_sdio_debugfs_exit,
-	.umac_name = "iwmc3200wifi-umac-sdio.bin",
-	.calib_lmac_name = "iwmc3200wifi-calib-sdio.bin",
-	.lmac_name = "iwmc3200wifi-lmac-sdio.bin",
+	.umac_name = "/*(DEBLOBBED)*/",
+	.calib_lmac_name = "/*(DEBLOBBED)*/",
+	.lmac_name = "/*(DEBLOBBED)*/",
 };
-MODULE_FIRMWARE("iwmc3200wifi-umac-sdio.bin");
-MODULE_FIRMWARE("iwmc3200wifi-calib-sdio.bin");
-MODULE_FIRMWARE("iwmc3200wifi-lmac-sdio.bin");
+/*(DEBLOBBED)*/
 
 static int iwm_sdio_probe(struct sdio_func *func,
 			  const struct sdio_device_id *id)

@@ -173,9 +173,7 @@ static unsigned int numports[MAX_BOARDS];
 MODULE_AUTHOR("William Chen");
 MODULE_DESCRIPTION("MOXA Intellio Family Multiport Board Device Driver");
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("c218tunx.cod");
-MODULE_FIRMWARE("cp204unx.cod");
-MODULE_FIRMWARE("c320tunx.cod");
+/*(DEBLOBBED)*/
 
 module_param_array(type, uint, NULL, 0);
 MODULE_PARM_DESC(type, "card type: C218=2, C320=4");
@@ -855,19 +853,19 @@ static int moxa_init_board(struct moxa_board_conf *brd, struct device *dev)
 	switch (brd->boardType) {
 	case MOXA_BOARD_C218_ISA:
 	case MOXA_BOARD_C218_PCI:
-		file = "c218tunx.cod";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	case MOXA_BOARD_CP204J:
-		file = "cp204unx.cod";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	default:
-		file = "c320tunx.cod";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	}
 
-	ret = request_firmware(&fw, file, dev);
+	ret = reject_firmware(&fw, file, dev);
 	if (ret) {
-		printk(KERN_ERR "MOXA: request_firmware failed. Make sure "
+		printk(KERN_ERR "MOXA: reject_firmware failed. Make sure "
 				"you've placed '%s' file into your firmware "
 				"loader directory (e.g. /lib/firmware)\n",
 				file);

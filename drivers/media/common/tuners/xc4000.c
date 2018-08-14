@@ -115,7 +115,7 @@ struct xc4000_priv {
 #define XC4000_AUDIO_STD_INPUT1		16
 #define XC4000_AUDIO_STD_MONO		32
 
-#define XC4000_DEFAULT_FIRMWARE "dvb-fe-xc4000-1.4.fw"
+/*(DEBLOBBED)*/
 
 /* Misc Defines */
 #define MAX_TV_STANDARD			24
@@ -734,10 +734,10 @@ static int xc4000_fwupload(struct dvb_frontend *fe)
 	if (firmware_name[0] != '\0')
 		fname = firmware_name;
 	else
-		fname = XC4000_DEFAULT_FIRMWARE;
+		fname = "/*(DEBLOBBED)*/";
 
 	dprintk(1, "Reading firmware %s\n", fname);
-	rc = request_firmware(&fw, fname, priv->i2c_props.adap->dev.parent);
+	rc = maybe_reject_firmware(&fw, fname, priv->i2c_props.adap->dev.parent);
 	if (rc < 0) {
 		if (rc == -ENOENT)
 			printk(KERN_ERR "Error: firmware %s not found.\n", fname);

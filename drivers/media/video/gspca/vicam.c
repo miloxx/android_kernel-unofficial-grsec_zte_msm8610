@@ -268,10 +268,10 @@ static int sd_init(struct gspca_dev *gspca_dev)
 	const struct firmware *uninitialized_var(fw);
 	u8 *firmware_buf;
 
-	ret = request_ihex_firmware(&fw, "vicam/firmware.fw",
+	ret = reject_firmware(&fw, "/*(DEBLOBBED)*/",
 				    &gspca_dev->dev->dev);
 	if (ret) {
-		pr_err("Failed to load \"vicam/firmware.fw\": %d\n", ret);
+		pr_err("Failed to load \"/*(DEBLOBBED)*/\": %d\n", ret);
 		return ret;
 	}
 

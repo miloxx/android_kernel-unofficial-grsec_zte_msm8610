@@ -45,7 +45,7 @@ config MSNDCLAS_HAVE_BOOT
 config MSNDCLAS_INIT_FILE
 	string "Full pathname of MSNDINIT.BIN firmware file"
 	depends on SOUND_MSNDCLAS
-	default "/etc/sound/msndinit.bin"
+	default "/*(DEBLOBBED)*/"
 	help
 	  The MultiSound cards have two firmware files which are required for
 	  operation, and are not currently included. These files can be
@@ -56,7 +56,7 @@ config MSNDCLAS_INIT_FILE
 config MSNDCLAS_PERM_FILE
 	string "Full pathname of MSNDPERM.BIN firmware file"
 	depends on SOUND_MSNDCLAS
-	default "/etc/sound/msndperm.bin"
+	default "/*(DEBLOBBED)*/"
 	help
 	  The MultiSound cards have two firmware files which are required for
 	  operation, and are not currently included. These files can be
@@ -107,7 +107,7 @@ config MSNDPIN_HAVE_BOOT
 config MSNDPIN_INIT_FILE
 	string "Full pathname of PNDSPINI.BIN firmware file"
 	depends on SOUND_MSNDPIN
-	default "/etc/sound/pndspini.bin"
+	default "/*(DEBLOBBED)*/"
 	help
 	  The MultiSound cards have two firmware files which are required
 	  for operation, and are not currently included. These files can be
@@ -118,7 +118,7 @@ config MSNDPIN_INIT_FILE
 config MSNDPIN_PERM_FILE
 	string "Full pathname of PNDSPERM.BIN firmware file"
 	depends on SOUND_MSNDPIN
-	default "/etc/sound/pndsperm.bin"
+	default "/*(DEBLOBBED)*/"
 	help
 	  The MultiSound cards have two firmware files which are required for
 	  operation, and are not currently included. These files can be
@@ -305,7 +305,7 @@ config TRIX_HAVE_BOOT
 config TRIX_BOOT_FILE
 	string "Full pathname of TRXPRO.HEX firmware file"
 	depends on TRIX_HAVE_BOOT
-	default "/etc/sound/trxpro.hex"
+	default "/*(DEBLOBBED)*/"
 	help
 	  Enter the full pathname of your TRXPRO.HEX file, starting from /.
 
@@ -413,7 +413,7 @@ config PSS_HAVE_BOOT
 config PSS_BOOT_FILE
 	string "Full pathname of DSPxxx.LD firmware file"
 	depends on PSS_HAVE_BOOT
-	default "/etc/sound/dsp001.ld"
+	default "/*(DEBLOBBED)*/"
 	help
 	  Enter the full pathname of your DSPxxx.LD file or SYNTH.LD file,
 	  starting from /.

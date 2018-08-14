@@ -100,7 +100,7 @@ struct tda1004x_config
 	u8 i2c_gate;
 
 	/* request firmware for device */
-	int (*request_firmware)(struct dvb_frontend* fe, const struct firmware **fw, char* name);
+	int (*reject_firmware)(struct dvb_frontend* fe, const struct firmware **fw, char* name);
 };
 
 enum tda1004x_demod {

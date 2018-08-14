@@ -138,9 +138,9 @@ static int ft1000_probe(struct usb_interface *interface,
 	DEBUG("bulk_in=%d, bulk_out=%d\n", ft1000dev->bulk_in_endpointAddr,
 	      ft1000dev->bulk_out_endpointAddr);
 
-	ret = request_firmware(&dsp_fw, "ft3000.img", &dev->dev);
+	ret = reject_firmware(&dsp_fw, "/*(DEBLOBBED)*/", &dev->dev);
 	if (ret < 0) {
-		printk(KERN_ERR "Error request_firmware().\n");
+		printk(KERN_ERR "Error reject_firmware().\n");
 		goto err_fw;
 	}
 

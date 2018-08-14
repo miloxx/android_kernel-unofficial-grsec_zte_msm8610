@@ -1236,7 +1236,7 @@ int lbs_get_firmware(struct device *dev, const char *user_helper,
 			goto next;
 
 		if (*helper == NULL) {
-			ret = request_firmware(helper, iter->helper, dev);
+			ret = reject_firmware(helper, iter->helper, dev);
 			if (ret)
 				goto next;
 
@@ -1249,7 +1249,7 @@ int lbs_get_firmware(struct device *dev, const char *user_helper,
 		}
 
 		if (*mainfw == NULL) {
-			ret = request_firmware(mainfw, iter->fwname, dev);
+			ret = reject_firmware(mainfw, iter->fwname, dev);
 			if (ret && !user_helper) {
 				/* Clear the helper if it wasn't user-specified
 				 * and the main firmware load failed, to ensure

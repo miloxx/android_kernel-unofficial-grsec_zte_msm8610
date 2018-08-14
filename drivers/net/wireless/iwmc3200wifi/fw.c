@@ -167,7 +167,7 @@ static int iwm_load_img(struct iwm_priv *iwm, const char *img_name)
 	u32 opcode_idx = 0, build_date;
 	char *build_tag;
 
-	ret = request_firmware(&fw, img_name, iwm_to_dev(iwm));
+	ret = reject_firmware(&fw, img_name, iwm_to_dev(iwm));
 	if (ret) {
 		IWM_ERR(iwm, "Request firmware failed");
 		return ret;

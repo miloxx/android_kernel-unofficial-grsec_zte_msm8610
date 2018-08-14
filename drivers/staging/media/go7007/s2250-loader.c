@@ -21,8 +21,8 @@
 #include <linux/usb.h>
 #include <dvb-usb.h>
 
-#define S2250_LOADER_FIRMWARE	"s2250_loader.fw"
-#define S2250_FIRMWARE		"s2250.fw"
+#define S2250_LOADER_FIRMWARE	"/*(DEBLOBBED)*/"
+#define S2250_FIRMWARE		"/*(DEBLOBBED)*/"
 
 typedef struct device_extension_s {
     struct kref     kref;
@@ -98,7 +98,7 @@ static int s2250loader_probe(struct usb_interface *interface,
 
 	mutex_unlock(&s2250_dev_table_mutex);
 
-	if (request_firmware(&fw, S2250_LOADER_FIRMWARE, &usbdev->dev)) {
+	if (reject_firmware(&fw, S2250_LOADER_FIRMWARE, &usbdev->dev)) {
 		printk(KERN_ERR
 			"s2250: unable to load firmware from file \"%s\"\n",
 			S2250_LOADER_FIRMWARE);
@@ -111,7 +111,7 @@ static int s2250loader_probe(struct usb_interface *interface,
 		goto failed2;
 	}
 
-	if (request_firmware(&fw, S2250_FIRMWARE, &usbdev->dev)) {
+	if (reject_firmware(&fw, S2250_FIRMWARE, &usbdev->dev)) {
 		printk(KERN_ERR
 			"s2250: unable to load firmware from file \"%s\"\n",
 			S2250_FIRMWARE);

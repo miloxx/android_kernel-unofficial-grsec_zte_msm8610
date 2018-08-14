@@ -306,7 +306,7 @@ enum {
 
 #define FW_GET_BYTE(p) (*((__u8 *) (p)))
 
-#define FW_DIR "ueagle-atm/"
+#define FW_DIR "/*(DEBLOBBED)*/"
 #define UEA_FW_NAME_MAX 30
 #define NB_MODEM 4
 
@@ -694,30 +694,30 @@ err:
 static int uea_load_firmware(struct usb_device *usb, unsigned int ver)
 {
 	int ret;
-	char *fw_name = FW_DIR "eagle.fw";
+	char *fw_name = FW_DIR "/*(DEBLOBBED)*/";
 
 	uea_enters(usb);
 	uea_info(usb, "pre-firmware device, uploading firmware\n");
 
 	switch (ver) {
 	case ADI930:
-		fw_name = FW_DIR "adi930.fw";
+		fw_name = FW_DIR "/*(DEBLOBBED)*/";
 		break;
 	case EAGLE_I:
-		fw_name = FW_DIR "eagleI.fw";
+		fw_name = FW_DIR "/*(DEBLOBBED)*/";
 		break;
 	case EAGLE_II:
-		fw_name = FW_DIR "eagleII.fw";
+		fw_name = FW_DIR "/*(DEBLOBBED)*/";
 		break;
 	case EAGLE_III:
-		fw_name = FW_DIR "eagleIII.fw";
+		fw_name = FW_DIR "/*(DEBLOBBED)*/";
 		break;
 	case EAGLE_IV:
-		fw_name = FW_DIR "eagleIV.fw";
+		fw_name = FW_DIR "/*(DEBLOBBED)*/";
 		break;
 	}
 
-	ret = request_firmware_nowait(THIS_MODULE, 1, fw_name, &usb->dev,
+	ret = reject_firmware_nowait(THIS_MODULE, 1, fw_name, &usb->dev,
 					GFP_KERNEL, usb,
 					uea_upload_pre_firmware);
 	if (ret)
@@ -869,22 +869,22 @@ static int request_dsp(struct uea_softc *sc)
 
 	if (UEA_CHIP_VERSION(sc) == EAGLE_IV) {
 		if (IS_ISDN(sc))
-			dsp_name = FW_DIR "DSP4i.bin";
+			dsp_name = FW_DIR "/*(DEBLOBBED)*/";
 		else
-			dsp_name = FW_DIR "DSP4p.bin";
+			dsp_name = FW_DIR "/*(DEBLOBBED)*/";
 	} else if (UEA_CHIP_VERSION(sc) == ADI930) {
 		if (IS_ISDN(sc))
-			dsp_name = FW_DIR "DSP9i.bin";
+			dsp_name = FW_DIR "/*(DEBLOBBED)*/";
 		else
-			dsp_name = FW_DIR "DSP9p.bin";
+			dsp_name = FW_DIR "/*(DEBLOBBED)*/";
 	} else {
 		if (IS_ISDN(sc))
-			dsp_name = FW_DIR "DSPei.bin";
+			dsp_name = FW_DIR "/*(DEBLOBBED)*/";
 		else
-			dsp_name = FW_DIR "DSPep.bin";
+			dsp_name = FW_DIR "/*(DEBLOBBED)*/";
 	}
 
-	ret = request_firmware(&sc->dsp_firm, dsp_name, &sc->usb_dev->dev);
+	ret = reject_firmware(&sc->dsp_firm, dsp_name, &sc->usb_dev->dev);
 	if (ret < 0) {
 		uea_err(INS_TO_USBDEV(sc),
 		       "requesting firmware %s failed with error %d\n",
@@ -1573,7 +1573,7 @@ static int uea_stat_e4(struct uea_softc *sc)
 
 static void cmvs_file_name(struct uea_softc *sc, char *const cmv_name, int ver)
 {
-	char file_arr[] = "CMVxy.bin";
+	char file_arr[] = "/*(DEBLOBBED)*/";
 	char *file;
 
 	kparam_block_sysfs_write(cmv_file);
@@ -1606,7 +1606,7 @@ static int request_cmvs_old(struct uea_softc *sc,
 	char cmv_name[UEA_FW_NAME_MAX]; /* 30 bytes stack variable */
 
 	cmvs_file_name(sc, cmv_name, 1);
-	ret = request_firmware(fw, cmv_name, &sc->usb_dev->dev);
+	ret = reject_firmware(fw, cmv_name, &sc->usb_dev->dev);
 	if (ret < 0) {
 		uea_err(INS_TO_USBDEV(sc),
 		       "requesting firmware %s failed with error %d\n",
@@ -1640,7 +1640,7 @@ static int request_cmvs(struct uea_softc *sc,
 	char cmv_name[UEA_FW_NAME_MAX]; /* 30 bytes stack variable */
 
 	cmvs_file_name(sc, cmv_name, 2);
-	ret = request_firmware(fw, cmv_name, &sc->usb_dev->dev);
+	ret = reject_firmware(fw, cmv_name, &sc->usb_dev->dev);
 	if (ret < 0) {
 		/* if caller can handle old version, try to provide it */
 		if (*ver == 1) {
@@ -1929,11 +1929,11 @@ static int load_XILINX_firmware(struct uea_softc *sc)
 	int ret, size, u, ln;
 	const u8 *pfw;
 	u8 value;
-	char *fw_name = FW_DIR "930-fpga.bin";
+	char *fw_name = FW_DIR "/*(DEBLOBBED)*/";
 
 	uea_enters(INS_TO_USBDEV(sc));
 
-	ret = request_firmware(&fw_entry, fw_name, &sc->usb_dev->dev);
+	ret = reject_firmware(&fw_entry, fw_name, &sc->usb_dev->dev);
 	if (ret) {
 		uea_err(INS_TO_USBDEV(sc), "firmware %s is not available\n",
 		       fw_name);

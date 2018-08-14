@@ -77,7 +77,7 @@ struct firmware_hdr {
 };
 
 static const char * const brcms_firmwares[MAX_FW_IMAGES] = {
-	"brcm/bcm43xx",
+	"/*(DEBLOBBED)*/",
 	NULL
 };
 
@@ -781,17 +781,17 @@ static int brcms_request_fw(struct brcms_info *wl, struct pci_dev *pdev)
 	for (i = 0; i < MAX_FW_IMAGES; i++) {
 		if (brcms_firmwares[i] == NULL)
 			break;
-		sprintf(fw_name, "%s-%d.fw", brcms_firmwares[i],
+		sprintf(fw_name, "/*(DEBLOBBED)*/", brcms_firmwares[i],
 			UCODE_LOADER_API_VER);
-		status = request_firmware(&wl->fw.fw_bin[i], fw_name, device);
+		status = reject_firmware(&wl->fw.fw_bin[i], fw_name, device);
 		if (status) {
 			wiphy_err(wl->wiphy, "%s: fail to load firmware %s\n",
 				  KBUILD_MODNAME, fw_name);
 			return status;
 		}
-		sprintf(fw_name, "%s_hdr-%d.fw", brcms_firmwares[i],
+		sprintf(fw_name, "/*(DEBLOBBED)*/", brcms_firmwares[i],
 			UCODE_LOADER_API_VER);
-		status = request_firmware(&wl->fw.fw_hdr[i], fw_name, device);
+		status = reject_firmware(&wl->fw.fw_hdr[i], fw_name, device);
 		if (status) {
 			wiphy_err(wl->wiphy, "%s: fail to load firmware %s\n",
 				  KBUILD_MODNAME, fw_name);

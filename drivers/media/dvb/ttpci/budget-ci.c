@@ -827,12 +827,12 @@ static int philips_tdm1316l_tuner_set_params(struct dvb_frontend *fe)
 	return 0;
 }
 
-static int philips_tdm1316l_request_firmware(struct dvb_frontend *fe,
+static int philips_tdm1316l_reject_firmware(struct dvb_frontend *fe,
 					     const struct firmware **fw, char *name)
 {
 	struct budget_ci *budget_ci = (struct budget_ci *) fe->dvb->priv;
 
-	return request_firmware(fw, name, &budget_ci->budget.dev->pci->dev);
+	return reject_firmware(fw, name, &budget_ci->budget.dev->pci->dev);
 }
 
 static struct tda1004x_config philips_tdm1316l_config = {
@@ -843,7 +843,7 @@ static struct tda1004x_config philips_tdm1316l_config = {
 	.xtal_freq = TDA10046_XTAL_4M,
 	.agc_config = TDA10046_AGC_DEFAULT,
 	.if_freq = TDA10046_FREQ_3617,
-	.request_firmware = philips_tdm1316l_request_firmware,
+	.reject_firmware = philips_tdm1316l_reject_firmware,
 };
 
 static struct tda1004x_config philips_tdm1316l_config_invert = {
@@ -854,7 +854,7 @@ static struct tda1004x_config philips_tdm1316l_config_invert = {
 	.xtal_freq = TDA10046_XTAL_4M,
 	.agc_config = TDA10046_AGC_DEFAULT,
 	.if_freq = TDA10046_FREQ_3617,
-	.request_firmware = philips_tdm1316l_request_firmware,
+	.reject_firmware = philips_tdm1316l_reject_firmware,
 };
 
 static int dvbc_philips_tdm1316l_tuner_set_params(struct dvb_frontend *fe)

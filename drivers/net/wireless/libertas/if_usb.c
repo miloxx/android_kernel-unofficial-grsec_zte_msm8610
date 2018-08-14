@@ -32,11 +32,7 @@
 static char *lbs_fw_name = NULL;
 module_param_named(fw_name, lbs_fw_name, charp, 0644);
 
-MODULE_FIRMWARE("libertas/usb8388_v9.bin");
-MODULE_FIRMWARE("libertas/usb8388_v5.bin");
-MODULE_FIRMWARE("libertas/usb8388.bin");
-MODULE_FIRMWARE("libertas/usb8682.bin");
-MODULE_FIRMWARE("usb8388.bin");
+/*(DEBLOBBED)*/
 
 enum {
 	MODEL_UNKNOWN = 0x0,
@@ -88,12 +84,7 @@ static ssize_t if_usb_firmware_set(struct device *dev,
 	return ret;
 }
 
-/*
- * lbs_flash_fw attribute to be exported per ethX interface through sysfs
- * (/sys/class/net/ethX/lbs_flash_fw).  Use this like so to write firmware to
- * the device's persistent memory:
- * echo usb8388-5.126.0.p5.bin > /sys/class/net/ethX/lbs_flash_fw
- */
+/*(DEBLOBBED)*/
 static DEVICE_ATTR(lbs_flash_fw, 0200, NULL, if_usb_firmware_set);
 
 /**
@@ -122,12 +113,7 @@ static ssize_t if_usb_boot2_set(struct device *dev,
 	return ret;
 }
 
-/*
- * lbs_flash_boot2 attribute to be exported per ethX interface through sysfs
- * (/sys/class/net/ethX/lbs_flash_boot2).  Use this like so to write firmware
- * to the device's persistent memory:
- * echo usb8388-5.126.0.p5.bin > /sys/class/net/ethX/lbs_flash_boot2
- */
+/*(DEBLOBBED)*/
 static DEVICE_ATTR(lbs_flash_boot2, 0200, NULL, if_usb_boot2_set);
 
 /**
@@ -964,11 +950,11 @@ static const struct {
 	u32 model;
 	const char *fwname;
 } fw_table[] = {
-	{ MODEL_8388, "libertas/usb8388_v9.bin" },
-	{ MODEL_8388, "libertas/usb8388_v5.bin" },
-	{ MODEL_8388, "libertas/usb8388.bin" },
-	{ MODEL_8388, "usb8388.bin" },
-	{ MODEL_8682, "libertas/usb8682.bin" }
+	{ MODEL_8388, "/*(DEBLOBBED)*/" },
+	{ MODEL_8388, "/*(DEBLOBBED)*/" },
+	{ MODEL_8388, "/*(DEBLOBBED)*/" },
+	{ MODEL_8388, "/*(DEBLOBBED)*/" },
+	{ MODEL_8682, "/*(DEBLOBBED)*/" }
 };
 
 #ifdef CONFIG_OLPC
@@ -979,8 +965,8 @@ static int try_olpc_fw(struct if_usb_card *cardp)
 
 	/* try the OLPC firmware first; fall back to fw_table list */
 	if (machine_is_olpc() && cardp->model == MODEL_8388)
-		retval = request_firmware(&cardp->fw,
-				"libertas/usb8388_olpc.bin", &cardp->udev->dev);
+		retval = reject_firmware(&cardp->fw,
+				"/*(DEBLOBBED)*/", &cardp->udev->dev);
 	return retval;
 }
 
@@ -1004,7 +990,7 @@ static int get_fw(struct if_usb_card *cardp, const char *fwname)
 	for (i = 0; i < ARRAY_SIZE(fw_table); i++) {
 		if (fw_table[i].model != cardp->model)
 			continue;
-		if (request_firmware(&cardp->fw, fw_table[i].fwname,
+		if (reject_firmware(&cardp->fw, fw_table[i].fwname,
 					&cardp->udev->dev) == 0)
 			return 0;
 	}

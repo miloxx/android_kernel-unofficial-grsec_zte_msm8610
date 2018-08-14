@@ -23,7 +23,7 @@
 MODULE_DESCRIPTION("QLogic 1/10 GbE Converged/Intelligent Ethernet Driver");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(QLCNIC_LINUX_VERSIONID);
-MODULE_FIRMWARE(QLCNIC_UNIFIED_ROMIMAGE_NAME);
+/*(DEBLOBBED)*/
 
 char qlcnic_driver_name[] = "qlcnic";
 static const char qlcnic_driver_string[] = "QLogic 1/10 GbE "
@@ -1018,7 +1018,7 @@ qlcnic_start_firmware(struct qlcnic_adapter *adapter)
 		goto check_fw_status;
 
 	if (load_fw_file)
-		qlcnic_request_firmware(adapter);
+		qlcnic_reject_firmware(adapter);
 	else {
 		err = qlcnic_check_flash_fw_ver(adapter);
 		if (err)

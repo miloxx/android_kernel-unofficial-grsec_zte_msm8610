@@ -35,21 +35,21 @@
 #include "conf.h"
 #include "ini.h"
 
-#define WL127X_FW_NAME_MULTI "ti-connectivity/wl127x-fw-4-mr.bin"
-#define WL127X_FW_NAME_SINGLE "ti-connectivity/wl127x-fw-4-sr.bin"
+#define WL127X_FW_NAME_MULTI "/*(DEBLOBBED)*/"
+#define WL127X_FW_NAME_SINGLE "/*(DEBLOBBED)*/"
 
-#define WL128X_FW_NAME_MULTI "ti-connectivity/wl128x-fw-4-mr.bin"
-#define WL128X_FW_NAME_SINGLE "ti-connectivity/wl128x-fw-4-sr.bin"
+#define WL128X_FW_NAME_MULTI "/*(DEBLOBBED)*/"
+#define WL128X_FW_NAME_SINGLE "/*(DEBLOBBED)*/"
 
-#define WL127X_PLT_FW_NAME "ti-connectivity/wl127x-fw-4-plt.bin"
-#define WL128X_PLT_FW_NAME "ti-connectivity/wl128x-fw-4-plt.bin"
+#define WL127X_PLT_FW_NAME "/*(DEBLOBBED)*/"
+#define WL128X_PLT_FW_NAME "/*(DEBLOBBED)*/"
 
 /*
  * wl127x and wl128x are using the same NVS file name. However, the
  * ini parameters between them are different.  The driver validates
  * the correct NVS size in wl1271_boot_upload_nvs().
  */
-#define WL12XX_NVS_NAME "ti-connectivity/wl1271-nvs.bin"
+#define WL12XX_NVS_NAME "/*(DEBLOBBED)*/"
 
 #define WL1271_TX_SECURITY_LO16(s) ((u16)((s) & 0xffff))
 #define WL1271_TX_SECURITY_HI32(s) ((u32)(((s) >> 16) & 0xffffffff))

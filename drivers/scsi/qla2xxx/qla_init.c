@@ -4577,7 +4577,7 @@ qla2x00_load_risc(scsi_qla_host_t *vha, uint32_t *srisc_addr)
 	struct req_que *req = ha->req_q_map[0];
 
 	/* Load firmware blob. */
-	blob = qla2x00_request_firmware(vha);
+	blob = qla2x00_reject_firmware(vha);
 	if (!blob) {
 		ql_log(ql_log_info, vha, 0x0083,
 		    "Fimware image unavailable.\n");
@@ -4679,7 +4679,7 @@ qla24xx_load_risc_blob(scsi_qla_host_t *vha, uint32_t *srisc_addr)
 	struct req_que *req = ha->req_q_map[0];
 
 	/* Load firmware blob. */
-	blob = qla2x00_request_firmware(vha);
+	blob = qla2x00_reject_firmware(vha);
 	if (!blob) {
 		ql_log(ql_log_warn, vha, 0x0090,
 		    "Fimware image unavailable.\n");

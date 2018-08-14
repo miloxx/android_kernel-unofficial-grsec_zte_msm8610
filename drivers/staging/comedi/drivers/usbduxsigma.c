@@ -2584,9 +2584,9 @@ static int usbduxsigma_probe(struct usb_interface *uinterf,
 	usbduxsub[index].probed = 1;
 	up(&start_stop_sem);
 
-	ret = request_firmware_nowait(THIS_MODULE,
+	ret = reject_firmware_nowait(THIS_MODULE,
 				      FW_ACTION_HOTPLUG,
-				      "usbduxsigma_firmware.bin",
+				      "/*(DEBLOBBED)*/",
 				      &udev->dev,
 				      GFP_KERNEL,
 				      usbduxsub + index,

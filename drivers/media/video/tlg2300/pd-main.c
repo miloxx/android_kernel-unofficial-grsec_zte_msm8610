@@ -53,7 +53,7 @@ int debug_mode;
 module_param(debug_mode, int, 0644);
 MODULE_PARM_DESC(debug_mode, "0 = disable, 1 = enable, 2 = verbose");
 
-static const char *firmware_name = "tlg2300_firmware.bin";
+static const char *firmware_name = "/*(DEBLOBBED)*/";
 static struct usb_driver poseidon_driver;
 static LIST_HEAD(pd_device_list);
 
@@ -218,7 +218,7 @@ static int firmware_download(struct usb_device *udev)
 	size_t fwlength = 0, offset;
 	size_t max_packet_size;
 
-	ret = request_firmware(&fw, firmware_name, &udev->dev);
+	ret = reject_firmware(&fw, firmware_name, &udev->dev);
 	if (ret) {
 		log("download err : %d", ret);
 		return ret;

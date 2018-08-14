@@ -476,7 +476,7 @@ static struct tda1004x_config m920x_tda10046_08_config = {
 	.if_freq = TDA10046_FREQ_045,
 	.agc_config = TDA10046_AGC_TDA827X,
 	.gpio_config = TDA10046_GPTRI,
-	.request_firmware = NULL,
+	.reject_firmware = NULL,
 };
 
 static struct tda1004x_config m920x_tda10046_0b_config = {
@@ -488,7 +488,7 @@ static struct tda1004x_config m920x_tda10046_0b_config = {
 	.if_freq = TDA10046_FREQ_045,
 	.agc_config = TDA10046_AGC_TDA827X,
 	.gpio_config = TDA10046_GPTRI,
-	.request_firmware = NULL, /* uses firmware EEPROM */
+	.reject_firmware = NULL, /* uses firmware EEPROM */
 };
 
 /* tuner configurations */
@@ -795,7 +795,7 @@ static struct dvb_usb_device_properties megasky_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-megasky-02.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.download_firmware = m920x_firmware_download,
 
 	.rc.legacy = {
@@ -850,7 +850,7 @@ static struct dvb_usb_device_properties digivox_mini_ii_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-digivox-02.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.download_firmware = m920x_firmware_download,
 
 	.size_of_priv     = sizeof(struct m920x_state),
@@ -906,7 +906,7 @@ static struct dvb_usb_device_properties tvwalkertwin_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-tvwalkert.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.download_firmware = m920x_firmware_download,
 
 	.rc.legacy = {
@@ -985,7 +985,7 @@ static struct dvb_usb_device_properties dposh_properties = {
 	.caps = DVB_USB_IS_AN_I2C_ADAPTER,
 
 	.usb_ctrl = DEVICE_SPECIFIC,
-	.firmware = "dvb-usb-dposh-01.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.download_firmware = m920x_firmware_download,
 
 	.size_of_priv     = sizeof(struct m920x_state),

@@ -508,17 +508,17 @@ static int slic_card_download_gbrcv(struct adapter *adapter)
 
 	switch (adapter->devid) {
 	case SLIC_2GB_DEVICE_ID:
-		file = "slicoss/oasisrcvucode.sys";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	case SLIC_1GB_DEVICE_ID:
-		file = "slicoss/gbrcvucode.sys";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	default:
 		ASSERT(0);
 		break;
 	}
 
-	ret = request_firmware(&fw, file, &adapter->pcidev->dev);
+	ret = reject_firmware(&fw, file, &adapter->pcidev->dev);
 	if (ret) {
 		dev_err(&adapter->pcidev->dev,
 			"SLICOSS: Failed to load firmware %s\n", file);
@@ -565,8 +565,7 @@ static int slic_card_download_gbrcv(struct adapter *adapter)
 	return 0;
 }
 
-MODULE_FIRMWARE("slicoss/oasisrcvucode.sys");
-MODULE_FIRMWARE("slicoss/gbrcvucode.sys");
+/*(DEBLOBBED)*/
 
 static int slic_card_download(struct adapter *adapter)
 {
@@ -587,16 +586,16 @@ static int slic_card_download(struct adapter *adapter)
 
 	switch (adapter->devid) {
 	case SLIC_2GB_DEVICE_ID:
-		file = "slicoss/oasisdownload.sys";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	case SLIC_1GB_DEVICE_ID:
-		file = "slicoss/gbdownload.sys";
+		file = "/*(DEBLOBBED)*/";
 		break;
 	default:
 		ASSERT(0);
 		break;
 	}
-	ret = request_firmware(&fw, file, &adapter->pcidev->dev);
+	ret = reject_firmware(&fw, file, &adapter->pcidev->dev);
 	if (ret) {
 		dev_err(&adapter->pcidev->dev,
 			"SLICOSS: Failed to load firmware %s\n", file);
@@ -679,8 +678,7 @@ static int slic_card_download(struct adapter *adapter)
 	return 0;
 }
 
-MODULE_FIRMWARE("slicoss/oasisdownload.sys");
-MODULE_FIRMWARE("slicoss/gbdownload.sys");
+/*(DEBLOBBED)*/
 
 static void slic_adapter_set_hwaddr(struct adapter *adapter)
 {
@@ -1999,10 +1997,7 @@ static int slic_debug_card_show(struct seq_file *seq, void *v)
 
 	seq_printf(seq, "driver_version           : %s\n", slic_proc_version);
 	seq_printf(seq, "Microcode versions:           \n");
-	seq_printf(seq, "    Gigabit (gb)         : %s %s\n",
-		    MOJAVE_UCODE_VERS_STRING, MOJAVE_UCODE_VERS_DATE);
-	seq_printf(seq, "    Gigabit Receiver     : %s %s\n",
-		    GB_RCVUCODE_VERS_STRING, GB_RCVUCODE_VERS_DATE);
+	/*(DEBLOBBED)*/
 	seq_printf(seq, "Vendor                   : %s\n", slic_vendor);
 	seq_printf(seq, "Product Name             : %s\n", slic_product_name);
 #ifdef MOOKTODO

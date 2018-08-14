@@ -167,11 +167,11 @@
 #else
 #  ifndef CONFIG_MSNDCLAS_INIT_FILE
 #    define CONFIG_MSNDCLAS_INIT_FILE				\
-				"/etc/sound/msndinit.bin"
+				"/*(DEBLOBBED)*/"
 #  endif
 #  ifndef CONFIG_MSNDCLAS_PERM_FILE
 #    define CONFIG_MSNDCLAS_PERM_FILE				\
-				"/etc/sound/msndperm.bin"
+				"/*(DEBLOBBED)*/"
 #  endif
 #  define PERMCODEFILE		CONFIG_MSNDCLAS_PERM_FILE
 #  define INITCODEFILE		CONFIG_MSNDCLAS_INIT_FILE

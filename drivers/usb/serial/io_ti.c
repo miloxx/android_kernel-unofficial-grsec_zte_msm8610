@@ -835,7 +835,7 @@ static int build_i2c_fw_hdr(__u8 *header, struct device *dev)
 	struct ti_i2c_image_header *img_header;
 	struct ti_i2c_firmware_rec *firmware_rec;
 	const struct firmware *fw;
-	const char *fw_name = "edgeport/down3.bin";
+	const char *fw_name = "/*(DEBLOBBED)*/";
 
 	/* In order to update the I2C firmware we must change the type 2 record
 	 * to type 0xF2.  This will force the UMP to come up in Boot Mode.
@@ -860,7 +860,7 @@ static int build_i2c_fw_hdr(__u8 *header, struct device *dev)
 	// Set entire image of 0xffs
 	memset(buffer, 0xff, buffer_size);
 
-	err = request_firmware(&fw, fw_name, dev);
+	err = reject_firmware(&fw, fw_name, dev);
 	if (err) {
 		printk(KERN_ERR "Failed to load image \"%s\" err %d\n",
 		       fw_name, err);
@@ -1374,7 +1374,7 @@ static int download_fw(struct edgeport_serial *serial)
 		int buffer_size;
 		int err;
 		const struct firmware *fw;
-		const char *fw_name = "edgeport/down3.bin";
+		const char *fw_name = "/*(DEBLOBBED)*/";
 
 		/* Validate Hardware version number
 		 * Read Manufacturing Descriptor from TI Based Edgeport
@@ -1426,7 +1426,7 @@ static int download_fw(struct edgeport_serial *serial)
 		/* Initialize the buffer to 0xff (pad the buffer) */
 		memset(buffer, 0xff, buffer_size);
 
-		err = request_firmware(&fw, fw_name, dev);
+		err = reject_firmware(&fw, fw_name, dev);
 		if (err) {
 			printk(KERN_ERR "Failed to load image \"%s\" err %d\n",
 			       fw_name, err);
@@ -2788,7 +2788,7 @@ module_usb_serial_driver(io_driver, serial_drivers);
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("edgeport/down3.bin");
+/*(DEBLOBBED)*/
 
 module_param(debug, bool, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(debug, "Debug enabled or not");

@@ -51,7 +51,7 @@
 #include <linux/usb.h>
 
 #define S2255_VERSION		"1.22.1"
-#define FIRMWARE_FILE_NAME "f2255usb.bin"
+#define FIRMWARE_FILE_NAME "/*(DEBLOBBED)*/"
 
 /* default JPEG quality */
 #define S2255_DEF_JPEG_QUAL     50
@@ -269,7 +269,7 @@ struct s2255_dev {
 	int			frame_ready;
 	int                     chn_ready;
 	spinlock_t              slock;
-	/* dsp firmware version (f2255usb.bin) */
+	/*(DEBLOBBED)*/
 	int                     dsp_fw_ver;
 	u16                     pid; /* product id */
 };
@@ -2585,7 +2585,7 @@ static int s2255_probe(struct usb_interface *interface,
 		goto errorFWDATA2;
 	}
 	/* load the first chunk */
-	if (request_firmware(&dev->fw_data->fw,
+	if (reject_firmware(&dev->fw_data->fw,
 			     FIRMWARE_FILE_NAME, &dev->udev->dev)) {
 		printk(KERN_ERR "sensoray 2255 failed to get firmware\n");
 		goto errorREQFW;
@@ -2605,7 +2605,7 @@ static int s2255_probe(struct usb_interface *interface,
 		printk(KERN_INFO "s2255 dsp fw version %x\n", *pRel);
 		dev->dsp_fw_ver = le32_to_cpu(*pRel);
 		if (dev->dsp_fw_ver < S2255_CUR_DSP_FWVER)
-			printk(KERN_INFO "s2255: f2255usb.bin out of date.\n");
+			printk(KERN_INFO "s2255: /*(DEBLOBBED)*/ out of date.\n");
 		if (dev->pid == 0x2257 &&
 				dev->dsp_fw_ver < S2255_MIN_DSP_COLORFILTER)
 			printk(KERN_WARNING "s2255: 2257 requires firmware %d"

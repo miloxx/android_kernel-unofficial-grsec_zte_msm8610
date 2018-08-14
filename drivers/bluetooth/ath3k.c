@@ -278,7 +278,7 @@ static int ath3k_load_patch(struct usb_device *udev)
 	snprintf(filename, ATH3K_NAME_LEN, "ar3k/AthrBT_0x%08x.dfu",
 		fw_version.rom_version);
 
-	ret = request_firmware(&firmware, filename, &udev->dev);
+	ret = reject_firmware(&firmware, filename, &udev->dev);
 	if (ret < 0) {
 		BT_ERR("Patch file not found %s", filename);
 		return ret;
@@ -340,7 +340,7 @@ static int ath3k_load_syscfg(struct usb_device *udev)
 	snprintf(filename, ATH3K_NAME_LEN, "ar3k/ramps_0x%08x_%d%s",
 		fw_version.rom_version, clk_value, ".dfu");
 
-	ret = request_firmware(&firmware, filename, &udev->dev);
+	ret = reject_firmware(&firmware, filename, &udev->dev);
 	if (ret < 0) {
 		BT_ERR("Configuration file not found %s", filename);
 		return ret;
@@ -398,7 +398,7 @@ static int ath3k_probe(struct usb_interface *intf,
 		return 0;
 	}
 
-	if (request_firmware(&firmware, "ath3k-1.fw", &udev->dev) < 0) {
+	if (reject_firmware(&firmware, "/*(DEBLOBBED)*/", &udev->dev) < 0) {
 		BT_ERR("Error loading firmware");
 		return -EIO;
 	}
@@ -439,4 +439,4 @@ MODULE_AUTHOR("Atheros Communications");
 MODULE_DESCRIPTION("Atheros AR30xx firmware driver");
 MODULE_VERSION(VERSION);
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE("ath3k-1.fw");
+/*(DEBLOBBED)*/

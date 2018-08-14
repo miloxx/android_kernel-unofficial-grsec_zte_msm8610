@@ -1529,11 +1529,11 @@ static int get_firmware(struct av7110* av7110)
 	const struct firmware *fw;
 
 	/* request the av7110 firmware, this will block until someone uploads it */
-	ret = request_firmware(&fw, "dvb-ttpci-01.fw", &av7110->dev->pci->dev);
+	ret = reject_firmware(&fw, "/*(DEBLOBBED)*/", &av7110->dev->pci->dev);
 	if (ret) {
 		if (ret == -ENOENT) {
 			printk(KERN_ERR "dvb-ttpci: could not load firmware,"
-			       " file not found: dvb-ttpci-01.fw\n");
+			       " file not found: /*(DEBLOBBED)*/\n");
 			printk(KERN_ERR "dvb-ttpci: usually this should be in "
 			       "/usr/lib/hotplug/firmware or /lib/firmware\n");
 			printk(KERN_ERR "dvb-ttpci: and can be downloaded from"
@@ -1728,12 +1728,12 @@ static int alps_tdlb7_tuner_set_params(struct dvb_frontend *fe)
 	return 0;
 }
 
-static int alps_tdlb7_request_firmware(struct dvb_frontend* fe, const struct firmware **fw, char* name)
+static int alps_tdlb7_reject_firmware(struct dvb_frontend* fe, const struct firmware **fw, char* name)
 {
 #if defined(CONFIG_DVB_SP8870) || defined(CONFIG_DVB_SP8870_MODULE)
 	struct av7110* av7110 = fe->dvb->priv;
 
-	return request_firmware(fw, name, &av7110->dev->pci->dev);
+	return reject_firmware(fw, name, &av7110->dev->pci->dev);
 #else
 	return -EINVAL;
 #endif
@@ -1742,7 +1742,7 @@ static int alps_tdlb7_request_firmware(struct dvb_frontend* fe, const struct fir
 static struct sp8870_config alps_tdlb7_config = {
 
 	.demod_address = 0x71,
-	.request_firmware = alps_tdlb7_request_firmware,
+	.reject_firmware = alps_tdlb7_reject_firmware,
 };
 
 

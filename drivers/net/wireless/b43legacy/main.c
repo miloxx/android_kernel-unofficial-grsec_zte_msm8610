@@ -60,8 +60,7 @@ MODULE_AUTHOR("Stefano Brivio");
 MODULE_AUTHOR("Michael Buesch");
 MODULE_LICENSE("GPL");
 
-MODULE_FIRMWARE("b43legacy/ucode2.fw");
-MODULE_FIRMWARE("b43legacy/ucode4.fw");
+/*(DEBLOBBED)*/
 
 #if defined(CONFIG_B43LEGACY_DMA) && defined(CONFIG_B43LEGACY_PIO)
 static int modparam_pio;
@@ -1506,9 +1505,7 @@ static void b43legacy_release_firmware(struct b43legacy_wldev *dev)
 
 static void b43legacy_print_fw_helptext(struct b43legacy_wl *wl)
 {
-	b43legacyerr(wl, "You must go to http://linuxwireless.org/en/users/"
-		     "Drivers/b43#devicefirmware "
-		     "and download the correct firmware (version 3).\n");
+	/*(DEBLOBBED)*/
 }
 
 static int do_request_fw(struct b43legacy_wldev *dev,
@@ -1524,9 +1521,9 @@ static int do_request_fw(struct b43legacy_wldev *dev,
 		return 0;
 
 	snprintf(path, ARRAY_SIZE(path),
-		 "b43legacy%s/%s.fw",
+		 "/*(DEBLOBBED)*/",
 		 modparam_fwpostfix, name);
-	err = request_firmware(fw, path, dev->dev->dev);
+	err = reject_firmware(fw, path, dev->dev->dev);
 	if (err) {
 		b43legacyerr(dev->wl, "Firmware file \"%s\" not found "
 		       "or load failed.\n", path);
@@ -1561,7 +1558,7 @@ static int b43legacy_one_core_attach(struct ssb_device *dev,
 				     struct b43legacy_wl *wl);
 static void b43legacy_one_core_detach(struct ssb_device *dev);
 
-static void b43legacy_request_firmware(struct work_struct *work)
+static void b43legacy_reject_firmware(struct work_struct *work)
 {
 	struct b43legacy_wl *wl = container_of(work,
 				  struct b43legacy_wl, firmware_load);
@@ -3871,7 +3868,7 @@ static int b43legacy_probe(struct ssb_device *dev,
 		goto err_wireless_exit;
 
 	/* setup and start work to load firmware */
-	INIT_WORK(&wl->firmware_load, b43legacy_request_firmware);
+	INIT_WORK(&wl->firmware_load, b43legacy_reject_firmware);
 	schedule_work(&wl->firmware_load);
 
 out:

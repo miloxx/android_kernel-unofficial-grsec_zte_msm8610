@@ -522,10 +522,10 @@ struct uni_data_desc{
 #define NX_FLASH_ROMIMAGE	4
 #define NX_UNKNOWN_ROMIMAGE	0xff
 
-#define NX_P2_MN_ROMIMAGE_NAME		"nxromimg.bin"
-#define NX_P3_CT_ROMIMAGE_NAME		"nx3fwct.bin"
-#define NX_P3_MN_ROMIMAGE_NAME		"nx3fwmn.bin"
-#define NX_UNIFIED_ROMIMAGE_NAME	"phanfw.bin"
+#define NX_P2_MN_ROMIMAGE_NAME		"/*(DEBLOBBED)*/"
+#define NX_P3_CT_ROMIMAGE_NAME		"/*(DEBLOBBED)*/"
+#define NX_P3_MN_ROMIMAGE_NAME		"/*(DEBLOBBED)*/"
+#define NX_UNIFIED_ROMIMAGE_NAME	"/*(DEBLOBBED)*/"
 #define NX_FLASH_ROMIMAGE_NAME		"flash"
 
 extern char netxen_nic_driver_name[];
@@ -1740,7 +1740,7 @@ int netxen_check_flash_fw_compatibility(struct netxen_adapter *adapter);
 int netxen_phantom_init(struct netxen_adapter *adapter, int pegtune_val);
 int netxen_load_firmware(struct netxen_adapter *adapter);
 int netxen_need_fw_reset(struct netxen_adapter *adapter);
-void netxen_request_firmware(struct netxen_adapter *adapter);
+void netxen_reject_firmware(struct netxen_adapter *adapter);
 void netxen_release_firmware(struct netxen_adapter *adapter);
 int netxen_pinit_from_rom(struct netxen_adapter *adapter);
 

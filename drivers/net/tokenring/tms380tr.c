@@ -1252,9 +1252,9 @@ static int tms380tr_reset_adapter(struct net_device *dev)
 	unsigned short count, c, count2;
 	const struct firmware *fw_entry = NULL;
 
-	if (request_firmware(&fw_entry, "tms380tr.bin", tp->pdev) != 0) {
+	if (reject_firmware(&fw_entry, "/*(DEBLOBBED)*/", tp->pdev) != 0) {
 		printk(KERN_ALERT "%s: firmware %s is missing, cannot start.\n",
-			dev->name, "tms380tr.bin");
+			dev->name, "/*(DEBLOBBED)*/");
 		return -1;
 	}
 
@@ -1330,7 +1330,7 @@ static int tms380tr_reset_adapter(struct net_device *dev)
 	return -1;
 }
 
-MODULE_FIRMWARE("tms380tr.bin");
+/*(DEBLOBBED)*/
 
 /*
  * Starts bring up diagnostics of token ring adapter and evaluates

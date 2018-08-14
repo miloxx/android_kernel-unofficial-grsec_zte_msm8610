@@ -62,17 +62,17 @@
 #define IWL105_UCODE_API_MIN 5
 #define IWL135_UCODE_API_MIN 5
 
-#define IWL2030_FW_PRE "iwlwifi-2030-"
-#define IWL2030_MODULE_FIRMWARE(api) IWL2030_FW_PRE __stringify(api) ".ucode"
+#define IWL2030_FW_PRE "/*(DEBLOBBED)*/"
+#define IWL2030_MODULE_FIRMWARE(api) IWL2030_FW_PRE /*(DEBLOBBED)*/
 
-#define IWL2000_FW_PRE "iwlwifi-2000-"
-#define IWL2000_MODULE_FIRMWARE(api) IWL2000_FW_PRE __stringify(api) ".ucode"
+#define IWL2000_FW_PRE "/*(DEBLOBBED)*/"
+#define IWL2000_MODULE_FIRMWARE(api) IWL2000_FW_PRE /*(DEBLOBBED)*/
 
-#define IWL105_FW_PRE "iwlwifi-105-"
-#define IWL105_MODULE_FIRMWARE(api) IWL105_FW_PRE __stringify(api) ".ucode"
+#define IWL105_FW_PRE "/*(DEBLOBBED)*/"
+#define IWL105_MODULE_FIRMWARE(api) IWL105_FW_PRE /*(DEBLOBBED)*/
 
-#define IWL135_FW_PRE "iwlwifi-135-"
-#define IWL135_MODULE_FIRMWARE(api) IWL135_FW_PRE __stringify(api) ".ucode"
+#define IWL135_FW_PRE "/*(DEBLOBBED)*/"
+#define IWL135_MODULE_FIRMWARE(api) IWL135_FW_PRE /*(DEBLOBBED)*/
 
 static void iwl2000_set_ct_threshold(struct iwl_priv *priv)
 {
@@ -328,7 +328,4 @@ const struct iwl_cfg iwl135_bgn_cfg = {
 	.ht_params = &iwl2000_ht_params,
 };
 
-MODULE_FIRMWARE(IWL2000_MODULE_FIRMWARE(IWL2000_UCODE_API_OK));
-MODULE_FIRMWARE(IWL2030_MODULE_FIRMWARE(IWL2030_UCODE_API_OK));
-MODULE_FIRMWARE(IWL105_MODULE_FIRMWARE(IWL105_UCODE_API_OK));
-MODULE_FIRMWARE(IWL135_MODULE_FIRMWARE(IWL135_UCODE_API_OK));
+/*(DEBLOBBED)*/

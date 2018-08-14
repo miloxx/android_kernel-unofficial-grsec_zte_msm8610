@@ -62,13 +62,7 @@ specifying it now will ensure that all future versions of this driver will
 continue to work as expected.  The default value of this parameter is 1 to 
 retain full behavioral compatibility with previous versions of this driver.
 
-pss_firmware
-
-	This parameter can be used to specify the file containing the firmware 
-code so that a user could tell the driver where that file is located instead 
-of having to put it in a predefined location with a predefined name.  The 
-default setting of this parameter is "/etc/sound/pss_synth" as this was the 
-path and filename the hardcoded value in the previous versions of this driver.
+/*(DEBLOBBED)*/
 
 Examples:
 

@@ -74,7 +74,7 @@ MODULE_PARM_DESC(debug,
 
 /* Our firmware file name list */
 static const char *i2400ms_bus_fw_names[] = {
-#define I2400MS_FW_FILE_NAME "i2400m-fw-sdio-1.3.sbcf"
+#define I2400MS_FW_FILE_NAME "/*(DEBLOBBED)*/"
 	I2400MS_FW_FILE_NAME,
 	NULL
 };
@@ -599,4 +599,4 @@ module_exit(i2400ms_driver_exit);
 MODULE_AUTHOR("Intel Corporation <linux-wimax@intel.com>");
 MODULE_DESCRIPTION("Intel 2400M WiMAX networking for SDIO");
 MODULE_LICENSE("GPL");
-MODULE_FIRMWARE(I2400MS_FW_FILE_NAME);
+/*(DEBLOBBED)*/

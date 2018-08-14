@@ -1508,7 +1508,7 @@ static struct dvb_usb_device_properties af9015_properties[] = {
 
 		.usb_ctrl = DEVICE_SPECIFIC,
 		.download_firmware = af9015_download_firmware,
-		.firmware = "dvb-usb-af9015.fw",
+		.firmware = "/*(DEBLOBBED)*/",
 		.no_reconnect = 1,
 
 		.size_of_priv = sizeof(struct af9015_state),
@@ -1678,7 +1678,7 @@ static struct dvb_usb_device_properties af9015_properties[] = {
 
 		.usb_ctrl = DEVICE_SPECIFIC,
 		.download_firmware = af9015_download_firmware,
-		.firmware = "dvb-usb-af9015.fw",
+		.firmware = "/*(DEBLOBBED)*/",
 		.no_reconnect = 1,
 
 		.size_of_priv = sizeof(struct af9015_state),
@@ -1831,7 +1831,7 @@ static struct dvb_usb_device_properties af9015_properties[] = {
 
 		.usb_ctrl = DEVICE_SPECIFIC,
 		.download_firmware = af9015_download_firmware,
-		.firmware = "dvb-usb-af9015.fw",
+		.firmware = "/*(DEBLOBBED)*/",
 		.no_reconnect = 1,
 
 		.size_of_priv = sizeof(struct af9015_state),

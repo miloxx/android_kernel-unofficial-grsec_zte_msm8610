@@ -1131,7 +1131,8 @@ int 			rc;
 		if ( cp == NULL ) {
 			DBG_TRACE( DbgInfo, "Downloading STA firmware...\n" );
 //			hcf_status = dhf_download_fw( &lp->hcfCtx, &station );
-			hcf_status = dhf_download_fw( &lp->hcfCtx, &fw_image );
+//			hcf_status = dhf_download_fw( &lp->hcfCtx, &fw_image ); /*(DEBLOBBED)*/
+			hcf_status = HCF_ERR_INCOMP_FW;
 		}
 		if ( hcf_status != HCF_SUCCESS ) {
 			DBG_ERROR( DbgInfo, "Firmware Download failed\n" );

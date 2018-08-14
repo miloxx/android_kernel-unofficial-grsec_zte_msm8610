@@ -374,7 +374,7 @@ static struct dvb_usb_device_properties ec168_properties = {
 
 	.usb_ctrl = DEVICE_SPECIFIC,
 	.download_firmware = ec168_download_firmware,
-	.firmware = "dvb-usb-ec168.fw",
+	.firmware = "/*(DEBLOBBED)*/",
 	.no_reconnect = 1,
 
 	.size_of_priv = 0,

@@ -782,12 +782,12 @@ static int philips_tu1216_tuner_set_params(struct dvb_frontend *fe)
 	return 0;
 }
 
-static int philips_tu1216_request_firmware(struct dvb_frontend *fe,
+static int philips_tu1216_reject_firmware(struct dvb_frontend *fe,
 					   const struct firmware **fw, char *name)
 {
 	struct budget *budget = (struct budget *) fe->dvb->priv;
 
-	return request_firmware(fw, name, &budget->dev->pci->dev);
+	return reject_firmware(fw, name, &budget->dev->pci->dev);
 }
 
 static struct tda1004x_config philips_tu1216_config = {
@@ -798,7 +798,7 @@ static struct tda1004x_config philips_tu1216_config = {
 	.xtal_freq = TDA10046_XTAL_4M,
 	.agc_config = TDA10046_AGC_DEFAULT,
 	.if_freq = TDA10046_FREQ_3617,
-	.request_firmware = philips_tu1216_request_firmware,
+	.reject_firmware = philips_tu1216_reject_firmware,
 };
 
 static u8 philips_sd1878_inittab[] = {
