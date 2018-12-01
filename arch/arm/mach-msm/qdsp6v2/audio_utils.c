@@ -28,7 +28,6 @@
 #define META_SIZE       (sizeof(struct meta_out_dsp))
 #define FRAME_SIZE      (1 + ((MIN_FRAME_SIZE + META_SIZE) * NUM_FRAMES))
 
-#define FRAME_SIZE            (1 + ((1536+sizeof(struct meta_out_dsp)) * 5))
 static int audio_in_pause(struct q6audio_in  *audio)
 {
 	int rc;
