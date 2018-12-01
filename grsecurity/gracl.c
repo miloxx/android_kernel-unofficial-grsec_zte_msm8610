@@ -143,7 +143,7 @@ char gr_roletype_to_char(void)
 	return gr_task_roletype_to_char(current);
 }
 
-__inline__ int
+int
 gr_acl_tpe_check(void)
 {
 	if (unlikely(!(gr_status & GR_READY)))
