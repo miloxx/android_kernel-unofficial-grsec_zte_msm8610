@@ -11,16 +11,27 @@ gr_tpe_allow(const struct file *file)
 {
 #ifdef CONFIG_GRKERNSEC
 	struct inode *inode = file->f_path.dentry->d_parent->d_inode;
-	struct inode *file_inode = file->f_path.dentry->d_inode;
 	const struct cred *cred = current_cred();
+#ifndef CONFIG_GRKERNSEC_TPE_STRICT
+	struct inode *file_inode = file->f_path.dentry->d_inode;
 	char *msg = NULL;
 	char *msg2 = NULL;
+#endif
 
 	// never restrict root
 	if (!cred->uid)
 		return 1;
 
 	if (grsec_enable_tpe) {
+#ifdef CONFIG_GRKERNSEC_TPE_STRICT
+	if ((inode->i_uid) &&
+			((inode->i_mode & S_IWGRP) || (inode->i_mode & S_IWOTH))) {
+		gr_log_str_fs(GR_DONT_AUDIT, GR_EXEC_TPE_MSG, "strict TPE", file->f_path.dentry, file->f_path.mnt);
+		return 0;
+	}
+	return 1;
+	}
+#else
 #ifdef CONFIG_GRKERNSEC_TPE_INVERT
 		if (grsec_enable_tpe_invert && !in_group_p(grsec_tpe_gid))
 			msg = "not being in trusted group";
@@ -73,6 +84,7 @@ next_check:
 		return 0;
 	}
 #endif
+#endif /* CONFIG_GRKERNSEC_STRICT */
 #endif
 	return 1;
 }
