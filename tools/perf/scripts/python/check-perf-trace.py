@@ -20,7 +20,6 @@ unhandled = autodict()
 
 def trace_begin():
 	print "trace_begin"
-	pass
 
 def trace_end():
         print_unhandled()
