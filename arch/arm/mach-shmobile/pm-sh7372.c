@@ -24,6 +24,7 @@
 #include <asm/io.h>
 #include <asm/tlbflush.h>
 #include <asm/suspend.h>
+#include <asm/pgtable.h>
 #include <mach/common.h>
 #include <mach/sh7372.h>
 
@@ -562,7 +563,9 @@ static int sh7372_pm_notifier_fn(struct notifier_block *notifier,
 
 static void sh7372_suspend_init(void)
 {
-	shmobile_suspend_ops.enter = sh7372_enter_suspend;
+	pax_open_kernel();
+	const_cast(shmobile_suspend_ops.enter) = sh7372_enter_suspend;
+	pax_close_kernel();
 	pm_notifier(sh7372_pm_notifier_fn, 0);
 }
 #else

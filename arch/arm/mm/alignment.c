@@ -755,6 +755,7 @@ do_alignment(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
 	u16 tinstr = 0;
 	int isize = 4;
 	int thumb2_32b = 0;
+	bool is_user_mode = user_mode(regs);
 
 	if (interrupts_enabled(regs))
 		local_irq_enable();
@@ -787,7 +788,7 @@ do_alignment(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
 		goto bad_or_fault;
 	}
 
-	if (user_mode(regs))
+	if (is_user_mode)
 		goto user;
 
 	ai_sys += 1;

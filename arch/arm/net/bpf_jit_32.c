@@ -666,7 +666,8 @@ load_ind:
 		case BPF_S_ALU_RSH_K:
 			if (unlikely(k > 31))
 				return -1;
-			emit(ARM_LSR_I(r_A, r_A, k), ctx);
+			if (k)
+				emit(ARM_LSR_I(r_A, r_A, k), ctx);
 			break;
 		case BPF_S_ALU_RSH_X:
 			update_on_xread(ctx);

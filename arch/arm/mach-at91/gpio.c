@@ -815,10 +815,12 @@ void __init at91_gpio_irq_setup(void)
 	struct at91_gpio_chip	*this, *prev;
 
 	/* Setup proper .irq_set_type function */
+	pax_open_kernel();
 	if (has_pio3())
-		gpio_irqchip.irq_set_type = alt_gpio_irq_type;
+		const_cast(gpio_irqchip.irq_set_type) = alt_gpio_irq_type;
 	else
-		gpio_irqchip.irq_set_type = gpio_irq_type;
+		const_cast(gpio_irqchip.irq_set_type) = gpio_irq_type;
+	pax_close_kernel();
 
 	for (pioc = 0, this = gpio_chip, prev = NULL;
 			pioc++ < gpio_banks;
